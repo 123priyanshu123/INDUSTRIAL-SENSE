@@ -10,7 +10,7 @@
 ```
 IndustrialSense/
 │
-├── stitch-original/      # Untouched backup of the initial UI Stitch design exports & HTML prototypes
+├── UI/                   # UI design mockups and Stitch visual reference exports
 │
 ├── docs/                 # Engineering documentation & Page/Asset inventory
 │   └── PAGE_INVENTORY.md # Phase 1 audit & component mapping
