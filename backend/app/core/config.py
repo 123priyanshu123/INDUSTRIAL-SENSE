@@ -9,7 +9,7 @@ class Settings(BaseSettings):
     # Dataset
     kaist_data_root: Optional[str] = None
     kaist_healthy_baseline_files: str = ""  # comma-separated relative paths from KAIST_DATA_ROOT
-    kaist_max_recordings: int = 1  # vertical slice: load one actual recording first
+    kaist_max_recordings: int = 0  # 0 = load/process all discovered recordings; >0 limits processing subset (discovery/inspection always covers all)
     kaist_selected_file: str = ""  # optional relative path from KAIST_DATA_ROOT to load a specific .mat file
 
     # App

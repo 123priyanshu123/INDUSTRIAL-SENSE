@@ -57,9 +57,13 @@ detector = BasicHealthyBaselineDetector()
 
 
 def _machine_id_for_signal(sig: LoadedSignal, idx: int) -> str:
-    base = Path(sig.metadata.relative_path).stem.replace(" ", "_") or f"recording_{idx}"
-    ch = sig.metadata.channel if sig.metadata.channel in ("acoustic", "vibration") else "sig"
-    return f"kaist-{base}-{ch}-{idx}"
+    meta = sig.metadata
+    base = Path(meta.relative_path).stem.replace(" ", "_") or f"recording_{idx}"
+    ch = meta.channel if meta.channel in ("acoustic", "vibration") else "sig"
+    ch_info = getattr(meta, "channel_info", None) or {}
+    ch_key = str(ch_info.get("key") or ch_info.get("label") or ch_info.get("index") or "").replace(" ", "_")
+    suffix = f"-{ch_key}" if ch_key else ""
+    return f"kaist-{base}-{ch}{suffix}-{idx}"
 
 
 def process_signal(sig: LoadedSignal, machine_id: str, collect_vectors: bool = False) -> Tuple[List[ProcessedReading], List[np.ndarray]]:
@@ -84,12 +88,17 @@ def process_signal(sig: LoadedSignal, machine_id: str, collect_vectors: bool = F
         source_meta = {
             "sourcePath": meta.relative_path,
             "sourceKey": meta.source_key,
+            "modality": getattr(meta, "modality", ch),
             "channel": ch,
             "sourceUnit": meta.source_unit,
             "calibrationState": meta.calibration_state,
             "sourceSampleRateHz": meta.source_sample_rate_hz,
+            "samplingRateSource": getattr(meta, "sampling_rate_source", None),
             "canonicalSampleRateHz": canon_sr,
             "originalShape": list(meta.original_shape) if meta.original_shape else None,
+            "timeAxis": getattr(meta, "time_axis", None),
+            "channelInfo": getattr(meta, "channel_info", None),
+            "recordingInfo": getattr(meta, "recording_info", None),
             "notes": meta.notes,
         }
         features: Dict[str, Any] = {}
@@ -121,6 +130,7 @@ def process_signal(sig: LoadedSignal, machine_id: str, collect_vectors: bool = F
         else:
             features = {"pipeline": {"windowSec": spec.window_sec, "hopSec": spec.hop_sec, "canonicalSampleRateHz": canon_sr}}
 
+        display_unit = meta.source_unit or "unknown (unit not found in verified metadata)"
         reading = ProcessedReading(
             machine_id=machine_id,
             channel=ch,
@@ -128,7 +138,7 @@ def process_signal(sig: LoadedSignal, machine_id: str, collect_vectors: bool = F
             timestamp_end_sec=float(frame.end_sec),
             sequence=seq,
             value_summary=value_summary,
-            display_unit="source units (uncalibrated, relative)",
+            display_unit=display_unit,
             source_metadata=source_meta,
             features=features,
             quality=q.to_dict(),
@@ -150,12 +160,14 @@ def run_pipeline() -> Dict[str, Any]:
     store.machines = []
 
     notes: List[str] = []
+    counts = report.get("counts", {}) or {}
     if not signals:
         store.pipeline_status = {
             "ready": False,
             "anomalyDetection": "unavailable",
-            "notes": report.get("warnings", []) + ["No signals loaded. Set KAIST_DATA_ROOT to a local/Google Drive for Desktop path containing KAIST .mat files."],
+            "notes": report.get("warnings", []) + (["No signals ingested/loaded for processing."] if counts.get("discovered", 0) > 0 else ["No signals loaded. Set KAIST_DATA_ROOT to a local/Google Drive for Desktop path containing KAIST .mat files."]),
             "dsp": "configured_per_blueprint_pending_data",
+            "counts": counts,
         }
         store.save_cache("inspection_report.json", report)
         return {"status": store.pipeline_status, "inspection": report}
@@ -217,10 +229,12 @@ def run_pipeline() -> Dict[str, Any]:
         health = 100
         if any(a.get("machineId") == machine_id for a in store.anomalies):
             health = 72
+        ch_info = getattr(sig.metadata, "channel_info", None) or {}
+        rec_info = getattr(sig.metadata, "recording_info", None) or {}
         store.machines.append({
             "id": machine_id,
             "code": machine_id.upper()[:16],
-            "name": f"KAIST {Path(sig.metadata.relative_path).stem} ({sig.metadata.channel})",
+            "name": f"KAIST {Path(sig.metadata.relative_path).stem} ({sig.metadata.channel}{' ' + str(ch_info.get('key')) if ch_info.get('key') else ''})",
             "category": "Rotating Equipment (KAIST)",
             "industry": "KAIST Rotating-Machine Dataset",
             "status": "warning" if health < 90 else "running",
@@ -230,9 +244,13 @@ def run_pipeline() -> Dict[str, Any]:
             "source": {
                 "relativePath": sig.metadata.relative_path,
                 "sourceKey": sig.metadata.source_key,
+                "modality": getattr(sig.metadata, "modality", sig.metadata.channel),
                 "sourceUnit": sig.metadata.source_unit,
                 "calibrationState": sig.metadata.calibration_state,
                 "sourceSampleRateHz": sig.metadata.source_sample_rate_hz,
+                "samplingRateSource": getattr(sig.metadata, "sampling_rate_source", None),
+                "channelInfo": ch_info,
+                "recordingInfo": rec_info,
             },
             "lastUpdated": "processed",
             "activeAlertCount": len([a for a in store.anomalies if a.get("machineId") == machine_id]),
@@ -253,6 +271,7 @@ def run_pipeline() -> Dict[str, Any]:
         },
         "signalsLoaded": len(signals),
         "machines": len(store.machines),
+        "counts": report.get("counts", {}),
     }
     store.save_cache("inspection_report.json", report)
     store.save_cache("pipeline_status.json", store.pipeline_status)

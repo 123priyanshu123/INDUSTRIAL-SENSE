@@ -1,0 +1,29 @@
+{
+  "n_files": 5,
+  "statuses": {
+    "verified": 5
+  },
+  "formats": {
+    "scipy.io.loadmat OK (MATLAB v5/v7/v7.2 compatible; not v7.3/HDF5)": 5
+  },
+  "fs_values_hz": [
+    51200.0
+  ],
+  "y_units_verified": [
+    "Pa"
+  ],
+  "x_units_verified": [
+    "s"
+  ],
+  "durations_s": [
+    59.99998046875
+  ],
+  "fault_categories": {
+    "BPFI": 2,
+    "BPFO": 2,
+    "Normal": 1
+  },
+  "operating_conditions": {
+    "0Nm": 5
+  }
+}

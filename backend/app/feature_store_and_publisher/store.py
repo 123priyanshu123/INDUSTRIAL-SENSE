@@ -28,7 +28,11 @@ class ProcessedReading:
     anomaly_reason: Optional[str] = None
 
     def to_api_reading(self) -> Dict[str, Any]:
-        label = "acoustic level (uncalibrated)" if self.channel == "acoustic" else "vibration level (uncalibrated)"
+        src_unit = (self.source_metadata or {}).get("sourceUnit")
+        if self.channel == "acoustic":
+            label = f"acoustic RMS ({src_unit})" if src_unit else "acoustic RMS"
+        else:
+            label = f"vibration RMS ({src_unit})" if src_unit else "vibration RMS"
         if self.anomaly_decision == "anomalous":
             state = "warning"
         elif self.quality.get("isValid"):
@@ -41,8 +45,9 @@ class ProcessedReading:
             "machineId": self.machine_id,
             "sensorType": "sound" if self.channel == "acoustic" else "vibration",
             "channel": self.channel,
+            "modality": (self.source_metadata or {}).get("modality", self.channel),
             "value": float(self.value_summary),
-            "unit": self.display_unit,
+            "unit": self.display_unit or src_unit or "unknown",
             "label": label,
             "timestamp": None,
             "windowStartSec": self.timestamp_start_sec,
