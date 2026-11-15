@@ -1,0 +1,567 @@
+<!DOCTYPE html><html lang="en"><head></head><body class="bg-nothing-black text-nothing-textLight font-body antialiased min-h-screen select-none overflow-x-hidden p-3 md:p-4 bg-dot-matrix-pattern"><svg aria-hidden="true" class="inline-defs-container" style="position:absolute;width:0;height:0;overflow:hidden"></svg>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>INDUSTRIALSENSE // SCADA COCKPIT - FACTORY MAP &amp; ALERT CENTER</title>
+<!-- Google Fonts: Inter & Space Mono -->
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=Space+Mono:ital,wght@0,400;0,700;1,400&amp;display=swap" rel="stylesheet">
+<!-- Tailwind CSS CDN with Forms & Container Queries -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Configuration for Target Design System & Typography -->
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            nothing: {
+              black: '#08080a',
+              dark: '#101014',
+              panel: '#131318',
+              card: '#16161c',
+              subtle: '#1b1b22',
+              border: '#2a2a34',
+              borderLight: '#3a3a46',
+              red: '#D71920',
+              redGlow: 'rgba(215, 25, 32, 0.4)',
+              redDim: '#4a0b0e',
+              amber: '#F59E0B',
+              cyan: '#00E5FF',
+              emerald: '#10B981',
+              textPrimary: '#FFFFFF',
+              textLight: '#E4E4E7',
+              textSubtle: '#D4D4D8',
+              textMuted: '#A1A1AA',
+              textDarker: '#71717A',
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['Space Mono', 'monospace'],
+            headline: ['Space Mono', 'monospace'],
+            body: ['Inter', 'sans-serif'],
+            label: ['Space Mono', 'monospace'],
+          },
+        }
+      }
+    }
+  </script>
+<!-- Custom CSS for specialized Nothing OS design elements & animations -->
+<style data-purpose="nothing-theme-custom">
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+
+    h1, h2, h3, h4, h5, h6,
+    .font-headline,
+    .metric-value,
+    .section-header {
+      font-family: 'Space Mono', monospace;
+    }
+
+    .font-mono,
+    .font-label,
+    button,
+    select,
+    .badge,
+    .status-tag {
+      font-family: 'Space Mono', monospace;
+    }
+
+    .bg-dot-matrix-pattern {
+      background-size: 20px 20px;
+      background-image: radial-gradient(circle, rgba(255, 255, 255, 0.12) 1.2px, transparent 1.2px);
+    }
+    
+    .bg-dense-matrix {
+      background-size: 10px 10px;
+      background-image: radial-gradient(circle, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+    }
+
+    .nothing-panel {
+      background: rgba(18, 18, 24, 0.88);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      position: relative;
+    }
+
+    .nothing-panel:hover {
+      border-color: rgba(255, 255, 255, 0.22);
+    }
+
+    .led-red {
+      box-shadow: 0 0 10px #D71920, 0 0 4px #D71920;
+    }
+    .led-green {
+      box-shadow: 0 0 10px #10B981, 0 0 4px #10B981;
+    }
+    .led-cyan {
+      box-shadow: 0 0 10px #00E5FF, 0 0 4px #00E5FF;
+    }
+    .led-amber {
+      box-shadow: 0 0 10px #F59E0B, 0 0 4px #F59E0B;
+    }
+
+    /* SVG Map interactive node styling */
+    .map-machine-node {
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .map-machine-node:hover {
+      filter: drop-shadow(0 0 8px rgba(255,255,255,0.8));
+    }
+    .map-machine-node.active-selected {
+      filter: drop-shadow(0 0 12px #D71920);
+    }
+
+    /* AGV Animated Pathway */
+    @keyframes agv-crawl {
+      from { stroke-dashoffset: 120; }
+      to { stroke-dashoffset: 0; }
+    }
+    .agv-track {
+      stroke-dasharray: 6 6;
+      animation: agv-crawl 4s linear infinite;
+    }
+
+    /* Pulse for live telemetry nodes */
+    @keyframes node-ping {
+      0% { r: 4px; opacity: 1; }
+      75% { r: 12px; opacity: 0; }
+      100% { r: 12px; opacity: 0; }
+    }
+    .node-pulse-ring {
+      animation: node-ping 2s cubic-bezier(0.2, 0.8, 0.2, 1) infinite;
+    }
+
+    ::-webkit-scrollbar {
+      width: 5px;
+      height: 5px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0d0d11;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #32323f;
+      border-radius: 3px;
+    }
+  </style>
+
+
+<div class="max-w-[1920px] mx-auto flex flex-col gap-3">
+<!-- BEGIN: TopBar with Navigation Tabs & System Status -->
+<header class="nothing-panel rounded-2xl px-6 py-5 flex items-center justify-between border border-nothing-border shadow-lg relative z-50" data-purpose="top-navigation-bar"><div class="flex items-baseline gap-4"><h1 class="font-headline text-3xl md:text-5xl lg:text-6xl font-bold tracking-tight text-white uppercase select-none flex items-center gap-3"><span class="w-3.5 h-3.5 rounded-full bg-nothing-red led-red animate-pulse inline-block"></span><span>INDUSTRIALSENSE</span></h1></div><div class="flex items-center gap-3 relative"><button class="px-3.5 py-2 rounded-xl bg-nothing-red hover:bg-red-700 text-white font-mono text-xs font-bold tracking-wider uppercase flex items-center gap-2 transition-all led-red shadow-md" onclick="openRegisterModal()"><span class="text-base leading-none font-bold">+</span><span>REGISTER MACHINE</span></button><div class="relative"><button class="px-4 py-2 rounded-xl bg-zinc-900 border border-zinc-700 hover:border-zinc-500 text-white font-mono text-xs font-bold tracking-widest uppercase flex items-center gap-2.5 transition-all shadow" id="cockpit-menu-toggle-btn" onclick="toggleCockpitNavMenu()"><span class="text-zinc-400 font-mono">//</span><span>MENU</span><span class="text-zinc-400 text-xs">▾</span></button><div class="hidden absolute right-0 mt-2 w-72 rounded-xl bg-black/95 backdrop-blur-md border border-zinc-700 shadow-2xl p-2.5 z-50 space-y-1 font-mono text-xs" id="cockpit-nav-dropdown"><div class="px-3 py-2 border-b border-zinc-800 text-[10px] text-zinc-500 tracking-widest uppercase flex items-center justify-between"><span>SCADA NAVIGATION BUS</span><span class="text-emerald-400 font-bold">ONLINE</span></div><a class="flex items-center justify-between px-3 py-2.5 rounded-lg bg-white text-black font-bold shadow" href="#"><span class="flex items-center gap-2"><span>◈</span><span>Factory Map &amp; Alerts</span></span><span class="text-[10px] uppercase font-bold tracking-wider">Active</span></a><a class="flex items-center justify-between px-3 py-2.5 rounded-lg text-zinc-300 hover:text-white hover:bg-zinc-800/80 transition-colors" href="{{DATA:SCREEN:SCREEN_28}}"><span class="flex items-center gap-2"><span>▤</span><span>Machine Deep Analytics</span></span><span class="text-[9px] bg-zinc-800 text-zinc-400 px-1 rounded">SUBPAGE →</span></a><a class="flex items-center justify-between px-3 py-2.5 rounded-lg text-zinc-300 hover:text-white hover:bg-zinc-800/80 transition-colors" href="#access-logs"><span class="flex items-center gap-2"><span>≡</span><span>Access &amp; Audit Logs</span></span><span class="text-[9px] text-zinc-500">48 NODES</span></a><div class="border-t border-zinc-800 my-1 pt-1"><button class="w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-nothing-red hover:bg-nothing-red/10 border border-nothing-red/30 transition-colors text-left" onclick="toggleCockpitNavMenu(); openRegisterModal();"><span class="flex items-center gap-2 font-bold"><span>+</span><span>Register New Node</span></span><span class="text-[10px] font-bold text-nothing-red">SIL-4</span></button></div></div></div></div></header>
+<!-- END: TopBar -->
+<!-- BEGIN: SCADA Quick Filter Ribbon for Factory Plant Floor -->
+<div class="grid grid-cols-2 md:grid-cols-4 gap-3" data-purpose="map-filters-summary">
+<div class="nothing-panel rounded-xl p-3 flex items-center justify-between border border-nothing-border">
+<div>
+<span class="text-[10px] font-mono text-zinc-400 uppercase tracking-wider block font-semibold">FACILITY STATUS</span>
+<span class="text-sm font-headline font-bold text-white flex items-center gap-2 mt-0.5">
+<span class="w-2 h-2 rounded-full bg-emerald-400 led-green"></span> 3 ZONES ONLINE
+        </span>
+</div>
+<span class="text-xs font-mono bg-zinc-900 border border-zinc-700 text-zinc-300 px-2 py-1 rounded">12,500 m²</span>
+</div>
+<div class="nothing-panel rounded-xl p-3 flex items-center justify-between border border-nothing-border">
+<div>
+<span class="text-[10px] font-mono text-zinc-400 uppercase tracking-wider block font-semibold">ACTIVE CRITICAL ALERTS</span>
+<span class="text-sm font-headline font-bold text-nothing-red flex items-center gap-1.5 mt-0.5">
+<span class="w-2 h-2 rounded-full bg-nothing-red led-red animate-pulse"></span> 3 STOP REQUESTS
+        </span>
+</div>
+<span class="text-xs font-mono bg-nothing-red/15 border border-nothing-red/50 text-nothing-red px-2 py-1 rounded font-bold">SIL-4 REQ</span>
+</div>
+<div class="nothing-panel rounded-xl p-3 flex items-center justify-between border border-nothing-border">
+<div>
+<span class="text-[10px] font-mono text-zinc-400 uppercase tracking-wider block font-semibold">PENDING MAINTENANCE</span>
+<span class="text-sm font-headline font-bold text-amber-400 flex items-center gap-1.5 mt-0.5">
+<span class="w-2 h-2 rounded-full bg-amber-400 led-amber"></span> 7 WORK ORDERS
+        </span>
+</div>
+<span class="text-xs font-mono bg-amber-500/10 border border-amber-500/40 text-amber-300 px-2 py-1 rounded font-bold">12H DUE</span>
+</div>
+<div class="nothing-panel rounded-xl p-3 flex items-center justify-between border border-nothing-border">
+<div>
+<span class="text-[10px] font-mono text-zinc-400 uppercase tracking-wider block font-semibold">CONNECTED ASSETS</span>
+<span class="text-sm font-headline font-bold text-white flex items-center gap-1.5 mt-0.5">
+<span class="w-2 h-2 rounded-full bg-cyan-400 led-cyan"></span> 48 / 48 TELEMETRY
+        </span>
+</div>
+<span class="text-xs font-mono bg-zinc-900 border border-zinc-700 text-zinc-300 px-2 py-1 rounded font-bold">0 SILENT</span>
+</div>
+</div>
+<!-- END: SCADA Quick Filter Ribbon -->
+<!-- ============================================================== -->
+<!-- MAIN WORKSPACE: TWO CORE DOMINANT PANELS (MAP + ALERT CENTER) -->
+<!-- ============================================================== -->
+<main class="grid grid-cols-1 xl:grid-cols-12 gap-3" data-purpose="dominant-twin-cockpit">
+<!-- ============================================================== -->
+<!-- PANEL A: FACTORY / PLANT SPATIAL MAP (7 Cols)                  -->
+<!-- ============================================================== -->
+<section class="xl:col-span-7 nothing-panel rounded-2xl p-5 border border-nothing-border flex flex-col justify-between" data-purpose="factory-spatial-map-container">
+<div>
+<!-- Floor Plan Top Bar -->
+<div class="flex flex-wrap items-center justify-between pb-3.5 mb-3 border-b border-zinc-800 gap-2">
+<div class="flex items-center gap-3">
+<span class="font-headline text-sm text-white font-bold tracking-wider">01 // FACTORY SPATIAL MAP &amp; TELEMETRY NODES</span>
+<span class="text-xs font-mono text-zinc-400 font-semibold">// 2D TOPOLOGY SCHEMATIC v2.5</span>
+</div>
+<!-- Zone Filter Selector Pills -->
+<div class="flex items-center gap-1.5 font-mono text-xs">
+<button class="px-2.5 py-1 rounded-lg bg-white text-black font-bold shadow" onclick="filterMapZone(this, 'all')">ALL ZONES</button>
+<button class="px-2.5 py-1 rounded-lg bg-black/60 border border-zinc-700 text-zinc-300 hover:text-white font-semibold" onclick="filterMapZone(this, 'zone-a')">ZONE A</button>
+<button class="px-2.5 py-1 rounded-lg bg-black/60 border border-zinc-700 text-zinc-300 hover:text-white font-semibold" onclick="filterMapZone(this, 'zone-b')">ZONE B</button>
+<button class="px-2.5 py-1 rounded-lg bg-black/60 border border-zinc-700 text-zinc-300 hover:text-white font-semibold" onclick="filterMapZone(this, 'zone-c')">ZONE C</button>
+<button class="px-2.5 py-1 rounded-lg bg-black/60 border border-zinc-700 text-zinc-300 hover:text-white font-semibold" onclick="filterMapZone(this, 'zone-d')">ZONE D</button>
+</div>
+</div>
+<!-- Interactive Map Floor Canvas -->
+<div class="relative w-full h-[540px] rounded-xl bg-black/90 border border-zinc-800 overflow-hidden shadow-inner flex items-center justify-center">
+<!-- Background coordinate grid -->
+<div class="absolute inset-0 bg-dense-matrix opacity-35"></div>
+<!-- Compass HUD Rose -->
+<div class="absolute top-3 left-3 z-10 font-mono text-[10px] text-zinc-500 flex flex-col items-start bg-black/70 backdrop-blur-md px-2.5 py-1.5 rounded border border-zinc-800"><div class="flex items-center gap-1.5"><span class="text-white font-bold">▲ N 004°</span><span class="text-zinc-600">|</span><span class="text-zinc-300">SEC-09</span></div><span class="text-[9px] text-zinc-500 font-mono mt-0.5">GRID: 120.4 // 385.2</span></div>
+<!-- Quick Interactive Inspect Legend -->
+<div class="absolute top-3 right-3 z-10 flex flex-wrap gap-2 items-center bg-black/85 backdrop-blur-md px-3 py-1.5 rounded-lg border border-zinc-700 text-[11px] font-mono">
+<span class="flex items-center gap-1.5 text-zinc-300"><span class="w-2 h-2 rounded-full bg-emerald-400 led-green"></span> NOMINAL</span>
+<span class="flex items-center gap-1.5 text-zinc-300"><span class="w-2 h-2 rounded-full bg-amber-400 led-amber"></span> WARN / MAINT</span>
+<span class="flex items-center gap-1.5 text-zinc-300"><span class="w-2 h-2 rounded-full bg-nothing-red led-red animate-pulse"></span> CRITICAL E-STOP</span>
+<span class="flex items-center gap-1.5 text-zinc-400"><span class="w-2 h-0.5 bg-cyan-400"></span> AGV / EGRESS</span>
+</div>
+<!-- SVG Architectural SCADA Plant Map -->
+<svg class="w-full h-full p-2 relative z-0 select-none" viewBox="0 0 860 520">
+<defs>
+<pattern height="8" id="rackHatch" patternTransform="rotate(45 0 0)" patternUnits="userSpaceOnUse" width="8">
+<line stroke="#252533" stroke-width="1.5" x1="0" x2="0" y1="0" y2="8"></line>
+</pattern>
+<pattern height="6" id="egressStripe" patternTransform="rotate(-45 0 0)" patternUnits="userSpaceOnUse" width="6">
+<line stroke="#1f2937" stroke-width="1" x1="0" x2="0" y1="0" y2="6"></line>
+</pattern>
+<linearGradient id="heatCavitation" x1="0%" x2="100%" y1="0%" y2="100%">
+<stop offset="0%" stop-color="#D71920" stop-opacity="0.45"></stop>
+<stop offset="100%" stop-color="#D71920" stop-opacity="0.0"></stop>
+</linearGradient>
+<linearGradient id="pressStressGlow" x1="0%" x2="100%" y1="100%" y2="0%">
+<stop offset="0%" stop-color="#D71920" stop-opacity="0.35"></stop>
+<stop offset="100%" stop-color="#D71920" stop-opacity="0.0"></stop>
+</linearGradient>
+</defs>
+<!-- EMERGENCY EGRESS & AUXILIARY AISLE ROUTES -->
+<rect fill="url(#egressStripe)" height="16" opacity="0.7" rx="2" width="360" x="30" y="254"></rect>
+<text fill="#4b5563" font-family="Space Mono" font-size="7" font-weight="bold" letter-spacing="2" x="110" y="265">SAFETY AISLE 02 // CLEAR PASSAGE</text>
+<rect fill="url(#egressStripe)" height="16" opacity="0.7" rx="2" width="430" x="405" y="338"></rect>
+<text fill="#4b5563" font-family="Space Mono" font-size="7" font-weight="bold" letter-spacing="2" x="470" y="349">SAFETY AISLE 03 // EMERGENCY EGRESS</text>
+<!-- ================= ZONE BOUNDARIES ================= -->
+<!-- Zone A: CNC & Heavy Machining -->
+<g id="zone-a-group">
+<rect fill="#0d0d12" height="215" rx="8" stroke="#2a2a38" stroke-dasharray="4 4" stroke-width="1.5" width="360" x="30" y="35"></rect>
+<text fill="#a1a1aa" font-family="Space Mono" font-size="10" font-weight="700" letter-spacing="1" x="45" y="56">ZONE A // CNC &amp; HEAVY MACHINING</text>
+<text fill="#52525b" font-family="Space Mono" font-size="8" x="45" y="68">SIL-4 SAFETY LOOP // PRESS BAY 01</text>
+</g>
+<!-- Zone B: ASRS Automated Logistics & High-Bay -->
+<g id="zone-b-group">
+<rect fill="#0d0d12" height="295" rx="8" stroke="#2a2a38" stroke-dasharray="4 4" stroke-width="1.5" width="430" x="405" y="35"></rect>
+<text fill="#a1a1aa" font-family="Space Mono" font-size="10" font-weight="700" letter-spacing="1" x="420" y="56">ZONE B // ASRS AUTOMATED LOGISTICS &amp; HIGH-BAY</text>
+<text fill="#52525b" font-family="Space Mono" font-size="8" x="420" y="68">CAPACITY: 2,400 PALLET SLOTS // CRANE G-01</text>
+</g>
+<!-- Zone C: Slurry, Pumps & Coolant Utilities -->
+<g id="zone-c-group">
+<rect fill="#0d0d12" height="210" rx="8" stroke="#2a2a38" stroke-dasharray="4 4" stroke-width="1.5" width="360" x="30" y="275"></rect>
+<text fill="#a1a1aa" font-family="Space Mono" font-size="10" font-weight="700" letter-spacing="1" x="45" y="296">ZONE C // SLURRY, PUMPS &amp; COOLANT UTILITIES</text>
+<text fill="#52525b" font-family="Space Mono" font-size="8" x="45" y="308">PRESSURE LOOP 6.8 BAR // CHILLER BUS 450kW</text>
+</g>
+<!-- Zone D: Quality & Inspection Lab -->
+<g id="zone-d-group">
+<rect fill="#0e1014" height="130" rx="8" stroke="#2a2a38" stroke-dasharray="4 4" stroke-width="1.5" width="430" x="405" y="355"></rect>
+<text fill="#a1a1aa" font-family="Space Mono" font-size="10" font-weight="700" letter-spacing="1" x="420" y="374">ZONE D // QUALITY, METROLOGY &amp; INSPECTION LAB</text>
+<text fill="#52525b" font-family="Space Mono" font-size="8" x="420" y="386">CMM PROFILING // CMM-01 &amp; VISION GANTRY</text>
+</g>
+<!-- PIPING & ISOLATION VALVES -->
+<path d="M 48,460 L 372,460" opacity="0.5" stroke="#3b82f6" stroke-linecap="round" stroke-width="3.5"></path>
+<text fill="#60a5fa" font-family="Space Mono" font-size="8" x="130" y="474">CHILLED WATER PRIMARY LOOP [6.2 BAR]</text>
+<!-- Isolation Valves -->
+<g transform="translate(195, 455)">
+<polygon fill="#60a5fa" points="-6,-5 6,5 -6,5 6,-5"></polygon>
+<circle cx="0" cy="0" fill="#1e3a8a" r="2"></circle>
+<text fill="#93c5fd" font-family="Space Mono" font-size="7" x="-8" y="-8">V-102</text>
+</g>
+<!-- AGV DUAL HIGH-PRECISION CORRIDORS -->
+<path class="agv-track" d="M 45,262 L 375,262 L 390,262 L 390,346 L 415,346 L 820,346" fill="none" opacity="0.85" stroke="#00E5FF" stroke-width="1.8"></path>
+<path class="agv-track" d="M 618,78 L 618,335 L 795,335" fill="none" opacity="0.6" stroke="#00E5FF" stroke-width="1.8"></path>
+<!-- AGV Active Mobile Platforms -->
+<g transform="translate(250, 262)">
+<rect fill="#00E5FF" height="14" opacity="0.95" rx="2" width="22" x="-11" y="-7"></rect>
+<circle cx="-7" cy="0" fill="#000" r="1.5"></circle>
+<circle cx="7" cy="0" fill="#000" r="1.5"></circle>
+<text fill="#000" font-family="Space Mono" font-size="7" font-weight="bold" text-anchor="middle" x="0" y="3">AGV1</text>
+</g>
+<g transform="translate(618, 230)">
+<rect fill="#00E5FF" height="20" opacity="0.95" rx="2" width="14" x="-7" y="-10"></rect>
+<text fill="#000" font-family="Space Mono" font-size="7" font-weight="bold" text-anchor="middle" x="0" y="3">AGV2</text>
+</g>
+<!-- ================= MACHINES IN ZONE A ================= -->
+<!-- 1. MCH-CNC-01 (Warning / Bearing Harmonic Resonance) -->
+<g class="map-machine-node" onclick="selectMachineOnMap('MCH-CNC-01', '5-Axis CNC Milling Machine', 'ZONE A', '68.4°C // 2.85G', 'MAINT_DUE', 'Spindle Bearing Outer-Race Harmonics', '68.4°C', '2.85 G', '0.04 mm', 'MAINT')">
+<rect fill="#161622" height="65" rx="5" stroke="#F59E0B" stroke-width="1.5" width="130" x="48" y="80"></rect>
+<text fill="#FFFFFF" font-family="Space Mono" font-size="11" font-weight="700" x="58" y="100">MCH-CNC-01</text>
+<text fill="#F59E0B" font-family="Inter" font-size="9" font-weight="600" x="58" y="116">5-Axis CNC Mill</text>
+<circle class="filter drop-shadow-[0_0_4px_#F59E0B]" cx="162" cy="93" fill="#F59E0B" r="5"></circle>
+<circle class="node-pulse-ring" cx="162" cy="93" fill="none" r="8" stroke="#F59E0B" stroke-width="1"></circle>
+<text fill="#A1A1AA" font-family="Space Mono" font-size="8" x="58" y="133">68.4°C • HARMONIC</text>
+</g>
+<!-- 2. MCH-CNC-02 (Nominal) -->
+<g class="map-machine-node" onclick="selectMachineOnMap('MCH-CNC-02', 'Twin-Spindle Lathe', 'ZONE A', '41.2°C // 0.82G', 'NOMINAL', 'Healthy operating envelope', '41.2°C', '0.82 G', 'NOMINAL', 'READY')">
+<rect fill="#12131a" height="65" rx="5" stroke="#2a2a3a" stroke-width="1.2" width="130" x="212" y="80"></rect>
+<text fill="#FFFFFF" font-family="Space Mono" font-size="11" font-weight="700" x="222" y="100">MCH-CNC-02</text>
+<text fill="#A1A1AA" font-family="Inter" font-size="9" x="222" y="116">Twin Lathe Unit</text>
+<circle cx="326" cy="93" fill="#10B981" r="4.5"></circle>
+<text fill="#10B981" font-family="Space Mono" font-size="8" x="222" y="133">NOMINAL // 41°C</text>
+</g>
+<!-- 3. MCH-HYD-01 (Critical - Hydraulic Gland Blowby) -->
+<circle cx="210" cy="180" fill="url(#pressStressGlow)" r="65"></circle>
+<g class="map-machine-node" onclick="selectMachineOnMap('MCH-HYD-01', '600-Tonne Hydraulic Deep-Draw Press', 'ZONE A', '318 bar // 74.2°C', 'CRITICAL', 'Hydraulic Cylinder Gland Blowby Over-Pressure', '74.2°C', '318 bar', '4.8 mm/s', 'STOP')">
+<rect fill="#1e1114" height="75" rx="6" stroke="#D71920" stroke-width="2" width="294" x="48" y="160"></rect>
+<text fill="#FFFFFF" font-family="Space Mono" font-size="11" font-weight="700" x="60" y="182">MCH-HYD-01 // 600-T DEEP-DRAW PRESS</text>
+<text fill="#E4E4E7" font-family="Inter" font-size="9" x="60" y="198">Cylinder Gland Blowby Over-Pressure: 318 bar (Max: 280)</text>
+<circle class="filter drop-shadow-[0_0_6px_#D71920] led-red" cx="326" cy="175" fill="#D71920" r="5.5"></circle>
+<circle class="node-pulse-ring" cx="326" cy="175" fill="none" r="10" stroke="#D71920" stroke-width="1.5"></circle>
+<text fill="#D71920" font-family="Space Mono" font-size="8" font-weight="bold" x="60" y="215">CRITICAL WARNING // REDUCED CLAMP FORCE</text>
+<text fill="#ffb4ab" font-family="Space Mono" font-size="8" x="240" y="215">318 BAR // OVER</text>
+</g>
+<!-- ================= MACHINES IN ZONE B (ASRS Logistics) ================= -->
+<!-- High-Bay Storage Racks (Geometric Top View) -->
+<rect fill="url(#rackHatch)" height="225" rx="4" stroke="#2d2d3d" stroke-width="1.2" width="160" x="425" y="80"></rect>
+<text fill="#D4D4D8" font-family="Space Mono" font-size="9" font-weight="bold" x="435" y="100">RACK-BAY 01 (1,200 PALLETS)</text>
+<text fill="#71717a" font-family="Space Mono" font-size="7" x="435" y="112">OCCUPANCY: 94.2%</text>
+<rect fill="url(#rackHatch)" height="225" rx="4" stroke="#2d2d3d" stroke-width="1.2" width="160" x="655" y="80"></rect>
+<text fill="#D4D4D8" font-family="Space Mono" font-size="9" font-weight="bold" x="665" y="100">RACK-BAY 02 (1,200 PALLETS)</text>
+<text fill="#71717a" font-family="Space Mono" font-size="7" x="665" y="112">OCCUPANCY: 88.5%</text>
+<!-- ASRS Central Crane Runway Track -->
+<line opacity="0.55" stroke="#FFFFFF" stroke-dasharray="2 3" stroke-width="2" x1="605" x2="605" y1="75" y2="315"></line>
+<!-- Crane Carriage Assembly (MCH-ASRS-19) -->
+<g class="map-machine-node" id="map-crane-carriage" onclick="selectMachineOnMap('MCH-ASRS-19', 'Automated High-Bay Storage &amp; Retrieval System', 'ZONE B', '8,400 RPM // 42.5°C', 'NOMINAL', 'High-Bay Stacker in Nominal Motion', '42.5°C', '0.42 G', '92% RUL', 'READY')" transform="translate(605, 139.8)">
+<rect class="filter drop-shadow-[0_0_8px_rgba(255,255,255,0.4)]" fill="#0d0d14" height="44" rx="4" stroke="#FFFFFF" stroke-width="2" width="36" x="-18" y="-22"></rect>
+<line stroke="#D71920" stroke-width="2" x1="-14" x2="14" y1="0" y2="0"></line>
+<circle cx="0" cy="0" fill="#10B981" r="4"></circle>
+<text fill="#FFFFFF" font-family="Space Mono" font-size="10" font-weight="bold" x="22" y="4">MCH-ASRS-19</text>
+<text fill="#10B981" font-family="Space Mono" font-size="8" x="22" y="18">STACKER NOMINAL</text>
+</g>
+<!-- ================= MACHINES IN ZONE C (Utilities & Pumping) ================= -->
+<!-- Heatmap circle around Cavitation Pump -->
+<circle cx="120" cy="375" fill="url(#heatCavitation)" r="60"></circle>
+<!-- 1. MCH-PMP-01 (CRITICAL STOP REQ - Acoustic Cavitation) -->
+<g class="map-machine-node active-selected" onclick="selectMachineOnMap('MCH-PMP-01', 'Centrifugal Slurry &amp; Cooling Pump', 'ZONE C', '96.4 dB // 88.1°C', 'STOP_REQ', 'Severe Acoustic Cavitation &amp; Impeller Vane Stall', '88.1°C', '96.4 dB', '4.8 mm/s', '316 bar')">
+<rect class="filter drop-shadow-[0_0_10px_#D71920]" fill="#2a0a0d" height="95" rx="6" stroke="#D71920" stroke-width="2.5" width="145" x="48" y="325"></rect>
+<text fill="#FFFFFF" font-family="Space Mono" font-size="11" font-weight="700" x="58" y="350">MCH-PMP-01</text>
+<text fill="#ffb4ab" font-family="Inter" font-size="9" font-weight="bold" x="58" y="367">Slurry Pump Station</text>
+<circle class="led-red" cx="175" cy="346" fill="#D71920" r="6"></circle>
+<circle class="node-pulse-ring" cx="175" cy="346" fill="none" r="11" stroke="#D71920" stroke-width="2"></circle>
+<text fill="#D71920" font-family="Space Mono" font-size="9" font-weight="bold" x="58" y="388">96.4 dB CAVITATION</text>
+<text fill="#FFFFFF" font-family="Space Mono" font-size="8" font-weight="bold" x="58" y="404">STOP REQ TRIGGERED</text>
+</g>
+<!-- 2. MCH-CMP-02 (Cooling Chiller Compressor - Nominal) -->
+<g class="map-machine-node" onclick="selectMachineOnMap('MCH-CMP-02', 'Screw Ammonia Chiller', 'ZONE C', '6.2 bar // 4.1°C', 'NOMINAL', 'Stable Thermal Delta &amp; Nominal COP', '4.1°C', '6.2 bar', '1.1 mm/s', 'RUNNING')">
+<rect fill="#12131c" height="95" rx="6" stroke="#2e2e40" stroke-width="1.2" width="140" x="220" y="325"></rect>
+<text fill="#FFFFFF" font-family="Space Mono" font-size="11" font-weight="700" x="232" y="350">MCH-CMP-02</text>
+<text fill="#A1A1AA" font-family="Inter" font-size="9" x="232" y="367">Ammonia Chiller 450kW</text>
+<circle cx="342" cy="346" fill="#10B981" r="4.5"></circle>
+<text fill="#10B981" font-family="Space Mono" font-size="8" x="232" y="388">NOMINAL // 4.1°C</text>
+<text fill="#71717A" font-family="Space Mono" font-size="8" x="232" y="404">COP: 3.82 STABLE</text>
+</g>
+<!-- ================= MACHINES IN ZONE D (Quality & Inspection Lab) ================= -->
+<!-- 1. ROB-CELL-04 (Depalletizer Robot) -->
+<g class="map-machine-node" onclick="selectMachineOnMap('ROB-CELL-04', '6-Axis Depalletizing Gantry', 'ZONE D', '0.45 G // 38.2°C', 'NOMINAL', 'Carton Infeed Nominal Operating Cycle', '38.2°C', '0.45 G', '0.02 mm', 'READY')">
+<circle cx="480" cy="425" fill="#14141e" r="26" stroke="#333346" stroke-width="1.5"></circle>
+<text fill="#FFFFFF" font-family="Space Mono" font-size="8" font-weight="bold" text-anchor="middle" x="480" y="422">ROB-04</text>
+<circle cx="480" cy="436" fill="#10B981" r="3.5"></circle>
+<text fill="#A1A1AA" font-family="Inter" font-size="7.5" text-anchor="middle" x="480" y="460">Depalletizer</text>
+</g>
+<!-- 2. CMM-INSPECT-01 (Coordinate Measuring Machine) -->
+<g class="map-machine-node" onclick="selectMachineOnMap('CMM-INS-01', 'High-Precision Bridge CMM', 'ZONE D', '20.0°C ISO // 0.002mm', 'NOMINAL', 'Calibration verified; Metrology enclosure sealed', '20.0°C', '0.002 mm', '99.8% ACC', 'READY')">
+<rect fill="#12131e" height="55" rx="4" stroke="#2a2a3e" stroke-width="1.2" width="135" x="545" y="400"></rect>
+<text fill="#FFFFFF" font-family="Space Mono" font-size="10" font-weight="700" x="556" y="420">CMM-INS-01</text>
+<text fill="#00E5FF" font-family="Inter" font-size="8" x="556" y="434">Optical Metrology</text>
+<circle cx="665" cy="416" fill="#10B981" r="4"></circle>
+<text fill="#10B981" font-family="Space Mono" font-size="7.5" x="556" y="448">TOL: ±0.002mm PASS</text>
+</g>
+<!-- 3. QC-SCAN-02 (Inline Laser Inspection) -->
+<g class="map-machine-node" onclick="selectMachineOnMap('QC-SCAN-02', 'Laser Profile Thickness Scanner', 'ZONE D', '240 scans/min', 'NOMINAL', 'Zero defect envelope across lot #844', '22.4°C', '240 rpm', '99.98% OK', 'RUN')">
+<rect fill="#12131e" height="55" rx="4" stroke="#2a2a3e" stroke-width="1.2" width="120" x="695" y="400"></rect>
+<text fill="#FFFFFF" font-family="Space Mono" font-size="10" font-weight="700" x="705" y="420">QC-SCAN-02</text>
+<text fill="#A1A1AA" font-family="Inter" font-size="8" x="705" y="434">Laser Thickness</text>
+<circle cx="800" cy="416" fill="#10B981" r="4"></circle>
+<text fill="#10B981" font-family="Space Mono" font-size="7.5" x="705" y="448">INLINE 100% OK</text>
+</g>
+</svg>
+<!-- Interactive Machine Inspector Flyout Overlay at Bottom of Map -->
+<div class="absolute bottom-3 inset-x-3 bg-black/95 backdrop-blur-md rounded-xl p-3 border border-zinc-700 shadow-2xl flex flex-wrap items-center justify-between gap-3" id="map-selected-machine-card">
+<div class="flex items-center gap-3">
+<div class="w-3.5 h-3.5 rounded-full bg-nothing-red led-red animate-pulse" id="inspector-status-dot"></div>
+<div>
+<div class="flex items-center gap-2">
+<span class="text-xs font-mono font-bold text-white tracking-wider" id="inspector-machine-id">MCH-PMP-01</span>
+<span class="text-[10px] font-mono text-zinc-400 bg-zinc-800 px-1.5 rounded" id="inspector-zone">ZONE C</span>
+<span class="text-[10px] font-mono text-nothing-red font-bold uppercase bg-nothing-red/20 px-2 py-0.5 rounded border border-nothing-red/50" id="inspector-badge">E-STOP REQUIRED</span>
+</div>
+<h4 class="text-xs font-headline text-zinc-200 mt-0.5" id="inspector-name">Centrifugal Slurry &amp; Cooling Pump</h4>
+</div>
+</div>
+<!-- Real-Time Telemetry Live Metric Pills -->
+<div class="hidden md:flex items-center gap-2 font-mono text-xs">
+<div class="bg-zinc-900 border border-zinc-700 rounded-lg px-2.5 py-1 text-center">
+<span class="text-[9px] text-zinc-400 uppercase block font-semibold">Cavitation</span>
+<span class="text-white font-bold text-[11px]" id="inspector-pill-cav">96.4 dB</span>
+</div>
+<div class="bg-zinc-900 border border-zinc-700 rounded-lg px-2.5 py-1 text-center">
+<span class="text-[9px] text-zinc-400 uppercase block font-semibold">Temp</span>
+<span class="text-amber-400 font-bold text-[11px]" id="inspector-pill-temp">88.1°C</span>
+</div>
+<div class="bg-zinc-900 border border-zinc-700 rounded-lg px-2.5 py-1 text-center">
+<span class="text-[9px] text-zinc-400 uppercase block font-semibold">Vibration</span>
+<span class="text-nothing-red font-bold text-[11px]" id="inspector-pill-vib">4.8 mm/s</span>
+</div>
+<div class="bg-zinc-900 border border-zinc-700 rounded-lg px-2.5 py-1 text-center">
+<span class="text-[9px] text-zinc-400 uppercase block font-semibold">Pressure</span>
+<span class="text-zinc-200 font-bold text-[11px]" id="inspector-pill-press">316 bar</span>
+</div>
+</div>
+<!-- Deep Analytics Link for selected machine -->
+<div class="flex items-center gap-2">
+<button class="px-3 py-1.5 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-white font-mono text-xs font-semibold border border-zinc-600 transition-colors" onclick="alert('Triggering Remote Protocol Override...')">
+LOCATE PIN
+</button>
+<a class="px-3.5 py-1.5 rounded-lg bg-white hover:bg-zinc-200 text-black font-mono text-xs font-bold tracking-tight shadow flex items-center gap-1.5 transition-all" href="{{DATA:SCREEN:SCREEN_28}}"><span>OPEN MACHINE DEEP ANALYTICS</span><span class="text-nothing-red font-bold text-sm leading-none">→</span></a>
+</div>
+</div>
+</div>
+</div>
+<!-- Map Footer Toolbar -->
+<div class="flex flex-wrap items-center justify-between gap-3 pt-3 mt-3 border-t border-zinc-800 text-xs font-mono">
+<div class="flex items-center gap-3">
+<span class="text-zinc-400 font-medium">COORDINATES:</span>
+<span class="text-white font-bold" id="map-cursor-coords">X: 120.4 // Y: 385.2</span>
+<span class="text-zinc-600">|</span>
+<span class="text-zinc-400">AGV CADENCE: <strong class="text-emerald-400">OPTIMAL (2.1 m/s)</strong></span>
+</div>
+<div class="flex items-center gap-2">
+<span class="text-[11px] text-zinc-400">Click any machine node on the plant grid to inspect and open diagnostics</span>
+</div>
+</div>
+</section>
+<!-- ============================================================== -->
+<!-- PANEL B: ALERT & MAINTENANCE COMMAND CENTER (5 Cols)           -->
+<!-- ============================================================== -->
+<section class="xl:col-span-5 nothing-panel rounded-2xl p-5 flex flex-col justify-between border border-nothing-border" data-purpose="alert-maintenance-command-center">
+<div>
+<!-- Alert Center Header -->
+<div class="flex items-center justify-between pb-3.5 mb-4 border-b border-zinc-800">
+<div class="flex items-center gap-2.5">
+<span class="w-2.5 h-2.5 rounded-full bg-nothing-red led-red animate-pulse"></span>
+<h2 class="font-headline text-sm text-white font-bold tracking-wide">02 // ALERT &amp; MAINTENANCE COMMAND</h2>
+</div>
+<span class="text-[11px] font-mono text-nothing-textMuted uppercase font-semibold">QUEUE: 10 ACTIVE DISPATCHES</span>
+</div>
+<!-- Filter tabs for alerts -->
+<div class="flex items-center gap-2 mb-4">
+<button class="px-3.5 py-1 rounded-full bg-white text-black font-mono text-xs font-bold tracking-tight shadow">
+            ALL (10)
+          </button>
+<button class="px-3.5 py-1 rounded-full bg-nothing-red/10 border border-nothing-red/60 text-white font-mono text-xs font-semibold flex items-center gap-1.5 hover:bg-nothing-red/25 transition-all">
+<span class="w-1.5 h-1.5 rounded-full bg-nothing-red led-red"></span>
+            STOP REQ (3)
+          </button>
+<button class="px-3.5 py-1 rounded-full bg-amber-500/10 border border-amber-500/60 text-amber-300 font-mono text-xs font-semibold flex items-center gap-1.5 hover:bg-amber-500/25 transition-all">
+<span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
+            MAINT (7)
+          </button>
+</div>
+<!-- Scrollable Incident Queue -->
+<div class="space-y-3 max-h-[515px] overflow-y-auto pr-1">
+<!-- Critical Incident 1: E-STOP Centrifugal Pump -->
+<article class="p-4 rounded-xl bg-nothing-red/10 border-2 border-nothing-red/80 relative" data-purpose="critical-alert-stop"><div class="flex items-start justify-between"><div><div class="flex items-center gap-2 font-mono text-xs"><span class="text-white font-bold tracking-wider">MCH-PMP-01</span><span class="text-zinc-400 font-medium">// Zone C (Cooling Yard)</span></div><h3 class="text-sm font-bold text-white mt-1 font-headline tracking-tight">Centrifugal Slurry &amp; Cooling Pump</h3><p class="text-xs text-red-400 font-body font-semibold mt-0.5">Severe Acoustic Cavitation &amp; Impeller Vane Stall</p></div><span class="px-2.5 py-1 rounded-md text-[10px] font-mono font-bold bg-nothing-red text-white flex items-center gap-1.5 led-red uppercase tracking-wider"><span class="w-1.5 h-1.5 rounded-full bg-white animate-ping"></span>STOP REQ</span></div><div class="grid grid-cols-2 gap-2 mt-3 p-2.5 rounded-lg bg-black/80 border border-nothing-red/40 font-mono text-xs"><div><div class="text-red-400 text-[10px] uppercase tracking-wider font-bold">Trigger Acoustic Peak</div><div class="text-white font-bold mt-0.5 text-xs">96.4 dB (PEAK)</div></div><div><div class="text-zinc-400 text-[10px] uppercase tracking-wider font-semibold">Acoustic Safety Limit</div><div class="text-zinc-300 font-semibold mt-0.5 text-xs">82.0 dB</div></div></div><p class="text-xs text-zinc-300 mt-2.5 leading-relaxed font-body">Sound emission spiked to 96.4 dB with severe high-frequency cavitation hiss. Fluid vapor collapse threatens catastrophic impeller destruction. STOP MOTOR IMMEDIATELY.</p><div class="flex items-center gap-2 mt-3 pt-2.5 border-t border-nothing-red/40"><button class="flex-1 py-2 px-3 rounded-lg bg-nothing-red hover:bg-red-700 text-white font-mono text-xs font-bold tracking-wider uppercase flex items-center justify-center gap-2 transition-all led-red shadow-lg" onclick="alert('EMERGENCY STOP PROTOCOL INITIATED FOR MCH-PMP-01')"><svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>[!] TRIGGER E-STOP NOW</button><button class="px-3.5 py-2 rounded-lg bg-zinc-900 border border-zinc-700 text-xs font-mono font-semibold text-zinc-200 hover:text-white transition-colors uppercase tracking-wider" onclick="selectMachineOnMap('MCH-PMP-01', 'Centrifugal Slurry &amp; Cooling Pump', 'ZONE C', '96.4 dB // 88.1°C', 'STOP_REQ', 'Severe Acoustic Cavitation &amp; Impeller Stall')">LOCATE ON MAP</button></div></article>
+<!-- Critical Incident 2: Hydraulic Press Over-Pressure -->
+<article class="p-3.5 rounded-xl bg-nothing-card/95 border border-zinc-800 hover:border-zinc-700 transition-all" data-purpose="alert-item-press"><div class="flex items-start justify-between"><div><div class="flex items-center gap-2 font-mono text-xs"><span class="text-white font-bold tracking-wider">MCH-HYD-01</span><span class="text-zinc-400 font-medium">// Zone A (Press Bay)</span></div><h3 class="text-sm font-bold text-white mt-1 font-headline tracking-tight">600-Tonne Hydraulic Deep-Draw Press</h3><p class="text-xs text-red-300 font-body mt-0.5">Hydraulic Cylinder Gland Blowby Over-Pressure</p></div><span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-red-950/70 text-red-300 border border-red-800/60 uppercase tracking-wider">CRITICAL STOP</span></div><div class="grid grid-cols-2 gap-2 mt-2.5 p-2 rounded-lg bg-black/60 border border-zinc-800 font-mono text-xs"><div><div class="text-zinc-400 text-[10px] uppercase font-semibold">Telemetry</div><div class="text-red-400 font-bold text-xs">318 bar // 74.2°C</div></div><div><div class="text-zinc-400 text-[10px] uppercase font-semibold">Safety Limit</div><div class="text-zinc-300 font-semibold text-xs">280 bar // 60.0°C</div></div></div><div class="flex items-center justify-between mt-2.5 pt-2 border-t border-zinc-800"><button class="px-3 py-1 rounded bg-zinc-800 hover:bg-zinc-700 text-white text-xs font-mono font-semibold transition-colors border border-zinc-700 uppercase tracking-wider" onclick="alert('Maintenance Ticket Created for Hydraulic Press')">DISPATCH TECH TEAM</button><button class="text-xs font-mono font-semibold text-zinc-300 hover:text-white flex items-center gap-1 uppercase tracking-wider" onclick="selectMachineOnMap('MCH-HYD-01', '600-Tonne Hydraulic Deep-Draw Press', 'ZONE A', '318 bar // 74.2°C', 'CRITICAL', 'Gland Blowby Over-Pressure')"><span>LOCATE ON MAP</span><span>→</span></button></div></article>
+<!-- Maintenance Incident 3: 5-Axis CNC Bearing Resonance -->
+<article class="p-3.5 rounded-xl bg-nothing-card/95 border border-zinc-800 hover:border-zinc-700 transition-all" data-purpose="alert-item-cnc"><div class="flex items-start justify-between"><div><div class="flex items-center gap-2 font-mono text-xs"><span class="text-white font-bold tracking-wider">MCH-CNC-01</span><span class="text-zinc-400 font-medium">// Zone A (Machining)</span></div><h3 class="text-sm font-bold text-white mt-1 font-headline tracking-tight">5-Axis CNC Milling Machine</h3><p class="text-xs text-amber-400 font-body font-medium mt-0.5">Spindle Harmonic Resonance &amp; Heat Buildup</p></div><span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-amber-500/15 text-amber-300 border border-amber-500/40 flex items-center gap-1 uppercase tracking-wider"><svg class="w-3.5 h-3.5 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>DUE: 12H</span></div><div class="grid grid-cols-2 gap-2 mt-2.5 p-2 rounded-lg bg-black/70 border border-zinc-800 font-mono text-xs"><div><div class="text-zinc-400 text-[10px] uppercase font-semibold">Trigger Telemetry</div><div class="text-amber-400 font-bold text-xs">68.4°C // 2.85 G</div></div><div><div class="text-zinc-400 text-[10px] uppercase font-semibold">Safety Limit</div><div class="text-zinc-300 font-semibold text-xs">65.0°C // 2.0 G</div></div></div><p class="text-xs text-zinc-300 mt-2 leading-relaxed font-body">Bearing outer race micro-pitting detected. Scheduled cart replacement queued for end-of-shift window.</p><div class="flex items-center justify-between mt-2.5 pt-2 border-t border-zinc-800"><button class="px-3 py-1 rounded bg-zinc-800 hover:bg-zinc-700 text-white text-xs font-mono font-semibold transition-colors border border-zinc-700 uppercase tracking-wider" onclick="alert('Work Order Dispatched to Technician Station 04')">DISPATCH WORK ORDER</button><button class="text-xs font-mono font-semibold text-zinc-300 hover:text-white flex items-center gap-1 uppercase tracking-wider" onclick="selectMachineOnMap('MCH-CNC-01', '5-Axis CNC Milling Machine', 'ZONE A', '68.4°C // 2.85G', 'MAINT_DUE', 'DUE: 12H - Bearing Resonance')"><span>LOCATE ON MAP</span><span>→</span></button></div></article>
+<!-- Maintenance Incident 4: ASRS Optical Calibration -->
+<article class="p-3.5 rounded-xl bg-nothing-card/95 border border-zinc-800 hover:border-zinc-700 transition-all" data-purpose="alert-item-asrs"><div class="flex items-start justify-between"><div><div class="flex items-center gap-2 font-mono text-xs"><span class="text-white font-bold tracking-wider">MCH-ASRS-19</span><span class="text-zinc-400 font-medium">// Zone B (High-Bay)</span></div><h3 class="text-sm font-bold text-white mt-1 font-headline tracking-tight">Unit-Load Stacker Crane</h3><p class="text-xs text-zinc-300 font-body mt-0.5">Optical Position Barcode Scale Lens Cleaning Due</p></div><span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-zinc-800 text-zinc-300 border border-zinc-700 uppercase tracking-wider">ROUTINE</span></div><div class="flex items-center justify-between mt-2 pt-2 border-t border-zinc-800 text-xs font-mono"><span class="text-zinc-400">RUL: 92% Nominal Health</span><button class="text-zinc-300 hover:text-white font-semibold flex items-center gap-1 uppercase tracking-wider" onclick="selectMachineOnMap('MCH-ASRS-19', 'Automated High-Bay Storage &amp; Retrieval System', 'ZONE B', '8,400 RPM // 42.5°C', 'NOMINAL', 'High-Bay Stacker in Nominal Motion')"><span>LOCATE ON MAP</span><span>→</span></button></div></article>
+</div>
+</div>
+<!-- Alert Center Footer Interlock Safety Status -->
+<div class="mt-4 pt-3 border-t border-zinc-800 flex items-center justify-between text-xs font-mono"><div class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-emerald-400 led-green"></span><span class="text-zinc-400 font-medium">SAFETY INTERLOCK:</span><span class="text-white font-bold">CAT 4 / SIL-4 HARDWARE READY</span></div><a class="text-zinc-300 hover:text-white font-bold flex items-center gap-1 uppercase tracking-wider" href="{{DATA:SCREEN:SCREEN_28}}"><span>ALL MACHINE METRICS</span><span class="text-nothing-red font-bold text-sm leading-none">→</span></a></div>
+</section>
+</main>
+<!-- END: Main Two Dominant Panels -->
+<!-- BEGIN: Cockpit Footer -->
+<!-- END: Cockpit Footer -->
+<!-- Machine Registration Modal Dialog --><div class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md" id="machine-reg-modal"><div class="nothing-panel rounded-2xl w-full max-w-lg border border-zinc-700 p-6 shadow-2xl relative" data-purpose="register-machine-dialog"><div class="flex items-center justify-between pb-3 mb-5 border-b border-zinc-800"><div class="flex items-center gap-2.5"><span class="w-2.5 h-2.5 rounded-full bg-nothing-red led-red animate-pulse"></span><h3 class="font-headline text-sm text-white font-bold tracking-wider">[ + REGISTER SCADA MACHINE NODE ]</h3></div><button class="text-zinc-400 hover:text-white font-mono text-sm px-2.5 py-1 rounded-lg hover:bg-zinc-800 transition-colors" onclick="closeRegisterModal()">✕</button></div><form class="space-y-4 font-mono text-xs" id="machine-registration-form" onsubmit="handleRegisterMachineSubmit(event)"><div class="space-y-1.5"><label class="block text-zinc-300 font-semibold tracking-wider text-[11px] uppercase">MACHINE IDENTIFIER (machine_id) <span class="text-nothing-red">*</span></label><input class="w-full bg-zinc-900/90 border border-zinc-700 rounded-lg px-3.5 py-2.5 text-white placeholder-zinc-500 font-mono text-xs focus:outline-none focus:border-white focus:ring-1 focus:ring-white transition-all" id="reg-machine-id" placeholder="e.g. MCH-CNC-03 // MCH-PMP-02" required="" type="text"></div><div class="space-y-1.5"><label class="block text-zinc-300 font-semibold tracking-wider text-[11px] uppercase">MACHINE NAME / DESIGNATION (machine_name) <span class="text-nothing-red">*</span></label><input class="w-full bg-zinc-900/90 border border-zinc-700 rounded-lg px-3.5 py-2.5 text-white placeholder-zinc-500 font-mono text-xs focus:outline-none focus:border-white focus:ring-1 focus:ring-white transition-all" id="reg-machine-name" placeholder="e.g. Precision 5-Axis Milling Center" required="" type="text"></div><div class="space-y-1.5"><label class="block text-zinc-300 font-semibold tracking-wider text-[11px] uppercase">HARDWARE DEVICE ID / TELEMETRY MAC (hardware_device_id) <span class="text-nothing-red">*</span></label><input class="w-full bg-zinc-900/90 border border-zinc-700 rounded-lg px-3.5 py-2.5 text-white placeholder-zinc-500 font-mono text-xs focus:outline-none focus:border-white focus:ring-1 focus:ring-white transition-all" id="reg-hardware-id" placeholder="e.g. ESP32-NODE-88A4 // 7C:2F:80:A1" required="" type="text"></div><div class="space-y-1.5"><label class="block text-zinc-300 font-semibold tracking-wider text-[11px] uppercase">FACILITY ALLOCATION ZONE</label><select class="w-full bg-zinc-900/90 border border-zinc-700 rounded-lg px-3.5 py-2.5 text-white font-mono text-xs focus:outline-none focus:border-white focus:ring-1 focus:ring-white" id="reg-machine-zone"><option value="ZONE A">ZONE A // CNC &amp; HEAVY MACHINING</option><option value="ZONE B">ZONE B // ASRS AUTOMATED LOGISTICS</option><option value="ZONE C">ZONE C // SLURRY, PUMPS &amp; COOLANT UTILITIES</option><option value="ZONE D">ZONE D // QUALITY, METROLOGY &amp; INSPECTION LAB</option></select></div><div class="pt-3 flex items-center justify-end gap-3 border-t border-zinc-800 mt-4"><button class="px-4 py-2.5 rounded-xl bg-zinc-900 border border-zinc-700 hover:border-zinc-500 text-zinc-300 hover:text-white font-mono text-xs font-semibold tracking-wider uppercase transition-all" onclick="closeRegisterModal()" type="button">CANCEL</button><button class="px-5 py-2.5 rounded-xl bg-nothing-red hover:bg-red-700 text-white font-mono text-xs font-bold tracking-wider uppercase transition-all led-red shadow-lg flex items-center gap-2" type="submit"><span>CONFIRM &amp; REGISTER NODE</span><span class="text-sm leading-none">→</span></button></div></form></div></div><!-- Live Registration Confirmation Toast --><div class="hidden fixed bottom-6 right-6 z-50 bg-black/95 backdrop-blur-md border border-emerald-500/60 p-4 rounded-xl shadow-2xl font-mono text-xs flex items-center gap-3" id="reg-success-toast"><span class="w-3 h-3 rounded-full bg-emerald-400 led-green animate-ping"></span><div><div class="text-white font-bold tracking-wider flex items-center gap-2"><span>NODE REGISTERED TO SCADA BUS</span><span class="text-[10px] text-emerald-400 font-bold bg-emerald-500/20 px-1.5 py-0.2 rounded border border-emerald-500/40">SUCCESS</span></div><div class="text-zinc-400 text-[11px] mt-0.5" id="reg-success-msg">Machine node provisioned &amp; awaiting telemetry sync.</div></div></div></div>
+<!-- JavaScript: Live Clock, Map Selection & Zone Highlighting -->
+<script data-purpose="dashboard-scripts">
+  // Cockpit Clock
+  function updateCockpitClock() {
+    const clockElement = document.getElementById('live-cockpit-clock');
+    if (clockElement) {
+      const now = new Date();
+      const hrs = String(now.getHours()).padStart(2, '0');
+      const mins = String(now.getMinutes()).padStart(2, '0');
+      const secs = String(now.getSeconds()).padStart(2, '0');
+      clockElement.textContent = `${hrs}:${mins}:${secs}`;
+    }
+  }
+  setInterval(updateCockpitClock, 1000);
+  updateCockpitClock();
+
+  // Selected Machine on Map Inspector Handler
+  function selectMachineOnMap(id, name, zone, metric, status, note) {
+    document.getElementById('inspector-machine-id').textContent = id;
+    document.getElementById('inspector-name').textContent = name;
+    document.getElementById('inspector-zone').textContent = zone;
+    document.getElementById('inspector-metric').textContent = metric;
+    document.getElementById('inspector-note').textContent = note;
+
+    const badge = document.getElementById('inspector-badge');
+    const dot = document.getElementById('inspector-status-dot');
+
+    if (status === 'STOP_REQ' || status === 'CRITICAL') {
+      badge.textContent = status === 'STOP_REQ' ? 'E-STOP REQUIRED' : 'CRITICAL FAULT';
+      badge.className = 'text-[10px] font-mono text-nothing-red font-bold uppercase bg-nothing-red/20 px-2 py-0.5 rounded border border-nothing-red/50';
+      dot.className = 'w-3.5 h-3.5 rounded-full bg-nothing-red led-red animate-pulse';
+    } else if (status === 'MAINT_DUE') {
+      badge.textContent = 'MAINTENANCE DUE';
+      badge.className = 'text-[10px] font-mono text-amber-400 font-bold uppercase bg-amber-500/20 px-2 py-0.5 rounded border border-amber-500/50';
+      dot.className = 'w-3.5 h-3.5 rounded-full bg-amber-400 led-amber';
+    } else {
+      badge.textContent = 'NOMINAL RUNNING';
+      badge.className = 'text-[10px] font-mono text-emerald-400 font-bold uppercase bg-emerald-500/20 px-2 py-0.5 rounded border border-emerald-500/50';
+      dot.className = 'w-3.5 h-3.5 rounded-full bg-emerald-400 led-green';
+    }
+  }
+
+  // Zone filtering logic for Map pills
+  function filterMapZone(btn, zoneId) {
+    const allBtns = btn.parentElement.querySelectorAll('button');
+    allBtns.forEach(b => {
+      b.className = 'px-2.5 py-1 rounded-lg bg-black/60 border border-zinc-700 text-zinc-300 hover:text-white font-semibold';
+    });
+    btn.className = 'px-2.5 py-1 rounded-lg bg-white text-black font-bold shadow';
+  }
+
+  // Simulate crane gentle glide in Zone B
+  let craneY = 175;
+  let craneDirection = 1;
+  const craneElem = document.getElementById('map-crane-carriage');
+  setInterval(() => {
+    if (craneElem) {
+      craneY += 0.8 * craneDirection;
+      if (craneY > 260) craneDirection = -1;
+      if (craneY < 110) craneDirection = 1;
+      craneElem.setAttribute('transform', `translate(605, ${craneY.toFixed(1)})`);
+    }
+  }, 100);
+</script>
+
+
+
+
+</body></html>

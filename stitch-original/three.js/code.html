@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: #000;
+    }
+  </style>
+</head>
+<body>
+<!-- STITCH_THREEJS_START:ANIMATION_93 class="fixed inset-0 w-full h-full bg-transparent" -->
+<div class="fixed inset-0 w-full h-full bg-transparent" style="display:block;">
+<script src="https://ajax.googleapis.com/ajax/libs/threejs/r125/three.min.js"></script>
+<div id="threejs-container-ANIMATION_93" style="width:100%;height:100%"></div>
+<script>
+(function() {
+  const container = document.getElementById('threejs-container-ANIMATION_93');
+  const devicePixelRatio = window.devicePixelRatio || 1;
+  const width = container.clientWidth || window.innerWidth;
+const height = container.clientHeight || window.innerHeight;
+
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 1000);
+camera.position.set(0, 2, 7.5);
+
+const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+renderer.setSize(width, height);
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+container.appendChild(renderer.domElement);
+
+// Lighting
+const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
+scene.add(ambientLight);
+
+const redLight = new THREE.PointLight(0xd71920, 3, 20);
+redLight.position.set(4, 4, 3);
+scene.add(redLight);
+
+const cyanLight = new THREE.PointLight(0x00f0ff, 2.5, 20);
+cyanLight.position.set(-4, -2, 3);
+scene.add(cyanLight);
+
+const dirLight = new THREE.DirectionalLight(0xffffff, 1.2);
+dirLight.position.set(0, 10, 5);
+scene.add(dirLight);
+
+// Group to hold our Industrial Mechanical Twin
+const machineGroup = new THREE.Group();
+scene.add(machineGroup);
+
+// Materials
+const wireMat = new THREE.MeshBasicMaterial({ color: 0x333338, wireframe: true, transparent: true, opacity: 0.35 });
+const darkMetal = new THREE.MeshPhongMaterial({ color: 0x161618, shininess: 80, specular: 0x444444 });
+const redAccent = new THREE.MeshPhongMaterial({ color: 0xd71920, emissive: 0x3a0507, shininess: 90 });
+const glassMat = new THREE.MeshPhongMaterial({ color: 0x222226, transparent: true, opacity: 0.6, shininess: 100 });
+const glowCyan = new THREE.MeshBasicMaterial({ color: 0x00f0ff, wireframe: true });
+
+// 1. Heavy Base Chassis
+const baseGeo = new THREE.CylinderGeometry(2.4, 2.6, 0.4, 32);
+const base = new THREE.Mesh(baseGeo, darkMetal);
+base.position.y = -1.6;
+machineGroup.add(base);
+
+// Outer Ring Guide with teeth
+const ringGeo = new THREE.TorusGeometry(2.5, 0.08, 16, 64);
+const ringMesh = new THREE.Mesh(ringGeo, redAccent);
+ringMesh.rotation.x = Math.PI / 2;
+ringMesh.position.y = -1.4;
+machineGroup.add(ringMesh);
+
+// 2. Main High-Bay Mast / Columns
+const colGeo = new THREE.BoxGeometry(0.25, 3.4, 0.25);
+for (let i = 0; i < 4; i++) {
+  const angle = (i * Math.PI) / 2 + Math.PI / 4;
+  const col = new THREE.Mesh(colGeo, darkMetal);
+  col.position.set(Math.cos(angle) * 1.8, 0.2, Math.sin(angle) * 1.8);
+  machineGroup.add(col);
+
+  // Wireframe echo
+  const colWire = new THREE.Mesh(colGeo, wireMat);
+  colWire.position.copy(col.position);
+  colWire.scale.set(1.15, 1.02, 1.15);
+  machineGroup.add(colWire);
+}
+
+// 3. Central Hydraulic Turbine Core
+const coreGeo = new THREE.CylinderGeometry(0.9, 1.1, 2.2, 24);
+const core = new THREE.Mesh(coreGeo, darkMetal);
+core.position.y = 0.1;
+machineGroup.add(core);
+
+// Core glowing acoustic rings
+const coreRingGeo = new THREE.TorusGeometry(1.18, 0.04, 16, 32);
+for (let r = 0; r < 4; r++) {
+  const cRing = new THREE.Mesh(coreRingGeo, r === 1 ? redAccent : glowCyan);
+  cRing.rotation.x = Math.PI / 2;
+  cRing.position.y = -0.6 + r * 0.45;
+  machineGroup.add(cRing);
+}
+
+// 4. Rotating Scanner Arm & Sensor Gimbal
+const rotorGroup = new THREE.Group();
+machineGroup.add(rotorGroup);
+
+const armGeo = new THREE.BoxGeometry(3.6, 0.12, 0.35);
+const arm = new THREE.Mesh(armGeo, darkMetal);
+rotorGroup.add(arm);
+
+// Laser scanner tips on arm
+const tipGeo = new THREE.SphereGeometry(0.16, 16, 16);
+const tipL = new THREE.Mesh(tipGeo, redAccent);
+tipL.position.x = 1.8;
+rotorGroup.add(tipL);
+
+const tipR = new THREE.Mesh(tipGeo, redAccent);
+tipR.position.x = -1.8;
+rotorGroup.add(tipR);
+
+// 5. Holographic Target Reticle / Particle Ring
+const particleCount = 180;
+const pGeo = new THREE.BufferGeometry();
+const pPos = new Float32Array(particleCount * 3);
+for (let p = 0; p < particleCount; p++) {
+  const theta = (p / particleCount) * Math.PI * 2;
+  const rad = 2.1 + (Math.random() - 0.5) * 0.3;
+  pPos[p * 3] = Math.cos(theta) * rad;
+  pPos[p * 3 + 1] = (Math.random() - 0.5) * 0.4;
+  pPos[p * 3 + 2] = Math.sin(theta) * rad;
+}
+pGeo.setAttribute('position', new THREE.BufferAttribute(pPos, 3));
+const pMat = new THREE.PointsMaterial({ color: 0xd71920, size: 0.04, transparent: true, opacity: 0.75 });
+const particles = new THREE.Points(pGeo, pMat);
+machineGroup.add(particles);
+
+// Subtle Floating Ambient Dust
+const dustCount = 80;
+const dGeo = new THREE.BufferGeometry();
+const dPos = new Float32Array(dustCount * 3);
+for (let d = 0; d < dustCount; d++) {
+  dPos[d * 3] = (Math.random() - 0.5) * 8;
+  dPos[d * 3 + 1] = (Math.random() - 0.5) * 6;
+  dPos[d * 3 + 2] = (Math.random() - 0.5) * 6;
+}
+dGeo.setAttribute('position', new THREE.BufferAttribute(dPos, 3));
+const dMat = new THREE.PointsMaterial({ color: 0xffffff, size: 0.025, transparent: true, opacity: 0.4 });
+const dust = new THREE.Points(dGeo, dMat);
+scene.add(dust);
+
+// Interaction & Mouse tracking
+let targetRotY = 0;
+let targetRotX = 0;
+window.addEventListener('mousemove', (e) => {
+  const mx = (e.clientX / window.innerWidth) * 2 - 1;
+  const my = -(e.clientY / window.innerHeight) * 2 + 1;
+  targetRotY = mx * 0.45;
+  targetRotX = my * 0.25;
+});
+
+// Resize handler
+const onResize = () => {
+  const w = container.clientWidth || window.innerWidth;
+  const h = container.clientHeight || window.innerHeight;
+  camera.aspect = w / h;
+  camera.updateProjectionMatrix();
+  renderer.setSize(w, h);
+};
+window.addEventListener('resize', onResize);
+
+// Animation Loop
+let clock = 0;
+function animate() {
+  requestAnimationFrame(animate);
+  clock += 0.015;
+
+  // Base machine subtle hover rotation
+  machineGroup.rotation.y += 0.004;
+  machineGroup.rotation.y += (targetRotY - machineGroup.rotation.y) * 0.05;
+  machineGroup.rotation.x += (targetRotX - machineGroup.rotation.x) * 0.05;
+
+  // Scanning rotor arm rotation
+  rotorGroup.rotation.y += 0.025;
+  rotorGroup.position.y = Math.sin(clock * 1.5) * 0.5;
+
+  // Outer particle ring gentle counter-rotation
+  particles.rotation.y -= 0.008;
+
+  // Dust drift
+  dust.rotation.y += 0.0008;
+
+  renderer.render(scene, camera);
+}
+animate();
+})();
+</script>
+</div>
+<!-- STITCH_THREEJS_END:ANIMATION_93 -->
+</body>
+</html>

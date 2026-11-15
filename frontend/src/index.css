@@ -1,0 +1,249 @@
+/* ==========================================================================
+   NOTHING OS TYPOGRAPHY (NDot 55, NDot 57, NType 82, NType 82 Mono)
+   ========================================================================== */
+@font-face {
+  font-family: 'Ndot 55';
+  src: url('/fonts/Ndot55-Regular.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Ndot-55';
+  src: url('/fonts/Ndot55-Regular.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Ndot 57';
+  src: url('/fonts/Ndot57-Regular.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Ndot-57';
+  src: url('/fonts/Ndot57-Regular.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'NDot';
+  src: url('/fonts/Ndot57-Regular.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'NType 82';
+  src: url('/fonts/NType82-Headline.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'NType 82';
+  src: url('/fonts/NType82-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'NType 82 Mono';
+  src: url('/fonts/NType82Mono-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'NType 82 Mono';
+  src: url('/fonts/NType82Mono-Regular.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    background-color: #121315;
+    color: #e3e2e5;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1, h2, h3, h4, h5, h6,
+  .font-heading,
+  .section-header,
+  .headline-text {
+    font-family: 'NType 82', 'Ndot 57', 'NDot', sans-serif;
+    letter-spacing: 0.015em;
+    font-weight: 700;
+  }
+
+  .font-subheading,
+  .sub-heading {
+    font-family: 'NType 82 Mono', 'Space Mono', monospace;
+    letter-spacing: 0.03em;
+    font-weight: 500;
+  }
+
+  .font-mono,
+  .metric-value {
+    font-family: 'NType 82 Mono', 'Space Mono', monospace;
+  }
+}
+
+/* Authentic Nothing OS Typography Utility Classes */
+.font-ndot {
+  font-family: 'Ndot 57', 'Ndot-57', 'NDot', monospace !important;
+  letter-spacing: 0.035em;
+}
+.font-ndot-55 {
+  font-family: 'Ndot 55', 'Ndot-55', 'NDot', monospace !important;
+  letter-spacing: 0.04em;
+}
+.font-ndot-57 {
+  font-family: 'Ndot 57', 'Ndot-57', 'NDot', monospace !important;
+  letter-spacing: 0.035em;
+}
+.font-ntype {
+  font-family: 'NType 82', sans-serif !important;
+  letter-spacing: 0.01em;
+}
+.font-ntype-mono {
+  font-family: 'NType 82 Mono', 'Space Mono', monospace !important;
+  letter-spacing: 0.025em;
+}
+.font-heading {
+  font-family: 'NType 82', 'Ndot 57', 'NDot', sans-serif !important;
+  letter-spacing: 0.015em;
+  font-weight: 700 !important;
+}
+.font-subheading {
+  font-family: 'NType 82 Mono', 'Space Mono', monospace !important;
+  letter-spacing: 0.03em;
+}
+.font-dot-matrix {
+  font-family: 'Ndot 57', 'Ndot 55', 'NDot', monospace !important;
+  letter-spacing: 0.04em;
+}
+
+/* Tool Balancer Hanging Sway Keyframes */
+@keyframes toolSway1 {
+  0%, 100% { transform: rotate(1.2deg); }
+  50% { transform: rotate(-1.4deg); }
+}
+@keyframes toolSway2 {
+  0%, 100% { transform: rotate(-1.5deg); }
+  50% { transform: rotate(1.1deg); }
+}
+@keyframes toolSway3 {
+  0%, 100% { transform: rotate(1.4deg); }
+  50% { transform: rotate(-1.6deg); }
+}
+@keyframes toolSway4 {
+  0%, 100% { transform: rotate(-1.2deg); }
+  50% { transform: rotate(1.5deg); }
+}
+@keyframes toolSway5 {
+  0%, 100% { transform: rotate(1.6deg); }
+  50% { transform: rotate(-1.2deg); }
+}
+
+.sway-tool-1 { animation: toolSway1 6.2s ease-in-out infinite; transform-origin: top center; }
+.sway-tool-2 { animation: toolSway2 5.5s ease-in-out infinite; transform-origin: top center; }
+.sway-tool-3 { animation: toolSway3 7.0s ease-in-out infinite; transform-origin: top center; }
+.sway-tool-4 { animation: toolSway4 5.8s ease-in-out infinite; transform-origin: top center; }
+.sway-tool-5 { animation: toolSway5 6.5s ease-in-out infinite; transform-origin: top center; }
+
+/* SCADA Dot Matrix and Grid Backgrounds */
+.scada-grid-bg {
+  background-size: 32px 32px;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+}
+
+.scada-dots-bg {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+/* Mechanical Keyframe Animations */
+@keyframes spinClockwise {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes spinCounterClockwise {
+  from { transform: rotate(360deg); }
+  to { transform: rotate(0deg); }
+}
+
+@keyframes pistonOscillation {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(24px); }
+}
+
+@keyframes horizontalConveyor {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(40px); }
+}
+
+@keyframes hydraulicStroke {
+  0%, 100% { transform: translateY(0); }
+  40% { transform: translateY(45px); }
+  60% { transform: translateY(45px); }
+}
+
+@keyframes pulseGlow {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; filter: drop-shadow(0 0 8px currentColor); }
+}
+
+.animate-spin-cw {
+  animation: spinClockwise 3s linear infinite;
+  transform-origin: center;
+}
+
+.animate-spin-ccw {
+  animation: spinCounterClockwise 3s linear infinite;
+  transform-origin: center;
+}
+
+.animate-piston {
+  animation: pistonOscillation 1.2s ease-in-out infinite;
+}
+
+.animate-conveyor {
+  animation: horizontalConveyor 1s linear infinite;
+}
+
+.animate-hydraulic {
+  animation: hydraulicStroke 3s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulseGlow 2s ease-in-out infinite;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  display: none;
+}

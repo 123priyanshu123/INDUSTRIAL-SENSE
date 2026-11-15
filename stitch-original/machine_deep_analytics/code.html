@@ -1,0 +1,971 @@
+<!DOCTYPE html><html lang="en"><svg class="inline-defs-container" aria-hidden="true" style="position:absolute;width:0;height:0;overflow:hidden"></svg><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>INDUSTRIALSENSE SCADA // MACHINE TWIN &amp; ANALYTICS (MCH-PMP-01)</title>
+<!-- Google Fonts: Inter & Space Mono -->
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=Space+Mono:ital,wght@0,400;0,700;1,400&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<!-- Tailwind CSS CDN with Forms & Container Queries -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Configuration for Nothing OS Aesthetic & Design Tokens -->
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            nothing: {
+              black: '#08080a',
+              dark: '#101014',
+              panel: '#131318',
+              card: '#16161c',
+              subtle: '#1b1b22',
+              border: '#2a2a34',
+              borderLight: '#3a3a46',
+              red: '#D71920',
+              redGlow: 'rgba(215, 25, 32, 0.4)',
+              redDim: '#4a0b0e',
+              amber: '#F59E0B',
+              cyan: '#00E5FF',
+              emerald: '#10B981',
+              textPrimary: '#FFFFFF',
+              textLight: '#E4E4E7',
+              textSubtle: '#D4D4D8',
+              textMuted: '#A1A1AA',
+              textDarker: '#71717A',
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['Space Mono', 'monospace'],
+            headline: ['Space Mono', 'monospace'],
+            body: ['Inter', 'sans-serif'],
+            label: ['Space Mono', 'monospace'],
+          }
+        }
+      }
+    }
+  </script>
+<!-- Custom CSS for Nothing SCADA Styling -->
+<style data-purpose="nothing-theme-custom">
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+
+    h1, h2, h3, h4, h5, h6,
+    .font-headline {
+      font-family: 'Space Mono', monospace;
+    }
+
+    .font-mono,
+    button,
+    select,
+    .badge,
+    .status-tag {
+      font-family: 'Space Mono', monospace;
+    }
+
+    /* Subtle dot background grid */
+    .bg-dot-matrix-pattern {
+      background-size: 20px 20px;
+      background-image: radial-gradient(circle, rgba(255, 255, 255, 0.12) 1.2px, transparent 1.2px);
+    }
+    
+    .bg-dense-matrix {
+      background-size: 10px 10px;
+      background-image: radial-gradient(circle, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+    }
+
+    /* Custom Glass Panel with tactile industrial border */
+    .nothing-panel {
+      background: rgba(18, 18, 24, 0.88);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      position: relative;
+    }
+
+    .nothing-panel:hover {
+      border-color: rgba(255, 255, 255, 0.22);
+    }
+
+    /* Hardware Corner Bracket Accents */
+    .tech-corner::before, .tech-corner::after {
+      content: "";
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      pointer-events: none;
+    }
+    .tech-corner::before {
+      top: -1px; left: -1px;
+      border-top: 2px solid #fff;
+      border-left: 2px solid #fff;
+    }
+    .tech-corner::after {
+      bottom: -1px; right: -1px;
+      border-bottom: 2px solid #fff;
+      border-right: 2px solid #fff;
+    }
+
+    /* Red, Amber & Green Pulsing LED Indicator */
+    .led-red {
+      box-shadow: 0 0 10px #D71920, 0 0 4px #D71920;
+    }
+    .led-green {
+      box-shadow: 0 0 10px #10B981, 0 0 4px #10B981;
+    }
+    .led-cyan {
+      box-shadow: 0 0 10px #00E5FF, 0 0 4px #00E5FF;
+    }
+    .led-amber {
+      box-shadow: 0 0 10px #F59E0B, 0 0 4px #F59E0B;
+    }
+
+    /* Custom Scrollbar for industrial view */
+    ::-webkit-scrollbar {
+      width: 5px;
+      height: 5px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0d0d11;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #32323f;
+      border-radius: 3px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #4a4a58;
+    }
+
+    /* Equalizer bar transitions */
+    .eq-bar {
+      transition: height 70ms ease-out;
+    }
+  </style>
+<meta content="web_standard" name="shell-type"></head>
+<body class="bg-nothing-black text-nothing-textLight font-body antialiased min-h-screen select-none overflow-x-hidden p-3 md:p-4 bg-dot-matrix-pattern">
+<div class="max-w-[1920px] mx-auto flex flex-col gap-3">
+<!-- BEGIN: TopBar (Aligned exactly with Factory Map Screen 4 & Screen 2) -->
+<header class="nothing-panel rounded-2xl px-6 py-5 flex items-center justify-between border border-nothing-border shadow-lg relative z-50" data-purpose="top-navigation-bar">
+<div class="flex flex-col md:flex-row md:items-baseline gap-2 md:gap-4">
+<h1 class="font-headline text-3xl md:text-5xl lg:text-6xl font-bold tracking-tight text-white uppercase select-none flex items-center gap-4">
+<span class="w-4 h-4 rounded-full bg-nothing-red led-red animate-pulse inline-block flex-shrink-0"></span>
+<span>INDUSTRIALSENSE</span>
+</h1>
+
+</div>
+<div class="flex items-center gap-3 relative">
+<button class="px-4 py-2.5 rounded-xl bg-nothing-red hover:bg-red-700 text-white font-mono text-xs font-bold tracking-wider uppercase flex items-center gap-2 transition-all led-red shadow-lg active:scale-95" onclick="openRegisterModal()">
+<span class="text-base leading-none font-bold">+</span>
+<span>REGISTER MACHINE</span>
+</button>
+<div class="relative">
+<button class="px-4 py-2.5 rounded-xl bg-zinc-900 border border-zinc-700 hover:border-zinc-500 text-white font-mono text-xs font-bold tracking-widest uppercase flex items-center gap-2 transition-all shadow active:scale-95" id="cockpit-menu-toggle-btn" onclick="toggleCockpitNavMenu()">
+<span class="text-zinc-400 font-mono">//</span>
+<span>MENU</span>
+<span class="text-zinc-400 text-xs">▾</span>
+</button>
+<!-- Navigation Dropdown Menu -->
+<div class="hidden absolute right-0 mt-2 w-80 rounded-xl bg-black/95 backdrop-blur-md border border-zinc-700 shadow-2xl p-2.5 z-50 space-y-1 font-mono text-xs" id="cockpit-nav-dropdown">
+<div class="px-3 py-2 border-b border-zinc-800 text-[10px] text-zinc-500 tracking-widest uppercase flex items-center justify-between">
+<span>SCADA NAVIGATION BUS</span>
+<span class="text-emerald-400 font-bold flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>ONLINE</span>
+</div>
+<a class="flex items-center justify-between px-3 py-2.5 rounded-lg text-zinc-300 hover:text-white hover:bg-zinc-800/80 transition-colors" href="{{DATA:SCREEN:SCREEN_4}}">
+<span class="flex items-center gap-2.5"><span>◈</span><span>01 // FACTORY MAP &amp; ALERTS</span></span>
+<span class="text-[9px] bg-zinc-800 text-zinc-400 px-1.5 py-0.5 rounded">RETURN →</span>
+</a>
+<a class="flex items-center justify-between px-3 py-2.5 rounded-lg bg-white text-black font-bold shadow" href="#">
+<span class="flex items-center gap-2.5"><span>▤</span><span>02 // MACHINE DEEP ANALYTICS (MCH-PMP-01)</span></span>
+<span class="text-[10px] uppercase font-bold tracking-wider bg-black text-white px-1.5 py-0.5 rounded">Active</span>
+</a>
+<button class="w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-zinc-300 hover:text-white hover:bg-zinc-800/80 transition-colors text-left" onclick="toggleCockpitNavMenu(); openRegisterModal();">
+<span class="flex items-center gap-2.5 text-nothing-red font-bold"><span>+</span><span>03 // REGISTER NEW MACHINE</span></span>
+<span class="text-[9px] text-nothing-red font-bold bg-nothing-red/10 border border-nothing-red/30 px-1 rounded">SIL-4</span>
+</button>
+<a class="flex items-center justify-between px-3 py-2.5 rounded-lg text-zinc-300 hover:text-white hover:bg-zinc-800/80 transition-colors" href="#project-thesis" onclick="toggleCockpitNavMenu()">
+<span class="flex items-center gap-2.5"><span>◎</span><span>04 // PROJECT THESIS &amp; TEAM</span></span>
+<span class="text-[9px] text-zinc-500">INFO</span>
+</a>
+<a class="flex items-center justify-between px-3 py-2.5 rounded-lg text-zinc-300 hover:text-white hover:bg-zinc-800/80 transition-colors" href="#access-logs" onclick="toggleCockpitNavMenu()">
+<span class="flex items-center gap-2.5"><span>≡</span><span>05 // ACCESS AUDIT LOGS</span></span>
+<span class="text-[9px] text-zinc-500">48 NODES</span>
+</a>
+</div>
+</div>
+</div>
+</header>
+<!-- END: TopBar -->
+<!-- BEGIN: SCADA Quick Status Ribbon Matching Factory Map Structure -->
+<div class="grid grid-cols-2 md:grid-cols-4 gap-3" data-purpose="map-filters-summary">
+<div class="nothing-panel rounded-xl p-3 flex items-center justify-between border border-nothing-border">
+<div>
+<span class="text-[10px] font-mono text-zinc-400 uppercase tracking-wider block font-semibold">FACILITY STATUS</span>
+<span class="text-sm font-headline font-bold text-white flex items-center gap-2 mt-0.5">
+<span class="w-2 h-2 rounded-full bg-emerald-400 led-green"></span> 3 ZONES ONLINE
+      </span>
+</div>
+<span class="text-xs font-mono bg-zinc-900 border border-zinc-700 text-zinc-300 px-2 py-1 rounded">12,500 m²</span>
+</div>
+<div class="nothing-panel rounded-xl p-3 flex items-center justify-between border border-nothing-border">
+<div>
+<span class="text-[10px] font-mono text-zinc-400 uppercase tracking-wider block font-semibold">ACTIVE CRITICAL ALERTS</span>
+<span class="text-sm font-headline font-bold text-nothing-red flex items-center gap-1.5 mt-0.5">
+<span class="w-2 h-2 rounded-full bg-nothing-red led-red animate-pulse"></span> 3 STOP REQUESTS
+      </span>
+</div>
+<span class="text-xs font-mono bg-nothing-red/15 border border-nothing-red/50 text-nothing-red px-2 py-1 rounded font-bold">SIL-4 REQ</span>
+</div>
+<div class="nothing-panel rounded-xl p-3 flex items-center justify-between border border-nothing-border">
+<div>
+<span class="text-[10px] font-mono text-zinc-400 uppercase tracking-wider block font-semibold">MACHINE STATUS</span>
+<span class="text-sm font-headline font-bold text-nothing-red flex items-center gap-1.5 mt-0.5">
+<span class="w-2 h-2 rounded-full bg-nothing-red animate-ping"></span> MCH-PMP-01 // CRITICAL CAVITATION
+      </span>
+</div>
+<span class="text-xs font-mono bg-nothing-red/20 border border-nothing-red/60 text-white px-2 py-1 rounded font-bold">E-STOP REQ</span>
+</div>
+<div class="nothing-panel rounded-xl p-3 flex items-center justify-between border border-nothing-border">
+<div>
+<span class="text-[10px] font-mono text-zinc-400 uppercase tracking-wider block font-semibold">TELEMETRY INGEST BUS</span>
+<span class="text-sm font-headline font-bold text-white flex items-center gap-1.5 mt-0.5">
+<span class="w-2 h-2 rounded-full bg-cyan-400 led-cyan"></span> STREAM ACTIVE (4ms)
+      </span>
+</div>
+<span class="text-xs font-mono bg-zinc-900 border border-zinc-700 text-emerald-400 px-2 py-1 rounded font-bold">60 FPS</span>
+</div>
+</div>
+<!-- END: SCADA Quick Status Ribbon -->
+<!-- BEGIN: Main Dashboard Grid -->
+<main class="flex flex-col gap-3 w-full font-sans" data-purpose="cockpit-main-layout">
+<!-- Sub-Header Section with Machine Switcher & E-Stop Trigger -->
+<div class="flex flex-wrap items-center justify-between gap-4 px-1 pt-1 py-1">
+<div class="flex flex-col gap-1">
+
+<div class="flex flex-wrap items-center gap-4">
+<h2 class="text-2xl md:text-3xl font-mono font-bold tracking-tight text-white">Centrifugal Slurry &amp; Cooling Pump</h2>
+<div class="flex items-center gap-1.5 bg-black/60 p-1 rounded-xl border border-zinc-800">
+<button class="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-zinc-800 text-white font-mono text-xs font-bold border border-zinc-700 shadow-sm">
+<span class="material-symbols-outlined text-xs text-nothing-red">precision_manufacturing</span>
+<span>PMP-01 (ACTIVE / FAULT)</span>
+</button>
+<button class="flex items-center gap-1.5 px-3 py-1 rounded-lg text-zinc-400 hover:text-white font-mono text-xs transition-colors" onclick="alert('PMP-02 in Cold Standby Mode. Interlock primed.')">
+<span>PMP-02 (STANDBY)</span>
+</button>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-2.5">
+<div class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-nothing-red/15 border border-nothing-red/50 text-nothing-red font-mono text-xs font-bold led-red">
+<span class="material-symbols-outlined text-sm">warning</span>
+<span>IMPELLER VANE FLUTTER DETECTED</span>
+</div>
+<button class="flex items-center gap-2 bg-nothing-red hover:bg-red-700 text-white font-mono text-xs font-bold uppercase px-5 py-2.5 rounded-full transition-all shadow-xl shadow-nothing-red/30 active:scale-95 led-red" id="eStopBtn" onclick="triggerEmergencyStop()">
+<span class="material-symbols-outlined text-base">emergency_home</span>
+<span>E-STOP [CAT 4]</span>
+</button>
+</div>
+</div>
+<!-- Top Row: Blueprint Machine Schematic Digital Twin (Left 8 cols) + Condition Gauge (Right 4 cols) -->
+<div class="grid grid-cols-1 xl:grid-cols-12 gap-3">
+<!-- Hero Central Stage: Bold Industrial Blueprint Line Art Schematic -->
+<div class="xl:col-span-8 nothing-panel rounded-2xl p-6 tech-corner relative overflow-hidden flex flex-col justify-between border border-zinc-800/80 min-h-[490px] bg-black/70 shadow-2xl backdrop-blur-md">
+<div class="absolute inset-0 bg-dense-matrix opacity-25 pointer-events-none"></div>
+<!-- Stage Top Bar -->
+<div class="relative z-10 flex items-center justify-between pb-3.5 border-b border-zinc-800/80 text-xs font-mono">
+<div class="flex items-center gap-2.5">
+<span class="material-symbols-outlined text-white text-base">architecture</span>
+<span class="text-white font-bold tracking-wider">BLUEPRINT DIGITAL TWIN // KINEMATIC SCHEMATIC (MCH-PMP-01)</span>
+<span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+</div>
+<div class="flex items-center gap-2 text-zinc-400 text-[11px]">
+<span class="px-2.5 py-1 rounded-md bg-zinc-900/90 border border-zinc-800 text-zinc-300">ISO VIEW // 2.5D CAD</span>
+<span class="px-2.5 py-1 rounded-md bg-zinc-900/90 border border-zinc-800 text-emerald-400 font-semibold flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> 60 FPS LIVE
+          </span>
+</div>
+</div>
+<!-- Interactive Blueprint Graphic with Bold Line Art & Callout Badges -->
+<div class="relative w-full h-[370px] my-auto flex items-center justify-center p-2">
+<!-- Dynamic High-Visibility SVG Blueprint Machine Vector with 2.5px - 4px strokes -->
+<svg class="w-full h-full max-h-[360px] select-none" fill="none" viewBox="0 0 780 350">
+<defs>
+<pattern height="24" id="tech-grid" patternUnits="userSpaceOnUse" width="24">
+<path d="M 24 0 L 0 0 0 24" fill="none" stroke="#252530" stroke-width="0.8"></path>
+</pattern>
+</defs>
+<rect fill="url(#tech-grid)" height="350" opacity="0.65" width="780"></rect>
+<!-- Heavy Skid Base & Mounting Frame with Thick 3.5px strokes -->
+<rect fill="#15161c" height="16" rx="2" stroke="#FFFFFF" stroke-width="3" width="620" x="70" y="270"></rect>
+<rect fill="#1b1c24" height="18" stroke="#D4D4D8" stroke-width="2.5" width="45" x="100" y="286"></rect>
+<rect fill="#1b1c24" height="18" stroke="#D4D4D8" stroke-width="2.5" width="50" x="250" y="286"></rect>
+<rect fill="#1b1c24" height="18" stroke="#D4D4D8" stroke-width="2.5" width="50" x="450" y="286"></rect>
+<rect fill="#1b1c24" height="18" stroke="#D4D4D8" stroke-width="2.5" width="45" x="630" y="286"></rect>
+<!-- Skid Mounting Foundation Bolts -->
+<line stroke="#71717a" stroke-width="2" x1="90" x2="670" y1="270" y2="270"></line>
+<circle cx="122" cy="295" fill="#272732" r="4.5" stroke="#FFFFFF" stroke-width="2.5"></circle>
+<circle cx="275" cy="295" fill="#272732" r="4.5" stroke="#FFFFFF" stroke-width="2.5"></circle>
+<circle cx="475" cy="295" fill="#272732" r="4.5" stroke="#FFFFFF" stroke-width="2.5"></circle>
+<circle cx="652" cy="295" fill="#272732" r="4.5" stroke="#FFFFFF" stroke-width="2.5"></circle>
+<!-- Centrifugal Volute Casing & Pump Body (Thick Crisp Blueprint Outlines: stroke-width="3.5") -->
+<path d="M 140 270 L 140 236 L 180 200 L 180 135 C 180 65 240 38 300 38 C 380 38 425 90 425 165 C 425 230 375 270 300 270 Z" fill="#161720" stroke="#FFFFFF" stroke-width="3.5"></path>
+<!-- Outer Rim / Volute Flange Ring Stiffener -->
+<circle cx="300" cy="165" fill="none" r="88" stroke="#71717a" stroke-dasharray="10 5" stroke-width="2.5"></circle>
+<circle cx="300" cy="165" fill="#1b1c24" r="74" stroke="#FFFFFF" stroke-width="3"></circle>
+<!-- Internal Impeller Hub Geometry -->
+<circle cx="300" cy="165" fill="#252633" r="28" stroke="#FFFFFF" stroke-width="2.5"></circle>
+<circle cx="300" cy="165" fill="#D71920" r="10" stroke="#ffffff" stroke-width="2.5"></circle>
+<!-- Impeller Vanes (Substantial curved blades with stroke-width="3") -->
+<path d="M 300 137 C 318 132 334 114 345 92" fill="none" stroke="#E4E4E7" stroke-width="3"></path>
+<path d="M 324 151 C 342 155 364 150 376 134" fill="none" stroke="#E4E4E7" stroke-width="3"></path>
+<path d="M 324 179 C 340 195 354 212 360 234" fill="none" stroke="#E4E4E7" stroke-width="3"></path>
+<path d="M 300 193 C 288 215 270 230 250 236" fill="none" stroke="#E4E4E7" stroke-width="3"></path>
+<path d="M 276 179 C 255 183 235 176 224 160" fill="none" stroke="#E4E4E7" stroke-width="3"></path>
+<path d="M 276 151 C 265 133 252 120 234 108" fill="none" stroke="#E4E4E7" stroke-width="3"></path>
+<!-- Volute Discharge Port (Top Vertical Pipe Nozzle) -->
+<rect fill="#1b1c24" height="28" stroke="#FFFFFF" stroke-width="3" width="56" x="272" y="16"></rect>
+<rect fill="#252633" height="10" stroke="#FFFFFF" stroke-width="3" width="80" x="260" y="10"></rect>
+<circle cx="272" cy="15" fill="#ffffff" r="2.5"></circle>
+<circle cx="328" cy="15" fill="#ffffff" r="2.5"></circle>
+<line stroke="#D71920" stroke-dasharray="4 3" stroke-width="2.5" x1="300" x2="300" y1="10" y2="45"></line>
+<!-- Suction Flange & Intake Piping -->
+<rect fill="#1b1c24" height="54" stroke="#FFFFFF" stroke-width="3" width="70" x="75" y="138"></rect>
+<rect fill="#252633" height="70" stroke="#FFFFFF" stroke-width="3" width="14" x="64" y="130"></rect>
+<line stroke="#00E5FF" stroke-dasharray="5 3" stroke-width="2.5" x1="75" x2="145" y1="165" y2="165"></line>
+<circle cx="71" cy="140" fill="#00E5FF" r="3"></circle>
+<circle cx="71" cy="190" fill="#00E5FF" r="3"></circle>
+<circle cx="71" cy="165" fill="#00E5FF" r="3"></circle>
+<!-- Bearing Bracket & Stuffing Box Housing -->
+<rect fill="#1f202b" height="66" stroke="#FFFFFF" stroke-width="3" width="50" x="420" y="132"></rect>
+<line stroke="#71717a" stroke-width="2.5" x1="432" x2="432" y1="132" y2="198"></line>
+<line stroke="#71717a" stroke-width="2.5" x1="445" x2="445" y1="132" y2="198"></line>
+<line stroke="#71717a" stroke-width="2.5" x1="458" x2="458" y1="132" y2="198"></line>
+<!-- Flexible Shaft Coupling & Mesh Safety Guard -->
+<rect fill="#161720" height="46" rx="2" stroke="#FFFFFF" stroke-width="3" width="36" x="470" y="142"></rect>
+<rect fill="#2e2f3d" height="58" stroke="#FFFFFF" stroke-width="2.5" width="16" x="480" y="136"></rect>
+<!-- Electric Drive Motor Housing (Bold Blueprint stroke-width="3.5") -->
+<rect fill="#181922" height="110" rx="4" stroke="#FFFFFF" stroke-width="3.5" width="180" x="506" y="110"></rect>
+<!-- Rear Cooling Fan Cowl -->
+<rect fill="#14151c" height="94" rx="3" stroke="#FFFFFF" stroke-width="3" width="25" x="686" y="118"></rect>
+<line stroke="#71717a" stroke-width="2.5" x1="695" x2="695" y1="125" y2="205"></line>
+<line stroke="#71717a" stroke-width="2.5" x1="702" x2="702" y1="125" y2="205"></line>
+<!-- Heavy Motor Cooling Fins (Crisp horizontal ribs) -->
+<line stroke="#8a8a9a" stroke-width="3" x1="524" x2="672" y1="124" y2="124"></line>
+<line stroke="#8a8a9a" stroke-width="3" x1="524" x2="672" y1="138" y2="138"></line>
+<line stroke="#8a8a9a" stroke-width="3" x1="524" x2="672" y1="152" y2="152"></line>
+<line stroke="#8a8a9a" stroke-width="3" x1="524" x2="672" y1="166" y2="166"></line>
+<line stroke="#8a8a9a" stroke-width="3" x1="524" x2="672" y1="180" y2="180"></line>
+<line stroke="#8a8a9a" stroke-width="3" x1="524" x2="672" y1="194" y2="194"></line>
+<!-- Motor Terminal Box -->
+<rect fill="#252633" height="20" rx="2" stroke="#FFFFFF" stroke-width="2.5" width="56" x="555" y="90"></rect>
+<circle cx="572" cy="100" fill="none" r="3.5" stroke="#FFFFFF" stroke-width="2"></circle>
+<circle cx="594" cy="100" fill="none" r="3.5" stroke="#FFFFFF" stroke-width="2"></circle>
+<!-- Motor Pedestal Mounts -->
+<polygon fill="#1f202b" points="536,220 524,270 564,270 558,220" stroke="#FFFFFF" stroke-width="3"></polygon>
+<polygon fill="#1f202b" points="636,220 630,270 670,270 660,220" stroke="#FFFFFF" stroke-width="3"></polygon>
+<!-- Pump Casing Pedestal Mount -->
+<polygon fill="#1f202b" points="255,256 244,270 324,270 312,256" stroke="#FFFFFF" stroke-width="3"></polygon>
+<!-- Critical Cavitation Focal Zone (Vapor Collapse Center) -->
+<circle cx="258" cy="154" fill="#4a0b0e" r="16" stroke="#D71920" stroke-dasharray="4 3" stroke-width="3"></circle>
+<circle cx="258" cy="154" fill="#D71920" r="6" stroke="#ffffff" stroke-width="2"></circle>
+<!-- HIGH-CONTRAST BOLD LEADER CALLOUT LINES (Solid 2.5px strokes & bold target pins) -->
+<!-- 1. Leader to Acoustic Cavitation (Top Left) -->
+<polyline fill="none" points="258,154 210,90 148,90" stroke="#D71920" stroke-dasharray="4 3" stroke-width="2.5"></polyline>
+<circle cx="258" cy="154" fill="#D71920" r="5" stroke="#ffffff" stroke-width="2"></circle>
+<circle cx="148" cy="90" fill="#D71920" r="4.5" stroke="#ffffff" stroke-width="1.5"></circle>
+<!-- 2. Leader to Hydraulic Pressure (Bottom Left) -->
+<polyline fill="none" points="108,165 108,230 156,242" stroke="#00E5FF" stroke-dasharray="4 3" stroke-width="2.5"></polyline>
+<circle cx="108" cy="165" fill="#00E5FF" r="5" stroke="#000000" stroke-width="2"></circle>
+<circle cx="156" cy="242" fill="#00E5FF" r="4.5" stroke="#ffffff" stroke-width="1.5"></circle>
+<!-- 3. Leader to Bearing Thermal (Top Right) -->
+<polyline fill="none" points="445,132 445,72 555,72" stroke="#F59E0B" stroke-dasharray="4 3" stroke-width="2.5"></polyline>
+<circle cx="445" cy="132" fill="#F59E0B" r="5" stroke="#000000" stroke-width="2"></circle>
+<circle cx="555" cy="72" fill="#F59E0B" r="4.5" stroke="#ffffff" stroke-width="1.5"></circle>
+<!-- 4. Leader to VFD Cycle Rate (Bottom Right) -->
+<polyline fill="none" points="585,210 585,248 605,248" stroke="#FFFFFF" stroke-dasharray="4 3" stroke-width="2.5"></polyline>
+<circle cx="585" cy="210" fill="#FFFFFF" r="5" stroke="#000000" stroke-width="2"></circle>
+<circle cx="605" cy="248" fill="#FFFFFF" r="4.5" stroke="#D71920" stroke-width="1.5"></circle>
+</svg>
+<!-- Overlay Callout Badges with High-Contrast Hardware Borders -->
+<!-- 1. Acoustic Callout Badge -->
+<div class="absolute top-2 left-2 bg-black/95 border-2 border-nothing-red/70 rounded-xl p-3 shadow-2xl backdrop-blur-md max-w-[220px] z-20">
+<div class="flex items-center justify-between gap-1 text-[10px] font-mono text-zinc-400 uppercase tracking-wider font-semibold">
+<span>ACOUSTIC CAVITATION</span>
+<span class="material-symbols-outlined text-sm text-nothing-red">volume_up</span>
+</div>
+<div class="text-2xl font-mono font-bold text-nothing-red tracking-tight mt-0.5">
+<span id="callout-cav-val">96.2</span> <span class="text-xs text-zinc-400 font-normal">dB(SPL)</span>
+</div>
+<div class="text-[10px] font-mono text-zinc-300 mt-1 flex items-center gap-1.5 font-semibold">
+<span class="w-2 h-2 rounded-full bg-nothing-red led-red animate-ping"></span>
+<span class="text-nothing-red">+14.4 dB Critical Spike</span>
+</div>
+</div>
+<!-- 2. Pressure Callout Badge -->
+<div class="absolute bottom-2 left-2 bg-black/95 border-2 border-cyan-400/60 rounded-xl p-3 shadow-2xl backdrop-blur-md max-w-[230px] z-20">
+<div class="flex items-center justify-between gap-1 text-[10px] font-mono text-zinc-400 uppercase tracking-wider font-semibold">
+<span>HYDRAULIC PRESSURE</span>
+<span class="material-symbols-outlined text-sm text-cyan-400">speed</span>
+</div>
+<div class="text-sm font-mono font-bold text-white tracking-tight mt-1">
+<span class="text-cyan-400 text-lg" id="callout-press-disc">8.64 bar</span> <span class="text-zinc-500">/</span> <span class="text-amber-400 text-base" id="callout-press-suct">1.21 bar</span>
+</div>
+<div class="text-[10px] font-mono text-zinc-400 mt-0.5">Discharge vs Suction Head</div>
+</div>
+<!-- 3. Motor & Bearing Temperature Callout Badge -->
+<div class="absolute top-2 right-2 bg-black/95 border-2 border-amber-500/60 rounded-xl p-3 shadow-2xl backdrop-blur-md max-w-[220px] z-20">
+<div class="flex items-center justify-between gap-1 text-[10px] font-mono text-zinc-400 uppercase tracking-wider font-semibold">
+<span>BEARING THERMAL</span>
+<span class="material-symbols-outlined text-sm text-amber-400">thermostat</span>
+</div>
+<div class="text-2xl font-mono font-bold text-amber-400 tracking-tight mt-0.5">
+<span id="callout-temp-val">90.3</span> <span class="text-xs text-zinc-400 font-normal">°C</span>
+</div>
+<div class="text-[10px] font-mono text-amber-300 mt-1 flex items-center gap-1.5 font-semibold">
+<span class="w-2 h-2 rounded-full bg-amber-400 led-amber"></span>
+<span>Overheating Limit 75°C</span>
+</div>
+</div>
+<!-- 4. Cycle / VFD Rate Callout Badge -->
+<div class="absolute bottom-2 right-2 bg-black/95 border-2 border-zinc-600 rounded-xl p-3 shadow-2xl backdrop-blur-md max-w-[220px] z-20">
+<div class="flex items-center justify-between gap-1 text-[10px] font-mono text-zinc-400 uppercase tracking-wider font-semibold">
+<span>VFD CYCLE RATE</span>
+<span class="material-symbols-outlined text-sm text-white">rotate_right</span>
+</div>
+<div class="text-2xl font-mono font-bold text-white tracking-tight mt-0.5">
+<span id="callout-vfd-val">3,419</span> <span class="text-xs text-zinc-400 font-normal">RPM</span>
+</div>
+<div class="text-[10px] font-mono text-zinc-400 mt-1">Drive Speed 100% Tip Vel.</div>
+</div>
+</div>
+<!-- Stage Bottom Status Strip -->
+<div class="relative z-10 pt-3.5 border-t border-zinc-800/80 flex flex-wrap items-center justify-between text-xs font-mono gap-2">
+<div class="flex items-center gap-2.5">
+<span class="text-zinc-400">NET HEAD:</span>
+<span class="text-white font-bold" id="stat-net-head">7.43 BAR</span>
+<span class="text-zinc-600">|</span>
+<span class="text-zinc-400">NPSHa:</span>
+<span class="text-nothing-red font-bold">2.1m (REQ: 3.0m)</span>
+</div>
+<div class="text-amber-400 font-semibold flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
+<span>DEFICIT: -0.9m BELOW FLASH BOILING POINT</span>
+</div>
+</div>
+</div>
+<!-- Right Side: Condition & Performance Radial Gauge & Operating Telemetry -->
+<div class="xl:col-span-4 nothing-panel rounded-2xl p-6 tech-corner flex flex-col justify-between border border-zinc-800/80 bg-black/70 shadow-2xl backdrop-blur-md">
+<div>
+<div class="flex items-center justify-between border-b border-zinc-800/80 pb-3.5 mb-4">
+<span class="font-mono text-sm font-bold text-white tracking-wider flex items-center gap-2">
+<span class="material-symbols-outlined text-zinc-400 text-base">vital_signs</span>
+            MACHINE CONDITION SCORE
+          </span>
+<span class="material-symbols-outlined text-zinc-400 hover:text-white text-sm cursor-pointer transition-colors" title="Full Health Telemetry">open_in_full</span>
+</div>
+<!-- Radial Gauge with Dashed Industrial Arc Track -->
+<div class="relative flex flex-col items-center justify-center my-4">
+<svg class="w-56 h-36 select-none" viewBox="0 0 200 120">
+<!-- Background Arc Track with Dashed Industrial Ticks -->
+<path d="M 20 110 A 80 80 0 0 1 180 110" fill="none" stroke="#26262d" stroke-dasharray="3.5 3" stroke-width="14"></path>
+<!-- Active Warning Progress (78% warning score) -->
+<path d="M 20 110 A 80 80 0 0 1 156 50" fill="none" stroke="#D71920" stroke-dasharray="3.5 3" stroke-width="14"></path>
+</svg>
+<div class="absolute bottom-2 flex flex-col items-center">
+<div class="text-4xl font-mono font-bold text-white tracking-tight flex items-baseline">
+              78<span class="text-xl text-nothing-red font-semibold">%</span>
+</div>
+<div class="text-xs font-mono text-zinc-400 mt-1 uppercase tracking-wider font-semibold">Overall Condition</div>
+</div>
+</div>
+<!-- Operating Metrics List -->
+<div class="space-y-2.5 pt-4 border-t border-zinc-800/80 text-xs font-mono">
+<div class="flex items-center justify-between py-1.5 border-b border-zinc-900/80">
+<div class="flex items-center gap-2 text-zinc-400">
+<span class="material-symbols-outlined text-sm text-zinc-400">power_settings_new</span>
+<span>Operating Mode</span>
+</div>
+<span class="text-white font-bold">Automatic [VFD]</span>
+</div>
+<div class="flex items-center justify-between py-1.5 border-b border-zinc-900/80">
+<div class="flex items-center gap-2 text-zinc-400">
+<span class="material-symbols-outlined text-sm text-nothing-red">warning</span>
+<span>Acoustic Spike</span>
+</div>
+<span class="text-nothing-red font-bold" id="side-cav-status">+14.4 dB [CRIT]</span>
+</div>
+<div class="flex items-center justify-between py-1.5 border-b border-zinc-900/80">
+<div class="flex items-center gap-2 text-zinc-400">
+<span class="material-symbols-outlined text-sm text-amber-400">device_thermostat</span>
+<span>Thermal Index</span>
+</div>
+<span class="text-amber-400 font-bold" id="side-temp-status">90.3 °C (+15.3°)</span>
+</div>
+<div class="flex items-center justify-between py-1.5 border-b border-zinc-900/80">
+<div class="flex items-center gap-2 text-zinc-400">
+<span class="material-symbols-outlined text-sm text-cyan-400">speed</span>
+<span>Active Pressure</span>
+</div>
+<span class="text-cyan-400 font-bold" id="side-press-status">8.64 / 1.21 bar</span>
+</div>
+<div class="flex items-center justify-between py-1.5">
+<div class="flex items-center gap-2 text-zinc-400">
+<span class="material-symbols-outlined text-sm text-emerald-400">timer</span>
+<span>Predictive RUL</span>
+</div>
+<span class="text-white font-bold">04.2 Hours</span>
+</div>
+</div>
+</div>
+<!-- Hazard Alert Bar -->
+<div class="mt-4 pt-3.5 border-t border-zinc-800/80">
+<div class="w-full bg-zinc-900 h-2 rounded-full overflow-hidden p-0.5 border border-zinc-800">
+<div class="bg-nothing-red h-full rounded-full w-[78%] animate-pulse"></div>
+</div>
+<div class="flex justify-between items-center text-[10px] font-mono text-zinc-400 mt-2 uppercase tracking-wider">
+<span class="text-zinc-300">HAZARD: IMPELLER CAVITATION</span>
+<span class="text-nothing-red font-bold">STOP DISPATCH REQ</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Telemetry Streaming Status Indicator Bar -->
+<div class="nothing-panel rounded-xl px-4 py-2 flex flex-wrap items-center justify-between border border-zinc-800/90 text-xs font-mono text-zinc-400">
+<div class="flex items-center gap-3">
+<span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse led-green"></span>
+<span class="text-white font-bold tracking-wider">LOCAL DB TELEMETRY STREAM: ACTIVE [● 60 FPS / 10ms TICK]</span>
+<span class="text-zinc-600 hidden sm:inline">•</span>
+<span class="text-zinc-400 hidden sm:inline">BUFFER: 12,400 FRAMES INGESTED</span>
+</div>
+<div class="flex items-center gap-4 text-[11px]">
+<span class="text-cyan-400">MODBUS/TCP: 0x07F4</span>
+<span class="text-zinc-300">JITTER: ±0.12ms</span>
+</div>
+</div>
+<!-- Bottom Row: 3 STRICT LIVE ANIMATED MOTION ANALYTICS MODULES -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+<!-- MODULE 1: Live Animated Temperature Analytics -->
+<div class="nothing-panel rounded-2xl p-5 tech-corner flex flex-col justify-between border-l-4 border-l-amber-500 border border-zinc-800/80 bg-black/70 shadow-xl backdrop-blur-md min-h-[250px]">
+<div>
+<div class="flex items-center justify-between text-xs font-mono pb-2.5 border-b border-zinc-800/80">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-amber-400 text-base">thermostat</span>
+<span class="text-white font-bold uppercase tracking-wider">Temperature Analytics</span>
+</div>
+<span class="text-[10px] text-amber-400 font-bold px-2 py-0.5 rounded bg-amber-500/15 border border-amber-500/40" id="temp-badge">+13.1°C WARN</span>
+</div>
+<div class="my-3 flex items-baseline justify-between">
+<div>
+<div class="font-mono text-3xl font-bold text-amber-400 tracking-tight" id="live-temp-display">90.3<span class="text-base text-zinc-400 font-normal"> °C</span></div>
+<div class="text-[11px] font-mono text-zinc-400 mt-0.5">Bearing &amp; Seal Skin Temp</div>
+</div>
+<div class="text-right text-[11px] font-mono">
+<div class="text-zinc-500">Threshold: 75.0 °C</div>
+<div class="text-amber-400 font-semibold mt-0.5 flex items-center justify-end gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-amber-400 animate-ping"></span>
+<span>OVERHEATING</span>
+</div>
+</div>
+</div>
+<!-- Dynamic Live Canvas Streaming Sparkline Curve -->
+<div class="relative w-full h-14 bg-black/80 rounded-lg p-1 overflow-hidden border border-zinc-800/90 my-2">
+<canvas class="w-full h-full block" height="56" id="tempStreamCanvas" width="340"></canvas>
+<div class="absolute top-1 right-2 text-[9px] font-mono text-zinc-500">LIVE TICK</div>
+</div>
+</div>
+<div>
+<div class="w-full bg-zinc-900 h-2 rounded-full overflow-hidden p-0.5 border border-zinc-800">
+<div class="bg-amber-500 h-full rounded-full w-[88%] transition-all duration-300" id="temp-progress-bar"></div>
+</div>
+<div class="flex items-center justify-between text-[10px] font-mono text-zinc-400 mt-2.5">
+<span>Cooling Jacket: 42 L/min</span>
+<span class="text-amber-300 font-semibold">Thermal Stress: High</span>
+</div>
+</div>
+</div>
+<!-- MODULE 2: Live Animated Pressure Analytics -->
+<div class="nothing-panel rounded-2xl p-5 tech-corner flex flex-col justify-between border-l-4 border-l-cyan-400 border border-zinc-800/80 bg-black/70 shadow-xl backdrop-blur-md min-h-[250px]">
+<div>
+<div class="flex items-center justify-between text-xs font-mono pb-2.5 border-b border-zinc-800/80">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-cyan-400 text-base">speed</span>
+<span class="text-white font-bold uppercase tracking-wider">Pressure Analytics</span>
+</div>
+<span class="text-[10px] text-cyan-400 font-bold px-2 py-0.5 rounded bg-cyan-400/10 border border-cyan-400/40">HEAD DEFICIT</span>
+</div>
+<div class="my-3 flex items-baseline justify-between">
+<div>
+<div class="font-mono text-3xl font-bold text-white tracking-tight">
+<span class="text-cyan-400" id="live-p-disc">8.64</span><span class="text-zinc-500 font-normal text-xl"> / </span><span class="text-amber-400 text-2xl" id="live-p-suct">1.21</span> <span class="text-xs text-zinc-400 font-normal">bar</span>
+</div>
+<div class="text-[11px] font-mono text-zinc-400 mt-0.5">Discharge vs Suction Head</div>
+</div>
+<div class="text-right text-[11px] font-mono">
+<div class="text-zinc-400">ΔP Head: <span class="text-white font-bold" id="live-dp">7.43 bar</span></div>
+<div class="text-nothing-red font-semibold mt-0.5">NPSHa &lt; 3.0m</div>
+</div>
+</div>
+<!-- Live Undulating Safety Differential Stream Graphic -->
+<div class="relative w-full h-14 bg-black/80 rounded-lg p-2.5 overflow-hidden border border-zinc-800/90 my-2 flex flex-col justify-center gap-2">
+<div class="flex justify-between text-[9px] font-mono text-zinc-400">
+<span id="suct-status-label">Suction: 1.20 bar (Low)</span>
+<span id="disc-status-label">Discharge: 8.62 bar (Normal)</span>
+</div>
+<div class="w-full bg-zinc-900 h-2.5 rounded-full overflow-hidden flex border border-zinc-800">
+<div class="bg-amber-400 h-full transition-all duration-150" id="live-suct-bar" style="width: 15.1424%;"></div>
+<div class="bg-transparent h-full" id="live-gap-bar" style="width: 25%;"></div>
+<div class="bg-cyan-400 h-full transition-all duration-150" id="live-disc-bar" style="width: 47.5184%;"></div>
+</div>
+</div>
+</div>
+<div>
+<div class="w-full bg-zinc-900 h-2 rounded-full overflow-hidden p-0.5 border border-zinc-800">
+<div class="bg-cyan-400 h-full rounded-full transition-all duration-200" id="npsh-progress-bar" style="width: 65%;"></div>
+</div>
+<div class="flex items-center justify-between text-[10px] font-mono text-zinc-400 mt-2.5">
+<span>Cavitation Safety Margin</span>
+<span class="text-nothing-red font-bold" id="margin-label">-0.9m Sub-critical</span>
+</div>
+</div>
+</div>
+<!-- MODULE 3: Live Animated Sound Analytics (Real-time Audio Spectrum Equalizer) -->
+<div class="nothing-panel rounded-2xl p-5 tech-corner flex flex-col justify-between border-l-4 border-l-nothing-red border border-zinc-800/80 bg-black/70 shadow-xl backdrop-blur-md min-h-[250px]">
+<div>
+<div class="flex items-center justify-between text-xs font-mono pb-2.5 border-b border-zinc-800/80">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-nothing-red text-base">graphic_eq</span>
+<span class="text-white font-bold uppercase tracking-wider">Sound Analytics</span>
+</div>
+<span class="text-[10px] text-nothing-red font-bold px-2 py-0.5 rounded bg-nothing-red/20 border border-nothing-red/50">PEAK 12.41 kHz</span>
+</div>
+<div class="my-3 flex items-baseline justify-between">
+<div>
+<div class="font-mono text-3xl font-bold text-nothing-red tracking-tight" id="live-sound-display">96.2<span class="text-base text-zinc-400 font-normal"> dB(SPL)</span></div>
+<div class="text-[11px] font-mono text-zinc-400 mt-0.5">Cavitation Shock Hiss</div>
+</div>
+<div class="text-right text-[11px] font-mono">
+<div class="text-zinc-500">Baseline: 68.2 dB</div>
+<div class="text-nothing-red font-semibold mt-0.5 flex items-center justify-end gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-nothing-red led-red animate-ping"></span>
+<span>HIGH HAZARD</span>
+</div>
+</div>
+</div>
+<!-- Real-Time Dancing Frequency Equalizer Bars -->
+<div class="relative w-full h-14 bg-black/80 rounded-lg p-2 overflow-hidden border border-zinc-800/90 my-2 flex items-end justify-between gap-1" id="soundEqualizerContainer">
+<div class="eq-bar bg-zinc-700 w-1.5 rounded-t" style="height: 15.3204px;"></div>
+<div class="eq-bar bg-zinc-700 w-1.5 rounded-t" style="height: 14.2983px;"></div>
+<div class="eq-bar bg-zinc-600 w-1.5 rounded-t" style="height: 12.9603px;"></div>
+<div class="eq-bar bg-zinc-600 w-1.5 rounded-t" style="height: 20.0301px;"></div>
+<div class="eq-bar bg-zinc-500 w-1.5 rounded-t" style="height: 27.8263px;"></div>
+<div class="eq-bar bg-zinc-400 w-1.5 rounded-t" style="height: 31.099px;"></div>
+<div class="eq-bar bg-amber-400 w-1.5 rounded-t" style="height: 33.884px;"></div>
+<div class="eq-bar bg-nothing-red w-1.5 rounded-t" style="height: 45.9254px;"></div>
+<div class="eq-bar bg-nothing-red w-1.5 rounded-t led-red" style="height: 52px;"></div>
+<div class="eq-bar bg-nothing-red w-1.5 rounded-t" style="height: 36.2973px;"></div>
+<div class="eq-bar bg-amber-400 w-1.5 rounded-t" style="height: 24.2593px;"></div>
+<div class="eq-bar bg-zinc-500 w-1.5 rounded-t" style="height: 17.9226px;"></div>
+<div class="eq-bar bg-zinc-600 w-1.5 rounded-t" style="height: 14.6214px;"></div>
+<div class="eq-bar bg-zinc-700 w-1.5 rounded-t" style="height: 8.79414px;"></div>
+</div>
+</div>
+<div>
+<div class="w-full bg-zinc-900 h-2 rounded-full overflow-hidden p-0.5 border border-zinc-800">
+<div class="bg-nothing-red h-full rounded-full w-[94%] animate-pulse"></div>
+</div>
+<div class="flex items-center justify-between text-[10px] font-mono text-zinc-400 mt-2.5">
+<span>Acoustic Velocity: 1,482 m/s</span>
+<span class="text-white font-semibold" id="impacts-rate">1246 Impacts/s</span>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- END: Main Dashboard Grid -->
+<!-- BEGIN: Cockpit Footer -->
+<footer class="flex flex-wrap items-center justify-between text-xs font-mono text-zinc-500 py-2.5 px-2 border-t border-zinc-800/80" data-purpose="cockpit-footer">
+<div class="flex items-center gap-3">
+<span class="text-zinc-400 font-semibold">INDUSTRIALSENSE SCADA 2.5</span>
+<span class="text-zinc-700">•</span>
+<span>MCH-PMP-01 DIGITAL TWIN &amp; ANALYTICS</span>
+</div>
+<div class="flex items-center gap-4">
+<span class="text-emerald-400 flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-emerald-400 led-green"></span> MODBUS TCP LIVE
+    </span>
+<span class="text-zinc-400">LATENCY: 4ms</span>
+<span class="text-zinc-600">|</span>
+<a class="text-zinc-300 hover:text-white transition-colors" href="{{DATA:SCREEN:SCREEN_4}}">← RETURN TO FACTORY MAP</a>
+</div>
+</footer>
+<!-- END: Cockpit Footer -->
+</div>
+<!-- Machine Registration Modal Dialog (Matching Factory Map Screen 4 & Screen 2) -->
+<div class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md" id="machine-reg-modal" onclick="handleBackdropClick(event)">
+<div class="nothing-panel rounded-2xl w-full max-w-lg border border-zinc-700 p-6 shadow-2xl relative" data-purpose="register-machine-dialog" onclick="event.stopPropagation()">
+<div class="flex items-center justify-between pb-3.5 mb-4 border-b border-zinc-800">
+<div class="flex items-center gap-2.5">
+<span class="w-2.5 h-2.5 rounded-full bg-nothing-red led-red animate-pulse"></span>
+<h3 class="font-headline text-base text-white font-bold tracking-wider">REGISTER NEW MACHINE // TELEMETRY NODE</h3>
+</div>
+<button class="text-zinc-400 hover:text-white font-mono text-base px-2.5 py-1 rounded-lg hover:bg-zinc-800 transition-colors" onclick="closeRegisterModal()">✕</button>
+</div>
+<form class="space-y-4 font-mono text-xs" id="machine-registration-form" onsubmit="handleRegisterMachineSubmit(event)">
+<div class="space-y-1.5">
+<label class="block text-zinc-300 font-semibold tracking-wider text-[11px] uppercase">MACHINE ID <span class="text-nothing-red">*</span></label>
+<input class="w-full bg-zinc-900 border border-zinc-700 rounded-lg px-3.5 py-2.5 text-white placeholder-zinc-500 font-mono focus:outline-none focus:border-white focus:ring-1 focus:ring-white transition-all" id="reg-machine-id" placeholder="e.g. MCH-CNC-03 or MCH-PMP-02" required="" type="text">
+</div>
+<div class="space-y-1.5">
+<label class="block text-zinc-300 font-semibold tracking-wider text-[11px] uppercase">MACHINE NAME <span class="text-nothing-red">*</span></label>
+<input class="w-full bg-zinc-900 border border-zinc-700 rounded-lg px-3.5 py-2.5 text-white placeholder-zinc-500 font-body focus:outline-none focus:border-white focus:ring-1 focus:ring-white transition-all" id="reg-machine-name" placeholder="e.g. 5-Axis Milling Rig" required="" type="text">
+</div>
+<div class="space-y-1.5">
+<label class="block text-zinc-300 font-semibold tracking-wider text-[11px] uppercase">HARDWARE DEVICE ID <span class="text-nothing-red">*</span></label>
+<input class="w-full bg-zinc-900 border border-zinc-700 rounded-lg px-3.5 py-2.5 text-white placeholder-zinc-500 font-mono focus:outline-none focus:border-white focus:ring-1 focus:ring-white transition-all" id="reg-hardware-id" placeholder="e.g. ESP32-DAQ-NODE-7C88 or MAC: 7C:2F:80:A1" required="" type="text">
+</div>
+<div class="space-y-1.5">
+<label class="block text-zinc-300 font-semibold tracking-wider text-[11px] uppercase">ASSIGNED ZONE <span class="text-nothing-red">*</span></label>
+<select class="w-full bg-zinc-900 border border-zinc-700 rounded-lg px-3.5 py-2.5 text-white font-mono focus:outline-none focus:border-white focus:ring-1 focus:ring-white" id="reg-machine-zone">
+<option value="Zone A [CNC &amp; Machining]">Zone A [CNC &amp; Machining]</option>
+<option value="Zone B [ASRS &amp; High-Bay]">Zone B [ASRS &amp; High-Bay]</option>
+<option selected="" value="Zone C [Slurry &amp; Cooling]">Zone C [Slurry &amp; Cooling]</option>
+<option value="Zone D [Metrology &amp; QA]">Zone D [Metrology &amp; QA]</option>
+</select>
+</div>
+<div class="pt-3 flex items-center justify-end gap-3 border-t border-zinc-800">
+<button class="px-4 py-2.5 rounded-xl bg-zinc-900 border border-zinc-700 hover:border-zinc-500 text-zinc-300 hover:text-white font-mono font-semibold transition-all" onclick="closeRegisterModal()" type="button">CANCEL</button>
+<button class="px-5 py-2.5 rounded-xl bg-nothing-red hover:bg-red-700 text-white font-mono font-bold tracking-wider uppercase transition-all led-red shadow-lg flex items-center gap-2 active:scale-95" type="submit">
+<span>REGISTER NODE &amp; CONNECT</span>
+<span>→</span>
+</button>
+</div>
+</form>
+</div>
+</div>
+<!-- Registration Toast -->
+<div class="hidden fixed bottom-6 right-6 z-50 bg-black/95 backdrop-blur-md border border-emerald-500/60 p-4 rounded-xl shadow-2xl font-mono text-xs flex items-center gap-3" id="reg-success-toast">
+<span class="w-3 h-3 rounded-full bg-emerald-400 led-green animate-ping"></span>
+<div>
+<div class="text-white font-bold tracking-wider flex items-center gap-2">
+<span>MACHINE NODE PROVISIONED</span>
+<span class="text-[10px] text-emerald-400 font-bold bg-emerald-500/20 px-1.5 py-0.5 rounded border border-emerald-500/40">SUCCESS</span>
+</div>
+<div class="text-zinc-400 text-[11px] mt-0.5" id="reg-success-msg">Machine mapped to SCADA cluster.</div>
+</div>
+</div>
+<!-- JAVASCRIPT: Header Menu, Modal, E-Stop and Real-Time Telemetry Simulation -->
+<script data-purpose="telemetry-and-motion-scripts">
+  // Cockpit Navigation Dropdown Toggle
+  function toggleCockpitNavMenu() {
+    const dropdown = document.getElementById('cockpit-nav-dropdown');
+    if (dropdown) {
+      dropdown.classList.toggle('hidden');
+    }
+  }
+
+  // Close dropdown on outside click
+  document.addEventListener('click', function(e) {
+    const menuBtn = document.getElementById('cockpit-menu-toggle-btn');
+    const dropdown = document.getElementById('cockpit-nav-dropdown');
+    if (dropdown && !dropdown.classList.contains('hidden')) {
+      if (!menuBtn.contains(e.target) && !dropdown.contains(e.target)) {
+        dropdown.classList.add('hidden');
+      }
+    }
+  });
+
+  // Modal Controls
+  function openRegisterModal() {
+    const modal = document.getElementById('machine-reg-modal');
+    if (modal) {
+      modal.classList.remove('hidden');
+      const firstInput = document.getElementById('reg-machine-id');
+      if (firstInput) setTimeout(() => firstInput.focus(), 50);
+    }
+  }
+
+  function closeRegisterModal() {
+    const modal = document.getElementById('machine-reg-modal');
+    if (modal) modal.classList.add('hidden');
+  }
+
+  function handleBackdropClick(event) {
+    if (event.target.id === 'machine-reg-modal') closeRegisterModal();
+  }
+
+  function handleRegisterMachineSubmit(e) {
+    e.preventDefault();
+    const id = document.getElementById('reg-machine-id').value.trim();
+    const name = document.getElementById('reg-machine-name').value.trim();
+    closeRegisterModal();
+
+    const toast = document.getElementById('reg-success-toast');
+    const msg = document.getElementById('reg-success-msg');
+    if (toast && msg) {
+      msg.textContent = `${id} (${name}) registered to cluster telemetry bus.`;
+      toast.classList.remove('hidden');
+      setTimeout(() => toast.classList.add('hidden'), 4500);
+    }
+    document.getElementById('machine-registration-form').reset();
+  }
+
+  // Emergency Stop Trigger
+  function triggerEmergencyStop() {
+    alert('CAT 4 SIL-4 HARDWARE EMERGENCY STOP INITIATED FOR MCH-PMP-01.\nVFD Inverter coasting down to 0 RPM. Isolation Valve V-102 closing.');
+  }
+
+  // =========================================================================
+  // SIMULATED LOCAL DATABASE TELEMETRY STREAM & REAL-TIME ANIMATED MOTION
+  // =========================================================================
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // 1. Dynamic Temperature Stream Canvas Wave
+  const tempCanvas = document.getElementById('tempStreamCanvas');
+  const tempCtx = tempCanvas ? tempCanvas.getContext('2d') : null;
+  const tempBufferLength = 50;
+  const tempPoints = [];
+  let baseTemp = 88.1;
+
+  for (let i = 0; i < tempBufferLength; i++) {
+    tempPoints.push(baseTemp + (Math.random() - 0.5) * 0.8);
+  }
+
+  function drawTempStream() {
+    if (!tempCtx || !tempCanvas) return;
+    const w = tempCanvas.width;
+    const h = tempCanvas.height;
+
+    tempCtx.clearRect(0, 0, w, h);
+
+    // Grid baseline
+    tempCtx.strokeStyle = 'rgba(255, 255, 255, 0.08)';
+    tempCtx.lineWidth = 1;
+    tempCtx.beginPath();
+    tempCtx.moveTo(0, h * 0.5);
+    tempCtx.lineTo(w, h * 0.5);
+    tempCtx.stroke();
+
+    // Draw smooth curve with gradient fill
+    const grad = tempCtx.createLinearGradient(0, 0, 0, h);
+    grad.addColorStop(0, 'rgba(245, 158, 11, 0.4)');
+    grad.addColorStop(1, 'rgba(245, 158, 11, 0.0)');
+
+    tempCtx.beginPath();
+    const step = w / (tempBufferLength - 1);
+    
+    // Convert temperature (85°C to 91°C) to canvas Y
+    const minT = 85.0;
+    const maxT = 91.0;
+
+    for (let i = 0; i < tempBufferLength; i++) {
+      const val = tempPoints[i];
+      const y = h - ((val - minT) / (maxT - minT)) * (h - 8) - 4;
+      const x = i * step;
+      if (i === 0) tempCtx.moveTo(x, y);
+      else tempCtx.lineTo(x, y);
+    }
+
+    tempCtx.strokeStyle = '#F59E0B';
+    tempCtx.lineWidth = 2.5;
+    tempCtx.shadowColor = '#F59E0B';
+    tempCtx.shadowBlur = 6;
+    tempCtx.stroke();
+    tempCtx.shadowBlur = 0;
+
+    // Connect to bottom for area fill
+    tempCtx.lineTo(w, h);
+    tempCtx.lineTo(0, h);
+    tempCtx.closePath();
+    tempCtx.fillStyle = grad;
+    tempCtx.fill();
+  }
+
+  // 2. Real-Time Telemetry Loop
+  let frameCount = 0;
+  function updateTelemetryStream() {
+    frameCount++;
+
+    // Temperature fluctuation around 88.1°C with small organic wander
+    const jitter = (Math.random() - 0.48) * 0.22;
+    baseTemp = Math.min(90.4, Math.max(86.5, baseTemp + jitter));
+    tempPoints.shift();
+    tempPoints.push(baseTemp);
+    drawTempStream();
+
+    // Update Temperature Displays
+    const tempStr = baseTemp.toFixed(1);
+    const liveTempDisplay = document.getElementById('live-temp-display');
+    const calloutTemp = document.getElementById('callout-temp-val');
+    const sideTemp = document.getElementById('side-temp-status');
+    if (liveTempDisplay) liveTempDisplay.innerHTML = `${tempStr}<span class="text-base text-zinc-400 font-normal"> °C</span>`;
+    if (calloutTemp) calloutTemp.textContent = tempStr;
+    if (sideTemp) sideTemp.textContent = `${tempStr} °C (+${(baseTemp - 75).toFixed(1)}°)`;
+
+    // 3. Pressure Analytics Live Fluctuations
+    const pDisc = 8.62 + (Math.random() - 0.5) * 0.08;
+    const pSuct = 1.20 + (Math.random() - 0.5) * 0.04;
+    const deltaP = (pDisc - pSuct).toFixed(2);
+
+    const livePDisc = document.getElementById('live-p-disc');
+    const livePSuct = document.getElementById('live-p-suct');
+    const liveDp = document.getElementById('live-dp');
+    const calloutDisc = document.getElementById('callout-press-disc');
+    const calloutSuct = document.getElementById('callout-press-suct');
+    const statNetHead = document.getElementById('stat-net-head');
+    const sidePress = document.getElementById('side-press-status');
+
+    if (livePDisc) livePDisc.textContent = pDisc.toFixed(2);
+    if (livePSuct) livePSuct.textContent = pSuct.toFixed(2);
+    if (liveDp) liveDp.textContent = `${deltaP} bar`;
+    if (calloutDisc) calloutDisc.textContent = `${pDisc.toFixed(2)} bar`;
+    if (calloutSuct) calloutSuct.textContent = `${pSuct.toFixed(2)} bar`;
+    if (statNetHead) statNetHead.textContent = `${deltaP} BAR`;
+    if (sidePress) sidePress.textContent = `${pDisc.toFixed(2)} / ${pSuct.toFixed(2)} bar`;
+
+    // Modulate pressure safety differential bars
+    const suctBar = document.getElementById('live-suct-bar');
+    const discBar = document.getElementById('live-disc-bar');
+    if (suctBar && discBar && !prefersReducedMotion) {
+      suctBar.style.width = `${(pSuct / 4) * 50}%`;
+      discBar.style.width = `${(pDisc / 10) * 55}%`;
+    }
+
+    // 4. Sound Analytics Real-Time Audio Spectrum Equalizer Dancing
+    const soundContainer = document.getElementById('soundEqualizerContainer');
+    if (soundContainer && !prefersReducedMotion) {
+      const bars = soundContainer.querySelectorAll('.eq-bar');
+      const baseHeights = [12, 16, 14, 22, 28, 34, 32, 42, 48, 40, 26, 20, 16, 10];
+      bars.forEach((bar, idx) => {
+        // Cavitation spikes concentrated around bars 6, 7, 8 (10kHz - 14kHz region)
+        const boost = (idx >= 6 && idx <= 9) ? (Math.random() * 12 - 4) : (Math.random() * 8 - 4);
+        const newH = Math.max(6, Math.min(52, baseHeights[idx] + boost));
+        bar.style.height = `${newH}px`;
+      });
+    }
+
+    // Occasional Sound dB Micro-jitter
+    if (frameCount % 4 === 0) {
+      const soundVal = (96.4 + (Math.random() - 0.5) * 0.6).toFixed(1);
+      const liveSoundDisplay = document.getElementById('live-sound-display');
+      const calloutCav = document.getElementById('callout-cav-val');
+      const impactsRate = document.getElementById('impacts-rate');
+      if (liveSoundDisplay) liveSoundDisplay.innerHTML = `${soundVal}<span class="text-base text-zinc-400 font-normal"> dB(SPL)</span>`;
+      if (calloutCav) calloutCav.textContent = soundVal;
+      if (impactsRate) impactsRate.textContent = `${Math.floor(1230 + Math.random() * 25)} Impacts/s`;
+
+      // VFD Slight jitter around 3,420 RPM
+      const vfdVal = Math.floor(3418 + Math.random() * 6).toLocaleString();
+      const calloutVfd = document.getElementById('callout-vfd-val');
+      if (calloutVfd) calloutVfd.textContent = vfdVal;
+    }
+  }
+
+  // Ingest ticks at industrial local bus rates (60ms intervals)
+  setInterval(updateTelemetryStream, prefersReducedMotion ? 1000 : 70);
+  drawTempStream();
+</script>
+
+
+</body></html>
