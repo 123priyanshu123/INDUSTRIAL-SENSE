@@ -1,0 +1,23 @@
+{
+  "name": "industrial-sense",
+  "version": "1.0.0",
+  "private": true,
+  "description": "IndustrialSense - Autonomous Industrial SCADA & Telemetry Platform",
+  "scripts": {
+    "dev": "npm --prefix frontend run dev",
+    "build": "npm --prefix frontend run build",
+    "preview": "npm --prefix frontend run preview",
+    "install:all": "npm --prefix frontend install"
+  },
+  "keywords": [
+    "scada",
+    "industrial-telemetry",
+    "digital-twin",
+    "predictive-maintenance",
+    "edge-ai",
+    "react",
+    "typescript"
+  ],
+  "author": "123priyanshu123",
+  "license": "MIT"
+}

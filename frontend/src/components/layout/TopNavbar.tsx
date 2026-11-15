@@ -15,9 +15,13 @@ export const TopNavbar: React.FC = () => {
 
   const navLinks = [
     { to: '/dashboard', label: 'DASHBOARD' },
-    { to: '/analytics', label: 'DEEP ANALYTICS' },
-    { to: '/machine-registration', label: 'MACHINE REGISTRATION' },
-    { to: '/profile', label: 'PROFILE & SETTINGS' },
+    { to: '/machines', label: 'FLEET' },
+    { to: '/analytics', label: 'ANALYTICS' },
+    { to: '/monitoring', label: 'TELEMETRY' },
+    { to: '/ai-insights', label: 'AI DIAGNOSTICS' },
+    { to: '/alerts', label: 'ALERTS' },
+    { to: '/reports', label: 'REPORTS' },
+    { to: '/profile', label: 'SETTINGS' },
   ];
 
   return (
@@ -111,9 +115,20 @@ export const TopNavbar: React.FC = () => {
                 >
                   <span className="flex items-center gap-2">
                     <span>◈</span>
-                    <span>Dashboard</span>
+                    <span>Dashboard (SCADA Cockpit)</span>
                   </span>
-                  <span className="text-xs text-zinc-500">SCADA</span>
+                  <span className="text-xs text-zinc-500">MAP</span>
+                </Link>
+
+                <Link
+                  to="/machines"
+                  className="flex items-center justify-between px-3 py-2 rounded-lg text-[#c6c6c7] hover:text-white hover:bg-[#1f2022]"
+                >
+                  <span className="flex items-center gap-2">
+                    <span>▦</span>
+                    <span>Fleet Equipment Catalogue</span>
+                  </span>
+                  <span className="text-xs text-zinc-500">15 FAMILIES</span>
                 </Link>
 
                 <Link
@@ -124,7 +139,40 @@ export const TopNavbar: React.FC = () => {
                     <span>▤</span>
                     <span>Machine Deep Analytics</span>
                   </span>
-                  <span className="text-xs text-zinc-500">PMP-01</span>
+                  <span className="text-xs text-zinc-500">CAD</span>
+                </Link>
+
+                <Link
+                  to="/monitoring"
+                  className="flex items-center justify-between px-3 py-2 rounded-lg text-[#c6c6c7] hover:text-white hover:bg-[#1f2022]"
+                >
+                  <span className="flex items-center gap-2">
+                    <span>⚡</span>
+                    <span>Live Telemetry & Sensor Bus</span>
+                  </span>
+                  <span className="text-xs text-zinc-500">REAL-TIME</span>
+                </Link>
+
+                <Link
+                  to="/ai-insights"
+                  className="flex items-center justify-between px-3 py-2 rounded-lg text-[#c6c6c7] hover:text-white hover:bg-[#1f2022]"
+                >
+                  <span className="flex items-center gap-2">
+                    <span>🧠</span>
+                    <span>AI Anomaly & RUL Prognostics</span>
+                  </span>
+                  <span className="text-xs text-zinc-500">ML</span>
+                </Link>
+
+                <Link
+                  to="/alerts"
+                  className="flex items-center justify-between px-3 py-2 rounded-lg text-[#c6c6c7] hover:text-white hover:bg-[#1f2022]"
+                >
+                  <span className="flex items-center gap-2">
+                    <span>⚠</span>
+                    <span>Incident Command Queue</span>
+                  </span>
+                  <span className="text-xs text-zinc-500">ALERTS</span>
                 </Link>
 
                 <Link
@@ -133,9 +181,20 @@ export const TopNavbar: React.FC = () => {
                 >
                   <span className="flex items-center gap-2">
                     <span>⚙</span>
-                    <span>Machine Registration</span>
+                    <span>Machine Provisioning</span>
                   </span>
-                  <span className="text-xs text-zinc-500">CAD</span>
+                  <span className="text-xs text-zinc-500">ADD</span>
+                </Link>
+
+                <Link
+                  to="/reports"
+                  className="flex items-center justify-between px-3 py-2 rounded-lg text-[#c6c6c7] hover:text-white hover:bg-[#1f2022]"
+                >
+                  <span className="flex items-center gap-2">
+                    <span>📋</span>
+                    <span>Shift Audit & Telemetry Reports</span>
+                  </span>
+                  <span className="text-xs text-zinc-500">PDF/CSV</span>
                 </Link>
 
                 <Link
@@ -144,7 +203,7 @@ export const TopNavbar: React.FC = () => {
                 >
                   <span className="flex items-center gap-2">
                     <span>👤</span>
-                    <span>Profile & Settings</span>
+                    <span>Profile & Sensor Thresholds</span>
                   </span>
                   <span className="text-xs text-zinc-500">CONFIG</span>
                 </Link>

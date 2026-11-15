@@ -979,7 +979,7 @@ export const LandingPage: React.FC = () => {
 
                       <div>
                         <div className="flex items-center justify-between pb-2 mb-2 border-b border-[#343537]/60">
-                          <span className="text-[10px] text-[#ffb4ab] uppercase font-bold">[TOOL_01 - WRENCH]</span>
+                          <span className="text-[10px] text-[#ffb4ab] uppercase font-bold">[TOOL_01]</span>
                           <span className="text-xs text-[#c6c6c7] group-hover:text-[#ffb4ab] transition-colors">⚙</span>
                         </div>
                         <div className="w-full py-1 px-2 rounded-lg bg-[#0d0e10] border border-[#343537] flex items-center justify-between mb-2 text-[#e3e2e5]">
@@ -987,10 +987,7 @@ export const LandingPage: React.FC = () => {
                           <span className="w-1.5 h-1.5 rounded-full bg-[#22c55e]"></span>
                         </div>
                         <h3 className="text-sm font-bold leading-tight text-[#e3e2e5] uppercase mb-0.5">PIYUSH KUMAR PAL</h3>
-                        <span className="text-[10px] text-[#ffb4ab] uppercase block mb-1 font-semibold">TEAM LEADER</span>
-                        <p className="text-[11px] text-[#c6c6c7] font-sans mb-3">
-                          Lead project orchestrator, SCADA telemetry architecture, systems integration &amp; full-stack technical direction.
-                        </p>
+                        <span className="text-[10px] text-[#ffb4ab] uppercase block mb-3 font-semibold">TEAM LEADER</span>
                       </div>
 
                       <div className="pt-2 border-t border-[#343537]/50">
@@ -1000,7 +997,7 @@ export const LandingPage: React.FC = () => {
                         </div>
                         <a
                           className="w-full py-1.5 rounded-lg bg-[#1b1c1e] hover:bg-[#292a2c] text-[#e3e2e5] text-center border border-[#343537] uppercase text-[10px] flex items-center justify-center gap-1 transition-colors"
-                          href="https://github.com"
+                          href="https://github.com/123priyanshu123/INDUSTRIAL-SENSE"
                           target="_blank"
                           rel="noreferrer"
                         >
@@ -1034,7 +1031,7 @@ export const LandingPage: React.FC = () => {
 
                       <div>
                         <div className="flex items-center justify-between pb-2 mb-2 border-b border-[#343537]/60">
-                          <span className="text-[10px] text-[#ffb4ab] uppercase font-bold">[TOOL_02 - MULTIMETER]</span>
+                          <span className="text-[10px] text-[#ffb4ab] uppercase font-bold">[TOOL_02]</span>
                           <span className="text-xs text-[#c6c6c7] group-hover:text-[#ffb4ab] transition-colors">⚡</span>
                         </div>
                         <div className="w-full py-1 px-2 rounded-lg bg-[#0d0e10] border border-[#343537] flex items-center justify-between mb-2 text-[#e3e2e5]">
@@ -1042,10 +1039,7 @@ export const LandingPage: React.FC = () => {
                           <span className="w-1.5 h-1.5 rounded-full bg-[#22c55e]"></span>
                         </div>
                         <h3 className="text-sm font-bold leading-tight text-[#e3e2e5] uppercase mb-0.5">MANSI SINGH</h3>
-                        <span className="text-[10px] text-[#ffb4ab] uppercase block mb-1 font-semibold">AI AUTOMATOR</span>
-                        <p className="text-[11px] text-[#c6c6c7] font-sans mb-3">
-                          Automated machine learning pipelines, predictive acoustic FFT anomaly detection &amp; real-time maintenance workflows.
-                        </p>
+                        <span className="text-[10px] text-[#ffb4ab] uppercase block mb-3 font-semibold">AI AUTOMATOR</span>
                       </div>
 
                       <div className="pt-2 border-t border-[#343537]/50">
@@ -1055,7 +1049,7 @@ export const LandingPage: React.FC = () => {
                         </div>
                         <a
                           className="w-full py-1.5 rounded-lg bg-[#1b1c1e] hover:bg-[#292a2c] text-[#e3e2e5] text-center border border-[#343537] uppercase text-[10px] flex items-center justify-center gap-1 transition-colors"
-                          href="https://github.com"
+                          href="https://github.com/123priyanshu123/INDUSTRIAL-SENSE"
                           target="_blank"
                           rel="noreferrer"
                         >
@@ -1086,7 +1080,7 @@ export const LandingPage: React.FC = () => {
 
                       <div>
                         <div className="flex items-center justify-between pb-2 mb-2 border-b border-[#343537]/60">
-                          <span className="text-[10px] text-[#ffb4ab] uppercase font-bold">[TOOL_03 - ACOUSTIC PROBE]</span>
+                          <span className="text-[10px] text-[#ffb4ab] uppercase font-bold">[TOOL_03]</span>
                           <span className="text-xs text-[#c6c6c7] group-hover:text-[#ffb4ab] transition-colors">📊</span>
                         </div>
                         <div className="w-full py-1 px-2 rounded-lg bg-[#0d0e10] border border-[#343537] flex items-center justify-between mb-2 text-[#e3e2e5]">
@@ -1094,10 +1088,7 @@ export const LandingPage: React.FC = () => {
                           <span className="w-1.5 h-1.5 rounded-full bg-[#d71920] animate-ping"></span>
                         </div>
                         <h3 className="text-sm font-bold leading-tight text-[#e3e2e5] uppercase mb-0.5">PRIYANSHU SAHU</h3>
-                        <span className="text-[10px] text-[#ffb4ab] uppercase block mb-1 font-semibold">FRONTEND DEVELOPER</span>
-                        <p className="text-[11px] text-[#c6c6c7] font-sans mb-3">
-                          Crafted 2D/3D digital twin visualization views, interactive kinematic schematics &amp; telemetry monitoring interfaces.
-                        </p>
+                        <span className="text-[10px] text-[#ffb4ab] uppercase block mb-3 font-semibold">FRONTEND DEVELOPER</span>
                       </div>
 
                       <div className="pt-2 border-t border-[#343537]/50">
@@ -1107,7 +1098,7 @@ export const LandingPage: React.FC = () => {
                         </div>
                         <a
                           className="w-full py-1.5 rounded-lg bg-[#1b1c1e] hover:bg-[#292a2c] text-[#e3e2e5] text-center border border-[#343537] uppercase text-[10px] flex items-center justify-center gap-1 transition-colors"
-                          href="https://github.com"
+                          href="https://github.com/123priyanshu123/INDUSTRIAL-SENSE"
                           target="_blank"
                           rel="noreferrer"
                         >
@@ -1143,7 +1134,7 @@ export const LandingPage: React.FC = () => {
 
                       <div>
                         <div className="flex items-center justify-between pb-2 mb-2 border-b border-[#343537]/60">
-                          <span className="text-[10px] text-[#ffb4ab] uppercase font-bold">[TOOL_04 - CALIPER]</span>
+                          <span className="text-[10px] text-[#ffb4ab] uppercase font-bold">[TOOL_04]</span>
                           <span className="text-xs text-[#c6c6c7] group-hover:text-[#ffb4ab] transition-colors">📐</span>
                         </div>
                         <div className="w-full py-1 px-2 rounded-lg bg-[#0d0e10] border border-[#343537] flex items-center justify-between mb-2 text-[#e3e2e5]">
@@ -1151,10 +1142,7 @@ export const LandingPage: React.FC = () => {
                           <span className="w-1.5 h-1.5 rounded-full bg-[#22c55e]"></span>
                         </div>
                         <h3 className="text-sm font-bold leading-tight text-[#e3e2e5] uppercase mb-0.5">PRAGUN SHARMA</h3>
-                        <span className="text-[10px] text-[#ffb4ab] uppercase block mb-1 font-semibold">BACKEND DEVELOPER</span>
-                        <p className="text-[11px] text-[#c6c6c7] font-sans mb-3">
-                          Architected low-latency streaming backends, Modbus/OPC-UA data ingestion bridges &amp; secure microservices.
-                        </p>
+                        <span className="text-[10px] text-[#ffb4ab] uppercase block mb-3 font-semibold">BACKEND DEVELOPER</span>
                       </div>
 
                       <div className="pt-2 border-t border-[#343537]/50">
@@ -1164,7 +1152,7 @@ export const LandingPage: React.FC = () => {
                         </div>
                         <a
                           className="w-full py-1.5 rounded-lg bg-[#1b1c1e] hover:bg-[#292a2c] text-[#e3e2e5] text-center border border-[#343537] uppercase text-[10px] flex items-center justify-center gap-1 transition-colors"
-                          href="https://github.com"
+                          href="https://github.com/123priyanshu123/INDUSTRIAL-SENSE"
                           target="_blank"
                           rel="noreferrer"
                         >
@@ -1195,7 +1183,7 @@ export const LandingPage: React.FC = () => {
 
                       <div>
                         <div className="flex items-center justify-between pb-2 mb-2 border-b border-[#343537]/60">
-                          <span className="text-[10px] text-[#ffb4ab] uppercase font-bold">[TOOL_05 - LASER PROBE]</span>
+                          <span className="text-[10px] text-[#ffb4ab] uppercase font-bold">[TOOL_05]</span>
                           <span className="text-xs text-[#c6c6c7] group-hover:text-[#ffb4ab] transition-colors">🔒</span>
                         </div>
                         <div className="w-full py-1 px-2 rounded-lg bg-[#0d0e10] border border-[#343537] flex items-center justify-between mb-2 text-[#e3e2e5]">
@@ -1203,10 +1191,7 @@ export const LandingPage: React.FC = () => {
                           <span className="w-1.5 h-1.5 rounded-full bg-[#22c55e]"></span>
                         </div>
                         <h3 className="text-sm font-bold leading-tight text-[#e3e2e5] uppercase mb-0.5">MANSI TYAGI</h3>
-                        <span className="text-[10px] text-[#ffb4ab] uppercase block mb-1 font-semibold">FRONTEND DEVELOPER</span>
-                        <p className="text-[11px] text-[#c6c6c7] font-sans mb-3">
-                          Authored kinematic SVG machine animations, component design systems, accessibility compliance &amp; telemetry widgets.
-                        </p>
+                        <span className="text-[10px] text-[#ffb4ab] uppercase block mb-3 font-semibold">FRONTEND DEVELOPER</span>
                       </div>
 
                       <div className="pt-2 border-t border-[#343537]/50">
@@ -1216,7 +1201,7 @@ export const LandingPage: React.FC = () => {
                         </div>
                         <a
                           className="w-full py-1.5 rounded-lg bg-[#1b1c1e] hover:bg-[#292a2c] text-[#e3e2e5] text-center border border-[#343537] uppercase text-[10px] flex items-center justify-center gap-1 transition-colors"
-                          href="https://github.com"
+                          href="https://github.com/123priyanshu123/INDUSTRIAL-SENSE"
                           target="_blank"
                           rel="noreferrer"
                         >

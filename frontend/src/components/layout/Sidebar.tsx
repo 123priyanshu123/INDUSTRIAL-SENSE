@@ -6,9 +6,12 @@ import {
   Settings,
   ChevronLeft,
   ChevronRight,
-  Info,
   Layers,
-  UserCheck,
+  Activity,
+  BrainCircuit,
+  Bell,
+  FileText,
+  Cpu,
 } from 'lucide-react';
 import { useAppStore } from '../../store/appStore';
 
@@ -22,9 +25,14 @@ export const Sidebar: React.FC<SidebarProps> = ({ collapsed, onToggle }) => {
   const unackCount = activeAlerts.filter(a => !a.acknowledged).length;
 
   const navItems = [
-    { to: '/dashboard', label: 'Dashboard', icon: LayoutDashboard, badge: unackCount > 0 ? unackCount : undefined },
+    { to: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
+    { to: '/machines', label: 'Fleet Catalogue', icon: Cpu },
     { to: '/analytics', label: 'Machine Deep Analytics', icon: LineChart },
-    { to: '/machine-registration', label: 'Machine Registration', icon: Layers },
+    { to: '/monitoring', label: 'Live Telemetry Bus', icon: Activity },
+    { to: '/ai-insights', label: 'AI Anomaly Intelligence', icon: BrainCircuit },
+    { to: '/alerts', label: 'Incident Command', icon: Bell, badge: unackCount > 0 ? unackCount : undefined },
+    { to: '/machine-registration', label: 'Machine Provisioning', icon: Layers },
+    { to: '/reports', label: 'Shift Reports', icon: FileText },
     { to: '/profile', label: 'Profile & Settings', icon: Settings },
   ];
 
