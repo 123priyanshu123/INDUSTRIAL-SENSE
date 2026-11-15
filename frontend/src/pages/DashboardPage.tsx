@@ -68,6 +68,34 @@ export const DashboardPage: React.FC = () => {
   // Cockpit menu toggle
   const [showNavMenu, setShowNavMenu] = useState<boolean>(false);
 
+  // Backend integration (MVP vertical slice)
+  const [backendHealth, setBackendHealth] = useState<any>(null);
+  const [backendOverview, setBackendOverview] = useState<any>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    const loadBackend = async () => {
+      try {
+        const [hRes, oRes] = await Promise.all([
+          fetch('/api/v1/health'),
+          fetch('/api/v1/analytics/overview'),
+        ]);
+        if (!hRes.ok) return;
+        const h = await hRes.json();
+        const o = oRes.ok ? await oRes.json() : null;
+        if (!cancelled) {
+          setBackendHealth(h);
+          setBackendOverview(o);
+        }
+      } catch {
+        // backend may be offline; keep existing UI functional
+      }
+    };
+    loadBackend();
+    const id = window.setInterval(loadBackend, 10000);
+    return () => { cancelled = true; window.clearInterval(id); };
+  }, []);
+
   // Clock effect
   useEffect(() => {
     const updateTime = () => {
@@ -134,6 +162,25 @@ export const DashboardPage: React.FC = () => {
 
       {/* Main Container */}
       <div className="max-w-[1920px] mx-auto flex flex-col gap-6">
+        {backendHealth && (
+          <div className="bg-[#101014] border border-[#2a2a34] rounded-lg p-3 font-mono text-xs text-zinc-300">
+            <div className="flex flex-wrap items-center gap-3 justify-between">
+              <div className="flex flex-wrap gap-4">
+                <span><span className="text-zinc-500">BACKEND</span> {backendHealth.ok ? 'CONNECTED' : 'OFFLINE'}</span>
+                <span><span className="text-zinc-500">PIPELINE</span> {backendHealth.status?.ready ? 'READY' : 'PENDING_DATA'}</span>
+                <span><span className="text-zinc-500">SIGNALS</span> {backendHealth.status?.signalsLoaded ?? 0}</span>
+                <span><span className="text-zinc-500">MACHINES</span> {backendOverview?.machineStats?.total ?? backendHealth.status?.machines ?? 0}</span>
+                <span><span className="text-zinc-500">ANOMALY</span> {String(backendHealth.status?.anomalyDetection ?? 'unavailable').toUpperCase()}</span>
+              </div>
+              <a href="/api/v1/inspection" target="_blank" rel="noreferrer" className="text-cyan-400 hover:underline">/api/v1/inspection</a>
+            </div>
+            {Array.isArray(backendHealth.status?.notes) && backendHealth.status.notes.length > 0 && (
+              <div className="mt-2 text-[11px] text-amber-300/90 truncate" title={backendHealth.status.notes.join(' | ')}>
+                {backendHealth.status.notes[0]}
+              </div>
+            )}
+          </div>
+        )}
         {/* TopBar with Navigation Tabs & System Status */}
         <header className="bg-[#121218] rounded-2xl px-6 py-4 flex flex-wrap items-center justify-between border border-[#2a2a34] shadow-md relative z-40 gap-4">
           <div className="flex items-baseline gap-4">
