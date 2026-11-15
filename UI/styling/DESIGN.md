@@ -1,4 +1,4 @@
----
+﻿---
 name: Industrial Carbon SCADA
 colors:
   surface: '#121315'
@@ -235,7 +235,7 @@ The shape architecture relies on the stark juxtaposition of rigid, rectilinear a
 
 ### Buttons & Interactive Triggers
 - **Primary Action (Execute / Confirm):** High-contrast stark white capsule (`#EEEEEE`) with solid jet black text (`#0B0C0E`) in Space Mono Bold. Hover state shifts to `#FFFFFF` with an active inset indicator ring.
-- **Emergency / Critical (E-Stop / Kill Switch / Override):** Signature Nothing Red capsule (`#D71920`) with white text (`#FFFFFF`). Border: 1px solid `#FF454D`. Pulse state emits an acute 2px ring ping during active interlock.
+- **Emergency / Critical (E-Stop / Kill Switch / Override):** Signature industrial Red capsule (`#D71920`) with white text (`#FFFFFF`). Border: 1px solid `#FF454D`. Pulse state emits an acute 2px ring ping during active interlock.
 - **Secondary / Utilitarian:** Matte chassis pill (`#121316`) enclosed by a 1px smoked glass border (`#27272A`), text in `#EEEEEE`. Hover prompts border transition to `#3F3F46` and background to `#1E2024`.
 - **Segmented Machine Controls:** Pill-shaped grouped enclosures where the active option occupies an internal pill container in `#EEEEEE` with dark text, and inactive options remain transparent slate.
 

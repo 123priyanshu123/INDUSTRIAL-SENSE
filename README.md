@@ -7,7 +7,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
 > **Codesprint 2026 Production Release**  
-> An autonomous industrial SCADA platform engineering next-generation human-machine interfaces. Features physics-driven 2D digital twin animations, multi-modal sensor telemetry (Acoustic, Thermal, Pressure), and edge AI predictive diagnostics styled in a retro-futuristic **Nothing OS Industrial Cockpit** aesthetic.
+> An autonomous industrial SCADA platform engineering next-generation human-machine interfaces. Features physics-driven 2D digital twin animations, multi-modal sensor telemetry (Acoustic, Thermal, Pressure), and edge AI predictive diagnostics styled in a retro-futuristic **Modern Industrial Cockpit** aesthetic.
 
 ---
 
@@ -20,7 +20,7 @@ Modern industrial facilities often suffer from fragmented monitoring: sensor tel
 - **Physics-Based Kinematic Digital Twins**: 12 dedicated SVG/Canvas mechanical animation engines featuring real kinematic movements (spur gears, radial impellers, reciprocating pistons, articulated robotic joints, and high-speed spindles) with zero WebGL/3D overhead.
 - **Tri-Modal Sensor Fusion**: Standardized telemetry tracking **Sound (Acoustic FFT & Cavitation)**, **Temperature (Thermal RTD & Gradients)**, and **Pressure (Line & Differential Head $\Delta P$)**.
 - **Edge AI & Predictive Maintenance**: Real-time Remaining Useful Life (RUL) calculations, anomaly detection confidence scoring, and instantaneous emergency shutdown (E-STOP CAT-4) dispatch.
-- **Nothing OS Design Paradigm**: High-contrast dark industrial palette (`#08080a`, `#121315`), dot-matrix typography (`Ndot 55`, `Ndot 57`, `NType 82`), CRT scanline effects, and pulsing LED rings.
+- **Minimalist Industrial Design Paradigm**: High-contrast dark industrial palette (`#08080a`, `#121315`), dot-matrix typography (`Ndot 55`, `Ndot 57`, `NType 82`), CRT scanline effects, and pulsing LED rings.
 
 ---
 
@@ -33,7 +33,7 @@ INDUSTRIAL-SENSE/
 │
 ├── frontend/             # Complete React 18 + TypeScript + Vite production application
 │   ├── public/
-│   │   ├── fonts/        # Proprietary Nothing OS fonts (Ndot55, Ndot57, NType82)
+│   │   ├── fonts/        # Industrial dot-matrix & grotesk fonts (Ndot55, Ndot57, NType82)
 │   │   └── favicon.svg   # Platform brand asset
 │   ├── src/
 │   │   ├── app/          # App root, React Router v6 routing, TanStack Query providers
@@ -89,7 +89,7 @@ flowchart TD
         AI["Edge AI Evaluator (RUL & Anomaly)"]
     end
 
-    subgraph COCKPIT["Nothing OS SCADA Cockpit"]
+    subgraph COCKPIT["Industrial SCADA Cockpit"]
         MAP["Factory Spatial Map (Zones A-D)"]
         KIN["12 Mechanical Kinematic Engines"]
         SPEC["14-Bar FFT Spectrum Equalizer"]
@@ -160,9 +160,9 @@ IndustrialSense standardizes industrial telemetry into 3 essential physical doma
 
 ---
 
-## 7. Design System & Aesthetics (Nothing OS SCADA)
+## 7. Design System & Aesthetics (Industrial SCADA)
 
-The user interface follows a strict **Nothing OS Industrial SCADA Cockpit** design language:
+The user interface follows a strict **Industrial SCADA Cockpit** design language:
 
 * **Dark Cockpit Palette**:
   * Backgrounds: Deep Void (`#08080a`), Sub-panel (`#101014`), Card Surface (`#131318`), High-contrast Border (`#2a2a34`).
@@ -198,7 +198,7 @@ The security gateway simulates 4 distinct operational roles with customized perm
 | :--- | :--- |
 | **Core Framework** | React 18.3, TypeScript 5.6 |
 | **Bundling & Tooling** | Vite 5.4, PostCSS, Autoprefixer |
-| **Styling & Design** | Tailwind CSS 3.4, Custom Nothing OS Theme, CSS Keyframes |
+| **Styling & Design** | Tailwind CSS 3.4, Custom Industrial Theme, CSS Keyframes |
 | **Animation Engines** | Native SVG Vector Kinematics, HTML5 Canvas 2D, Framer Motion, GSAP |
 | **Data Visualization** | Recharts (multi-axis line charts, FFT spectrum bars) |
 | **State Management** | Zustand 5.0 (Global application state, alerts, user session) |

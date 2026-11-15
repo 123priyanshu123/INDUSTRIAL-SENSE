@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 
 <html lang="en"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>INDUSTRIALSENSE // SCADA COCKPIT - NOTHING UI</title>
+<title>INDUSTRIALSENSE // SCADA COCKPIT - industrial UI</title>
 <!-- Google Fonts: Space Grotesk, Roboto Mono, Silkscreen (for Dot-Matrix effect) -->
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
@@ -11,13 +11,13 @@
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <!-- Tailwind CSS CDN with Forms & Container Queries -->
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<!-- Tailwind Configuration for Nothing OS Aesthetic -->
+<!-- Tailwind Configuration for Industrial SCADA Aesthetic -->
 <script id="tailwind-config">
     tailwind.config = {
       theme: {
         extend: {
           colors: {
-            nothing: {
+            industrial: {
               black: '#070707',
               dark: '#0e0e10',
               panel: '#121214',
@@ -47,8 +47,8 @@
       }
     }
   </script>
-<!-- Custom CSS for specialized Nothing OS design elements -->
-<style data-purpose="nothing-theme-custom">
+<!-- Custom CSS for specialized Industrial SCADA design elements -->
+<style data-purpose="industrial-theme-custom">
     /* Subtle dot background grid */
     .bg-dot-matrix-pattern {
       background-size: 16px 16px;
@@ -61,14 +61,14 @@
     }
 
     /* Custom Glass Panel with 1px tactile industrial border */
-    .nothing-panel {
+    .industrial-panel {
       background: rgba(16, 16, 18, 0.85);
       backdrop-filter: blur(14px);
       border: 1px solid rgba(255, 255, 255, 0.08);
       position: relative;
     }
 
-    .nothing-panel:hover {
+    .industrial-panel:hover {
       border-color: rgba(255, 255, 255, 0.16);
     }
 
@@ -133,30 +133,30 @@
     }
   </style>
 <meta content="web_standard" name="shell-type"/></head>
-<body class="bg-nothing-black text-nothing-textLight font-sans antialiased min-h-screen select-none overflow-x-hidden p-3 md:p-4 bg-dot-matrix-pattern">
+<body class="bg-industrial-black text-industrial-textLight font-sans antialiased min-h-screen select-none overflow-x-hidden p-3 md:p-4 bg-dot-matrix-pattern">
 <div class="max-w-[1920px] mx-auto flex flex-col gap-3">
 <!-- BEGIN: TopBar -->
-<header class="nothing-panel rounded-2xl px-5 py-3 flex flex-wrap items-center justify-between gap-4 border border-nothing-border" data-purpose="top-navigation-bar">
+<header class="industrial-panel rounded-2xl px-5 py-3 flex flex-wrap items-center justify-between gap-4 border border-industrial-border" data-purpose="top-navigation-bar">
 <!-- Brand & Cockpit Identity -->
 <div class="flex items-center space-x-4">
-<!-- Iconic Nothing Glyph Inspired Logo -->
+<!-- Iconic industrial Glyph Inspired Logo -->
 <div class="flex items-center justify-center w-9 h-9 rounded-full bg-white text-black font-black text-xs tracking-tighter">
           (IS)
         </div>
 <div>
 <div class="flex items-center gap-2">
 <span class="font-dot tracking-widest text-base text-white font-bold">INDUSTRIALSENSE</span>
-<span class="text-[10px] font-mono tracking-widest text-nothing-red font-semibold px-1.5 py-0.5 rounded bg-nothing-red/10 border border-nothing-red/30">N•OS SCADA</span>
+<span class="text-[10px] font-mono tracking-widest text-industrial-red font-semibold px-1.5 py-0.5 rounded bg-industrial-red/10 border border-industrial-red/30">N•OS SCADA</span>
 </div>
-<p class="text-[11px] font-mono tracking-wider text-nothing-textMuted uppercase">Unit-32 // Autonomous Cockpit &amp; Telemetry</p>
+<p class="text-[11px] font-mono tracking-wider text-industrial-textMuted uppercase">Unit-32 // Autonomous Cockpit &amp; Telemetry</p>
 </div>
 </div>
 <!-- Quick Metrics & Sector Filters Pill -->
-<div class="hidden lg:flex items-center gap-2 bg-nothing-dark/90 px-3 py-1.5 rounded-full border border-nothing-border">
-<span class="text-[10px] font-mono text-nothing-textMuted tracking-wider uppercase pl-2">SECTOR:</span>
-<span class="text-xs font-mono font-medium text-white px-2 py-0.5 rounded-full bg-nothing-subtle border border-nothing-borderLight">ZONE B (FAB &amp; ROBOTICS)</span>
-<span class="text-nothing-border text-xs">/</span>
-<span class="text-[10px] font-mono text-nothing-textMuted tracking-wider uppercase">NODES ACTIVE:</span>
+<div class="hidden lg:flex items-center gap-2 bg-industrial-dark/90 px-3 py-1.5 rounded-full border border-industrial-border">
+<span class="text-[10px] font-mono text-industrial-textMuted tracking-wider uppercase pl-2">SECTOR:</span>
+<span class="text-xs font-mono font-medium text-white px-2 py-0.5 rounded-full bg-industrial-subtle border border-industrial-borderLight">ZONE B (FAB &amp; ROBOTICS)</span>
+<span class="text-industrial-border text-xs">/</span>
+<span class="text-[10px] font-mono text-industrial-textMuted tracking-wider uppercase">NODES ACTIVE:</span>
 <span class="font-dot text-xs text-white">48/48</span>
 </div>
 <!-- Live Clock & Status Controls -->
@@ -167,18 +167,18 @@
 <span class="text-[11px] font-mono font-semibold tracking-wider text-emerald-400 uppercase">[RUNNING] // GLYPH-SYNC</span>
 </div>
 <!-- Dot Matrix Time Clock -->
-<div class="px-3.5 py-1 rounded-xl bg-nothing-dark border border-nothing-border text-center">
+<div class="px-3.5 py-1 rounded-xl bg-industrial-dark border border-industrial-border text-center">
 <span class="font-dot text-sm tracking-widest text-white" id="live-cockpit-clock">21:50:05</span>
 </div>
 <!-- Notification Bell with Red Dot -->
-<button class="relative w-9 h-9 rounded-full bg-nothing-subtle border border-nothing-border flex items-center justify-center hover:bg-nothing-border transition-colors">
-<svg class="w-4 h-4 text-nothing-textLight" fill="none" stroke="currentColor" stroke-width="1.5" viewbox="0 0 24 24">
+<button class="relative w-9 h-9 rounded-full bg-industrial-subtle border border-industrial-border flex items-center justify-center hover:bg-industrial-border transition-colors">
+<svg class="w-4 h-4 text-industrial-textLight" fill="none" stroke="currentColor" stroke-width="1.5" viewbox="0 0 24 24">
 <path d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" stroke-linecap="round" stroke-linejoin="round"></path>
 </svg>
-<span class="absolute top-2 right-2 w-2 h-2 rounded-full bg-nothing-red led-red"></span>
+<span class="absolute top-2 right-2 w-2 h-2 rounded-full bg-industrial-red led-red"></span>
 </button>
 <!-- User Profile Pill -->
-<div class="flex items-center gap-2 pl-1 pr-2.5 py-1 rounded-full bg-nothing-subtle border border-nothing-border">
+<div class="flex items-center gap-2 pl-1 pr-2.5 py-1 rounded-full bg-industrial-subtle border border-industrial-border">
 <div class="w-7 h-7 rounded-full bg-zinc-800 flex items-center justify-center text-[11px] font-mono text-zinc-300 font-bold border border-zinc-700">
             OP
           </div>
@@ -190,17 +190,17 @@
 <!-- BEGIN: Main Dashboard Grid -->
 <main class="grid grid-cols-1 xl:grid-cols-12 gap-3" data-purpose="cockpit-main-layout"><div class="flex flex-col w-full gap-3 font-sans">
 <!-- TOP HEADER & CONTROLS BANNER -->
-<section class="nothing-panel rounded-2xl p-4 tech-corner flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+<section class="industrial-panel rounded-2xl p-4 tech-corner flex flex-col lg:flex-row lg:items-center justify-between gap-4">
 <div class="flex flex-col gap-1.5">
 <!-- Breadcrumb Hierarchy -->
-<div class="flex flex-wrap items-center gap-2 text-[10px] font-mono tracking-widest text-nothing-textMuted uppercase">
+<div class="flex flex-wrap items-center gap-2 text-[10px] font-mono tracking-widest text-industrial-textMuted uppercase">
 <span>TELEMETRY</span>
 <span class="text-zinc-600">//</span>
 <span class="text-zinc-400">ZONE A (HEAVY FABRICATION &amp; FLUID DYNAMICS)</span>
 <span class="text-zinc-600">//</span>
 <span class="text-white font-medium">MCH-PMP-01</span>
 <span class="text-zinc-600">//</span>
-<span class="text-nothing-red font-semibold">DEEP DIAGNOSTICS &amp; ACOUSTIC RUL</span>
+<span class="text-industrial-red font-semibold">DEEP DIAGNOSTICS &amp; ACOUSTIC RUL</span>
 </div>
 <!-- Identity & Machine State -->
 <div class="flex flex-wrap items-center gap-3">
@@ -210,53 +210,53 @@
 <span class="font-sans text-base md:text-lg font-semibold tracking-normal text-zinc-200">CENTRIFUGAL SLURRY &amp; COOLING PUMP</span>
 </h1>
 <!-- Alarm Badge -->
-<div class="flex items-center gap-2 px-3 py-1 rounded-full bg-nothing-red/15 border border-nothing-red/40">
-<span class="w-2.5 h-2.5 rounded-full bg-nothing-red led-red animate-ping"></span>
-<span class="text-[11px] font-mono font-bold tracking-widest text-nothing-red uppercase">CRITICAL ALARM • CAVITATION STALL</span>
+<div class="flex items-center gap-2 px-3 py-1 rounded-full bg-industrial-red/15 border border-industrial-red/40">
+<span class="w-2.5 h-2.5 rounded-full bg-industrial-red led-red animate-ping"></span>
+<span class="text-[11px] font-mono font-bold tracking-widest text-industrial-red uppercase">CRITICAL ALARM • CAVITATION STALL</span>
 </div>
 </div>
 </div>
 <!-- Quick Action Hardware Pill Buttons -->
 <div class="flex flex-wrap items-center gap-2.5">
-<button class="flex items-center gap-2 bg-nothing-red hover:bg-red-700 text-white font-mono text-xs font-bold uppercase px-4 py-2.5 rounded-full transition-all shadow-lg shadow-nothing-red/25 active:scale-95" id="eStopBtn">
+<button class="flex items-center gap-2 bg-industrial-red hover:bg-red-700 text-white font-mono text-xs font-bold uppercase px-4 py-2.5 rounded-full transition-all shadow-lg shadow-industrial-red/25 active:scale-95" id="eStopBtn">
 <span class="material-symbols-outlined text-sm">emergency_home</span>
 <span>TRIGGER EMERGENCY E-STOP</span>
 </button>
-<button class="flex items-center gap-2 bg-nothing-subtle hover:bg-nothing-border text-zinc-200 font-mono text-xs uppercase px-3.5 py-2.5 rounded-full border border-nothing-border transition-all">
-<span class="material-symbols-outlined text-sm text-nothing-amber">valve</span>
+<button class="flex items-center gap-2 bg-industrial-subtle hover:bg-industrial-border text-zinc-200 font-mono text-xs uppercase px-3.5 py-2.5 rounded-full border border-industrial-border transition-all">
+<span class="material-symbols-outlined text-sm text-industrial-amber">valve</span>
 <span>PURGE CAVITATION VALVE</span>
 </button>
-<button class="flex items-center gap-2 bg-nothing-subtle hover:bg-nothing-border text-zinc-200 font-mono text-xs uppercase px-3.5 py-2.5 rounded-full border border-nothing-border transition-all">
+<button class="flex items-center gap-2 bg-industrial-subtle hover:bg-industrial-border text-zinc-200 font-mono text-xs uppercase px-3.5 py-2.5 rounded-full border border-industrial-border transition-all">
 <span class="material-symbols-outlined text-sm text-zinc-400">sync_alt</span>
 <span>BYPASS COOLANT LOOP</span>
 </button>
-<button class="flex items-center justify-center w-10 h-10 rounded-full bg-nothing-subtle border border-nothing-border hover:bg-nothing-border text-zinc-300 transition-colors" title="Export Raw Diagnostics BIN/CSV">
+<button class="flex items-center justify-center w-10 h-10 rounded-full bg-industrial-subtle border border-industrial-border hover:bg-industrial-border text-zinc-300 transition-colors" title="Export Raw Diagnostics BIN/CSV">
 <span class="material-symbols-outlined text-base">download</span>
 </button>
 </div>
 </section>
-<!-- TELEMETRY KPI RIBBON (NOTHING DOT-MATRIX HARDWARE CARDS) -->
+<!-- TELEMETRY KPI RIBBON (industrial DOT-MATRIX HARDWARE CARDS) -->
 <section class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-3">
 <!-- 01: Acoustic Peak (Fault Source) -->
-<div class="nothing-panel rounded-xl p-3.5 flex flex-col justify-between border-l-2 border-l-nothing-red">
+<div class="industrial-panel rounded-xl p-3.5 flex flex-col justify-between border-l-2 border-l-industrial-red">
 <div class="flex items-center justify-between text-[10px] font-mono tracking-widest text-zinc-400">
 <span>01 // SOUND EMISSION</span>
-<span class="text-nothing-red font-semibold">[HIGH HAZARD]</span>
+<span class="text-industrial-red font-semibold">[HIGH HAZARD]</span>
 </div>
 <div class="my-2 flex items-baseline gap-2">
-<span class="font-dot text-2xl md:text-3xl font-bold text-nothing-red tracking-tight">96.4</span>
+<span class="font-dot text-2xl md:text-3xl font-bold text-industrial-red tracking-tight">96.4</span>
 <span class="text-xs font-mono text-zinc-400">dB(SPL)</span>
 </div>
 <div class="flex items-center justify-between text-[11px] font-mono">
 <span class="text-zinc-500">Threshold: 82.0 dB</span>
-<span class="text-nothing-red font-semibold">+14.4 dB DELTA</span>
+<span class="text-industrial-red font-semibold">+14.4 dB DELTA</span>
 </div>
 <div class="w-full bg-zinc-900 h-1 rounded-full mt-2 overflow-hidden">
-<div class="bg-nothing-red h-full w-[94%]"></div>
+<div class="bg-industrial-red h-full w-[94%]"></div>
 </div>
 </div>
 <!-- 02: Impeller RPM & Duty Load -->
-<div class="nothing-panel rounded-xl p-3.5 flex flex-col justify-between">
+<div class="industrial-panel rounded-xl p-3.5 flex flex-col justify-between">
 <div class="flex items-center justify-between text-[10px] font-mono tracking-widest text-zinc-400">
 <span>02 // DRIVE SPEED</span>
 <span class="text-zinc-300 font-mono">VFD_CH1</span>
@@ -267,17 +267,17 @@
 </div>
 <div class="flex items-center justify-between text-[11px] font-mono">
 <span class="text-zinc-500">Load: 98.4%</span>
-<span class="text-nothing-amber">VANE SLIP DETECTED</span>
+<span class="text-industrial-amber">VANE SLIP DETECTED</span>
 </div>
 <div class="w-full bg-zinc-900 h-1 rounded-full mt-2 overflow-hidden">
-<div class="bg-nothing-amber h-full w-[88%]"></div>
+<div class="bg-industrial-amber h-full w-[88%]"></div>
 </div>
 </div>
 <!-- 03: Suction vs Discharge (NPSH Margin) -->
-<div class="nothing-panel rounded-xl p-3.5 flex flex-col justify-between">
+<div class="industrial-panel rounded-xl p-3.5 flex flex-col justify-between">
 <div class="flex items-center justify-between text-[10px] font-mono tracking-widest text-zinc-400">
 <span>03 // HYDRAULIC HEAD</span>
-<span class="text-nothing-amber font-mono">NPSHa DEFICIT</span>
+<span class="text-industrial-amber font-mono">NPSHa DEFICIT</span>
 </div>
 <div class="my-2 flex items-baseline gap-2">
 <span class="font-dot text-2xl md:text-3xl font-bold text-white tracking-tight">1.2</span>
@@ -285,14 +285,14 @@
 </div>
 <div class="flex items-center justify-between text-[11px] font-mono">
 <span class="text-zinc-500">Suction Drop: -0.9 bar</span>
-<span class="text-nothing-red">P_VAPOR EXCEEDED</span>
+<span class="text-industrial-red">P_VAPOR EXCEEDED</span>
 </div>
 <div class="w-full bg-zinc-900 h-1 rounded-full mt-2 overflow-hidden">
-<div class="bg-nothing-red h-full w-[78%]"></div>
+<div class="bg-industrial-red h-full w-[78%]"></div>
 </div>
 </div>
 <!-- 04: Casing Temperature -->
-<div class="nothing-panel rounded-xl p-3.5 flex flex-col justify-between">
+<div class="industrial-panel rounded-xl p-3.5 flex flex-col justify-between">
 <div class="flex items-center justify-between text-[10px] font-mono tracking-widest text-zinc-400">
 <span>04 // VOLUTE THERMAL</span>
 <span class="text-zinc-400 font-mono">PT100_S2</span>
@@ -303,20 +303,20 @@
 </div>
 <div class="flex items-center justify-between text-[11px] font-mono">
 <span class="text-zinc-500">Max Limit: 80.0 °C</span>
-<span class="text-nothing-amber">MARGIN 1.8 °C</span>
+<span class="text-industrial-amber">MARGIN 1.8 °C</span>
 </div>
 <div class="w-full bg-zinc-900 h-1 rounded-full mt-2 overflow-hidden">
-<div class="bg-nothing-amber h-full w-[97%]"></div>
+<div class="bg-industrial-amber h-full w-[97%]"></div>
 </div>
 </div>
 <!-- 05: Predictive RUL Metric -->
-<div class="nothing-panel rounded-xl p-3.5 flex flex-col justify-between col-span-2 md:col-span-1 border-r-2 border-r-nothing-red">
+<div class="industrial-panel rounded-xl p-3.5 flex flex-col justify-between col-span-2 md:col-span-1 border-r-2 border-r-industrial-red">
 <div class="flex items-center justify-between text-[10px] font-mono tracking-widest text-zinc-400">
 <span>05 // ESTIMATED RUL</span>
-<span class="text-nothing-red font-mono">FATIGUE MODEL</span>
+<span class="text-industrial-red font-mono">FATIGUE MODEL</span>
 </div>
 <div class="my-2 flex items-baseline gap-2">
-<span class="font-dot text-2xl md:text-3xl font-bold text-nothing-red tracking-tight">04.2</span>
+<span class="font-dot text-2xl md:text-3xl font-bold text-industrial-red tracking-tight">04.2</span>
 <span class="text-xs font-mono text-zinc-400">HOURS</span>
 </div>
 <div class="flex items-center justify-between text-[11px] font-mono">
@@ -324,7 +324,7 @@
 <span class="text-white">IMPELLER PITTING</span>
 </div>
 <div class="w-full bg-zinc-900 h-1 rounded-full mt-2 overflow-hidden">
-<div class="bg-nothing-red h-full w-[20%] animate-pulse"></div>
+<div class="bg-industrial-red h-full w-[20%] animate-pulse"></div>
 </div>
 </div>
 </section>
@@ -333,19 +333,19 @@
 <!-- LEFT & CENTER: DIGITAL TWIN SCHEMATIC (8 COLS) -->
 <div class="xl:col-span-8 flex flex-col gap-3">
 <!-- Interactive Cutaway Blueprint Panel -->
-<div class="nothing-panel rounded-2xl p-4 tech-corner flex flex-col relative overflow-hidden min-h-[460px]">
+<div class="industrial-panel rounded-2xl p-4 tech-corner flex flex-col relative overflow-hidden min-h-[460px]">
 <!-- Technical HUD Header -->
-<div class="flex items-center justify-between border-b border-nothing-border/60 pb-3 mb-3">
+<div class="flex items-center justify-between border-b border-industrial-border/60 pb-3 mb-3">
 <div class="flex items-center gap-3">
-<span class="text-xs font-mono text-nothing-textMuted uppercase tracking-widest">VECTOR TWIN // REF-CAD-PMP-V4</span>
+<span class="text-xs font-mono text-industrial-textMuted uppercase tracking-widest">VECTOR TWIN // REF-CAD-PMP-V4</span>
 <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-zinc-800 text-zinc-300">ORTHOGONAL CUTAWAY</span>
-<span class="hidden sm:inline text-[10px] font-mono text-nothing-red flex items-center gap-1">
-<span class="w-1.5 h-1.5 rounded-full bg-nothing-red"></span>
+<span class="hidden sm:inline text-[10px] font-mono text-industrial-red flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-industrial-red"></span>
               CAVITATION STALL DETECTED AT IMPELLER EYE
             </span>
 </div>
 <!-- Schematic Interactive Controls -->
-<div class="flex items-center gap-1.5 bg-nothing-subtle px-2 py-1 rounded-lg border border-nothing-border">
+<div class="flex items-center gap-1.5 bg-industrial-subtle px-2 py-1 rounded-lg border border-industrial-border">
 <button class="px-2 py-0.5 text-[11px] font-mono rounded bg-zinc-800 text-white font-medium hover:bg-zinc-700">2D ISO</button>
 <button class="px-2 py-0.5 text-[11px] font-mono rounded text-zinc-400 hover:text-white">MESH</button>
 <button class="px-2 py-0.5 text-[11px] font-mono rounded text-zinc-400 hover:text-white">ACOUSTIC RAY</button>
@@ -468,14 +468,14 @@
 </svg>
 </div>
 <!-- Schematic Footer Status Matrix -->
-<div class="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-3 border-t border-nothing-border text-[11px] font-mono">
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-3 border-t border-industrial-border text-[11px] font-mono">
 <div class="flex items-center gap-2">
-<span class="w-2 h-2 rounded-full bg-nothing-red"></span>
+<span class="w-2 h-2 rounded-full bg-industrial-red"></span>
 <span class="text-zinc-400">CAVITATION INTENSITY:</span>
-<span class="text-nothing-red font-bold">LEVEL 4/4</span>
+<span class="text-industrial-red font-bold">LEVEL 4/4</span>
 </div>
 <div class="flex items-center gap-2">
-<span class="w-2 h-2 rounded-full bg-nothing-amber"></span>
+<span class="w-2 h-2 rounded-full bg-industrial-amber"></span>
 <span class="text-zinc-400">FLUID VAPOR PRESSURE:</span>
 <span class="text-white font-bold">1.42 bar</span>
 </div>
@@ -492,24 +492,24 @@
 </div>
 </div>
 <!-- BOTTOM ROW OF LEFT: REAL-TIME FFT ACOUSTIC SPECTRUM & SONOGRAM -->
-<div class="nothing-panel rounded-2xl p-4 tech-corner flex flex-col gap-3">
-<div class="flex flex-wrap items-center justify-between gap-2 border-b border-nothing-border/60 pb-2">
+<div class="industrial-panel rounded-2xl p-4 tech-corner flex flex-col gap-3">
+<div class="flex flex-wrap items-center justify-between gap-2 border-b border-industrial-border/60 pb-2">
 <div class="flex items-center gap-2">
-<span class="material-symbols-outlined text-nothing-red text-base">graphic_eq</span>
+<span class="material-symbols-outlined text-industrial-red text-base">graphic_eq</span>
 <span class="font-dot text-sm tracking-wider text-white font-bold">ACOUSTIC FFT &amp; HIGH-FREQUENCY SONOGRAM (0 - 20 kHz)</span>
-<span class="text-[10px] font-mono px-2 py-0.5 rounded bg-nothing-red/20 text-nothing-red border border-nothing-red/40">PEAK @ 12.4 kHz</span>
+<span class="text-[10px] font-mono px-2 py-0.5 rounded bg-industrial-red/20 text-industrial-red border border-industrial-red/40">PEAK @ 12.4 kHz</span>
 </div>
 <!-- Audio Stream Toggle & Sampling Rate -->
 <div class="flex items-center gap-3">
 <button class="flex items-center gap-1.5 px-3 py-1 rounded-full bg-zinc-800 hover:bg-zinc-700 text-zinc-300 font-mono text-[11px] transition-colors" id="audioHissToggle">
-<span class="material-symbols-outlined text-sm text-nothing-red">volume_up</span>
+<span class="material-symbols-outlined text-sm text-industrial-red">volume_up</span>
 <span>LISTEN ACOUSTIC FEED [HISS]</span>
 </button>
 <span class="text-[10px] font-mono text-zinc-500">SAMPLING: 96 kS/s • 24-BIT</span>
 </div>
 </div>
 <!-- FFT Graph with Cavitation Signature Spike -->
-<div class="relative w-full h-44 bg-nothing-dark rounded-xl p-3 flex flex-col justify-between overflow-hidden">
+<div class="relative w-full h-44 bg-industrial-dark rounded-xl p-3 flex flex-col justify-between overflow-hidden">
 <!-- Ambient Grid Background -->
 <div class="absolute inset-0 bg-dense-matrix opacity-40 pointer-events-none"></div>
 <!-- Frequency Axis Legend -->
@@ -518,7 +518,7 @@
 <span>2.5 kHz (1X/2X BLADE PASS)</span>
 <span>5.0 kHz</span>
 <span>7.5 kHz</span>
-<span class="text-nothing-red font-bold">12.4 kHz [VAPOR COLLAPSE]</span>
+<span class="text-industrial-red font-bold">12.4 kHz [VAPOR COLLAPSE]</span>
 <span>16.0 kHz</span>
 <span>20.0 kHz (ULTRASONIC)</span>
 </div>
@@ -548,7 +548,7 @@
 <!-- Bottom Decibel / Water Fall Stats -->
 <div class="relative z-10 flex items-center justify-between text-[10px] font-mono text-zinc-400">
 <div class="flex items-center gap-3">
-<span class="flex items-center gap-1"><span class="w-2 h-2 rounded bg-nothing-red"></span> PEAK: 96.4 dB @ 12.41 kHz</span>
+<span class="flex items-center gap-1"><span class="w-2 h-2 rounded bg-industrial-red"></span> PEAK: 96.4 dB @ 12.41 kHz</span>
 <span class="flex items-center gap-1"><span class="w-2 h-2 rounded bg-zinc-600"></span> BASELINE: 68.2 dB</span>
 </div>
 <div class="text-zinc-500">
@@ -561,17 +561,17 @@
 <!-- RIGHT: PRESCRIPTIVE AI REMEDIATION & WORK ORDER DISPATCH (4 COLS) -->
 <div class="xl:col-span-4 flex flex-col gap-3">
 <!-- Diagnostic Root Cause Summary -->
-<div class="nothing-panel rounded-2xl p-4 tech-corner flex flex-col gap-3">
-<div class="flex items-center justify-between border-b border-nothing-border/60 pb-2">
+<div class="industrial-panel rounded-2xl p-4 tech-corner flex flex-col gap-3">
+<div class="flex items-center justify-between border-b border-industrial-border/60 pb-2">
 <div class="flex items-center gap-2">
 <span class="font-dot text-sm font-bold text-white uppercase tracking-wider">09 // AI ROOT CAUSE INFERENCE</span>
 </div>
 <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">CONFIDENCE 98.2%</span>
 </div>
 <!-- Failure Physics Narrative -->
-<div class="bg-nothing-dark p-3 rounded-xl border border-nothing-border text-xs font-mono space-y-2">
+<div class="bg-industrial-dark p-3 rounded-xl border border-industrial-border text-xs font-mono space-y-2">
 <div class="text-zinc-400 leading-relaxed">
-<span class="text-nothing-red font-bold">PRIMARY FAILURE:</span>
+<span class="text-industrial-red font-bold">PRIMARY FAILURE:</span>
             Severe localized suction vapor pressure breakdown. Net Positive Suction Head available (<span class="text-white">NPSHa = 2.1m</span>) has dropped beneath manufacturer requirement (<span class="text-white">NPSHr = 3.8m</span>).
           </div>
 <div class="text-zinc-500 text-[11px] leading-normal">
@@ -580,21 +580,21 @@
 </div>
 <!-- Failure Impact Matrix -->
 <div class="grid grid-cols-2 gap-2 text-xs font-mono">
-<div class="p-2.5 rounded-xl bg-nothing-subtle border border-nothing-border">
+<div class="p-2.5 rounded-xl bg-industrial-subtle border border-industrial-border">
 <div class="text-[10px] text-zinc-500 uppercase">SURFACE EROSION RATE</div>
 <div class="text-white font-bold mt-1 text-sm">0.45 mm/hr</div>
-<div class="text-[10px] text-nothing-red mt-0.5">Critical Impeller Pit Depth</div>
+<div class="text-[10px] text-industrial-red mt-0.5">Critical Impeller Pit Depth</div>
 </div>
-<div class="p-2.5 rounded-xl bg-nothing-subtle border border-nothing-border">
+<div class="p-2.5 rounded-xl bg-industrial-subtle border border-industrial-border">
 <div class="text-[10px] text-zinc-500 uppercase">VOLUTE VIBRATION VEL</div>
 <div class="text-white font-bold mt-1 text-sm">6.12 mm/s</div>
-<div class="text-[10px] text-nothing-amber mt-0.5">ISO Class III Exceeded</div>
+<div class="text-[10px] text-industrial-amber mt-0.5">ISO Class III Exceeded</div>
 </div>
 </div>
 </div>
 <!-- Prescriptive Operator Action Protocol -->
-<div class="nothing-panel rounded-2xl p-4 tech-corner flex flex-col flex-1 gap-3">
-<div class="flex items-center justify-between border-b border-nothing-border/60 pb-2">
+<div class="industrial-panel rounded-2xl p-4 tech-corner flex flex-col flex-1 gap-3">
+<div class="flex items-center justify-between border-b border-industrial-border/60 pb-2">
 <span class="font-dot text-sm font-bold text-white uppercase tracking-wider">PRESCRIBED REMEDIATION STEPS</span>
 <span class="text-[10px] font-mono text-zinc-400">SOP-FLUID-881</span>
 </div>
@@ -604,24 +604,24 @@
 <!-- Interactive Checklist Steps -->
 <div class="flex flex-col gap-2.5 font-mono text-xs">
 <!-- Step 1 -->
-<div class="p-3 rounded-xl bg-nothing-dark border border-nothing-border flex flex-col gap-2">
+<div class="p-3 rounded-xl bg-industrial-dark border border-industrial-border flex flex-col gap-2">
 <div class="flex items-center justify-between">
 <span class="font-bold text-white flex items-center gap-2">
 <span class="w-5 h-5 rounded-full bg-zinc-800 text-[10px] flex items-center justify-center text-zinc-300">01</span>
                 THROTTLE VFD DRIVE SPEED
               </span>
-<span class="text-[10px] text-nothing-amber">RECOMMENDED</span>
+<span class="text-[10px] text-industrial-amber">RECOMMENDED</span>
 </div>
 <div class="text-[11px] text-zinc-400">
               Downscale RPM from 3,420 to 2,100 RPM to lower impeller peripheral tip velocity below cavitation threshold.
             </div>
 <button class="w-full mt-1 py-1.5 px-3 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-zinc-200 text-[11px] font-semibold flex items-center justify-center gap-1.5 transition-colors">
-<span class="material-symbols-outlined text-sm text-nothing-amber">speed</span>
+<span class="material-symbols-outlined text-sm text-industrial-amber">speed</span>
               EXECUTE SPEED DERATE (-38%)
             </button>
 </div>
 <!-- Step 2 -->
-<div class="p-3 rounded-xl bg-nothing-dark border border-nothing-border flex flex-col gap-2">
+<div class="p-3 rounded-xl bg-industrial-dark border border-industrial-border flex flex-col gap-2">
 <div class="flex items-center justify-between">
 <span class="font-bold text-white flex items-center gap-2">
 <span class="w-5 h-5 rounded-full bg-zinc-800 text-[10px] flex items-center justify-center text-zinc-300">02</span>
@@ -638,7 +638,7 @@
             </button>
 </div>
 <!-- Step 3 -->
-<div class="p-3 rounded-xl bg-nothing-dark border border-nothing-border flex flex-col gap-2">
+<div class="p-3 rounded-xl bg-industrial-dark border border-industrial-border flex flex-col gap-2">
 <div class="flex items-center justify-between">
 <span class="font-bold text-white flex items-center gap-2">
 <span class="w-5 h-5 rounded-full bg-zinc-800 text-[10px] flex items-center justify-center text-zinc-300">03</span>
@@ -656,7 +656,7 @@
 </div>
 </div>
 <!-- Operator Dispatch Section -->
-<div class="mt-auto pt-2 border-t border-nothing-border flex flex-col gap-2">
+<div class="mt-auto pt-2 border-t border-industrial-border flex flex-col gap-2">
 <div class="flex items-center justify-between text-[11px] font-mono">
 <span class="text-zinc-500">ON-SITE DISPATCH:</span>
 <span class="text-white font-medium">MECHANICAL CREW ALPHA</span>
@@ -670,7 +670,7 @@
 </div>
 </section>
 <!-- LIVE SENSOR TELEMETRY TABLE TICKER -->
-<section class="nothing-panel rounded-2xl p-4 tech-corner overflow-x-auto">
+<section class="industrial-panel rounded-2xl p-4 tech-corner overflow-x-auto">
 <div class="flex items-center justify-between mb-3 min-w-[700px]">
 <div class="flex items-center gap-2">
 <span class="font-dot text-sm text-white font-bold">TRANSDUCER BUS // HARDWARE BUS TELEMETRY (ZONE A / NODE 18)</span>
@@ -681,7 +681,7 @@
 </div>
 <table class="w-full text-left font-mono text-xs min-w-[700px]">
 <thead>
-<tr class="border-b border-nothing-border text-[10px] text-zinc-500 uppercase">
+<tr class="border-b border-industrial-border text-[10px] text-zinc-500 uppercase">
 <th class="py-2">SENSOR TAG</th>
 <th>MEASUREMENT PARAMETER</th>
 <th>LIVE VALUE</th>
@@ -691,23 +691,23 @@
 <th class="text-right">CALIBRATION</th>
 </tr>
 </thead>
-<tbody class="divide-y divide-nothing-border/40 text-zinc-300">
+<tbody class="divide-y divide-industrial-border/40 text-zinc-300">
 <tr>
 <td class="py-2.5 font-bold text-white">AE-MIC-04</td>
 <td>Acoustic Emission Microphone (Volute Cutwater)</td>
-<td class="text-nothing-red font-bold">96.4 dB (PEAK)</td>
+<td class="text-industrial-red font-bold">96.4 dB (PEAK)</td>
 <td>55.0 - 75.0 dB</td>
 <td>±0.04 dB</td>
-<td><span class="text-nothing-red flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-nothing-red"></span> CRITICAL ALARM</span></td>
+<td><span class="text-industrial-red flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-industrial-red"></span> CRITICAL ALARM</span></td>
 <td class="text-right text-zinc-500">ISO-CAL 2026</td>
 </tr>
 <tr>
 <td class="py-2.5 font-bold text-white">PT-SUCT-01</td>
 <td>Dynamic Suction Static Head Transducer</td>
-<td class="text-nothing-amber font-bold">1.20 bar</td>
+<td class="text-industrial-amber font-bold">1.20 bar</td>
 <td>2.20 - 3.50 bar</td>
 <td>±0.01 bar</td>
-<td><span class="text-nothing-amber flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-nothing-amber"></span> NPSHa WARNING</span></td>
+<td><span class="text-industrial-amber flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-industrial-amber"></span> NPSHa WARNING</span></td>
 <td class="text-right text-zinc-500">CAL VALID</td>
 </tr>
 <tr>
@@ -722,10 +722,10 @@
 <tr>
 <td class="py-2.5 font-bold text-white">ACC-BRG-01</td>
 <td>Drive End Radial Bearing Accelerometer</td>
-<td class="text-nothing-amber">4.82 mm/s RMS</td>
+<td class="text-industrial-amber">4.82 mm/s RMS</td>
 <td>0.80 - 2.80 mm/s</td>
 <td>±0.02 mm/s</td>
-<td><span class="text-nothing-amber flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-nothing-amber"></span> HARMONIC SPIKE</span></td>
+<td><span class="text-industrial-amber flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-industrial-amber"></span> HARMONIC SPIKE</span></td>
 <td class="text-right text-zinc-500">CAL VALID</td>
 </tr>
 <tr>
@@ -734,7 +734,7 @@
 <td class="text-white">78.2 °C</td>
 <td>40.0 - 75.0 °C</td>
 <td>±0.2 °C</td>
-<td><span class="text-nothing-amber flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-nothing-amber"></span> NEAR THRESHOLD</span></td>
+<td><span class="text-industrial-amber flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-industrial-amber"></span> NEAR THRESHOLD</span></td>
 <td class="text-right text-zinc-500">CAL VALID</td>
 </tr>
 </tbody>
@@ -751,8 +751,8 @@
         const confirmed = confirm('CRITICAL SAFETY INTERLOCK:\nTrigger immediate de-energization and rapid coast-down for MCH-PMP-01?');
         if (confirmed) {
           eStopBtn.innerHTML = '<span class="material-symbols-outlined text-sm">lock</span> STOP SEQUENCE INITIATED';
-          eStopBtn.classList.remove('bg-nothing-red');
-          eStopBtn.classList.add('bg-zinc-800', 'text-nothing-red');
+          eStopBtn.classList.remove('bg-industrial-red');
+          eStopBtn.classList.add('bg-zinc-800', 'text-industrial-red');
         }
       });
     }
@@ -776,7 +776,7 @@
           hissBtn.innerHTML = '<span class="material-symbols-outlined text-sm text-emerald-400">volume_up</span> FEED STREAMING [12.4 kHz]';
           hissBtn.classList.add('border', 'border-emerald-500/50');
         } else {
-          hissBtn.innerHTML = '<span class="material-symbols-outlined text-sm text-nothing-red">volume_up</span> LISTEN ACOUSTIC FEED [HISS]';
+          hissBtn.innerHTML = '<span class="material-symbols-outlined text-sm text-industrial-red">volume_up</span> LISTEN ACOUSTIC FEED [HISS]';
           hissBtn.classList.remove('border', 'border-emerald-500/50');
         }
       });
@@ -787,7 +787,7 @@
 <!-- BEGIN: Cockpit Footer -->
 <footer class="flex flex-wrap items-center justify-between text-[11px] font-mono text-zinc-500 py-2 px-1 border-t border-zinc-900" data-purpose="cockpit-footer">
 <div class="flex items-center gap-3">
-<span>NOTHING (R) SCADA OS 2.5</span>
+<span>industrial (R) SCADA OS 2.5</span>
 <span>•</span>
 <span>NODE ARCHITECTURE: DISTRIBUTED PLC / OPC-UA</span>
 </div>

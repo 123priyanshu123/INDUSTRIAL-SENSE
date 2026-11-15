@@ -814,7 +814,7 @@ export const LandingPage: React.FC = () => {
             <div className="max-w-7xl mx-auto flex flex-col gap-8 font-mono">
               <div className="flex flex-col md:flex-row md:items-end justify-between gap-2 border-b border-[#292a2c]/70 pb-4">
                 <div>
-                  <span className="font-ndot-55 text-xs uppercase text-[#ffb4ab] tracking-widest font-bold">[NOTHING OS INDUSTRIAL ARCHITECTURE]</span>
+                  <span className="font-ndot-55 text-xs uppercase text-[#ffb4ab] tracking-widest font-bold">[AUTONOMOUS INDUSTRIAL ARCHITECTURE]</span>
                   <h2 className="font-ntype text-xl md:text-2xl font-bold uppercase text-[#e3e2e5] tracking-tight mt-1">
                     BENEFITS OF THIS SYSTEM - AUTONOMOUS SCADA ADVANTAGES
                   </h2>
@@ -822,7 +822,7 @@ export const LandingPage: React.FC = () => {
                 <span className="font-ntype-mono text-xs text-[#c6c6c7]">VERIFIED BENCHMARKS • INDUSTRIAL TELEMETRY</span>
               </div>
 
-              {/* 4 Core Nothing OS Bento Industrial Benefit Cards */}
+              {/* 4 Core Bento Industrial Benefit Cards */}
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                 {/* BENEFIT 01 */}
                 <div className="rounded-3xl bg-[#1b1c1e] p-6 flex flex-col justify-between shadow-lg border border-[#292a2c] relative overflow-hidden group hover:border-[#d71920] transition-all">

@@ -1,22 +1,22 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 
 <html lang="en"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>INDUSTRIALSENSE // SCADA COCKPIT - NOTHING UI</title>
-<!-- Google Fonts: Space Grotesk, Space Mono, JetBrains Mono, Inter -->
+<title>INDUSTRIALSENSE // SCADA COCKPIT - industrial UI</title>
+<!-- Google Fonts: Chakra Petch, JetBrains Mono, Inter -->
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600;700;800&amp;family=Space+Grotesk:wght@400;500;600;700&amp;family=Space+Mono:ital,wght@0,400;0,700;1,400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&amp;family=Inter:wght@300;400;500;600;700&amp;family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&amp;display=swap" rel="stylesheet"/>
 <!-- Tailwind CSS CDN with Forms & Container Queries -->
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<!-- Tailwind Configuration for Nothing OS Aesthetic -->
+<!-- Tailwind Configuration for High-Precision Technical Monospace & Grotesque Typography -->
 <script>
     tailwind.config = {
       theme: {
         extend: {
           colors: {
-            nothing: {
+            industrial: {
               black: '#08080a',
               dark: '#101014',
               panel: '#131318',
@@ -38,16 +38,17 @@
             }
           },
           fontFamily: {
-            sans: ['Inter', 'Space Grotesk', '-apple-system', 'sans-serif'],
-            mono: ['JetBrains Mono', 'Space Mono', 'monospace'],
-            code: ['Space Mono', 'monospace'],
+            sans: ['Inter', '-apple-system', 'sans-serif'],
+            display: ['"Chakra Petch"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+            code: ['"JetBrains Mono"', 'monospace'],
           },
         }
       }
     }
   </script>
-<!-- Custom CSS for specialized Nothing OS design elements & animations -->
-<style data-purpose="nothing-theme-custom">
+<!-- Custom CSS for specialized Industrial SCADA design elements & animations -->
+<style data-purpose="industrial-theme-custom">
     /* Crisp Dot background grid */
     .bg-dot-matrix-pattern {
       background-size: 20px 20px;
@@ -60,14 +61,14 @@
     }
 
     /* Custom Glass Panel with razor-sharp tactile industrial border */
-    .nothing-panel {
+    .industrial-panel {
       background: rgba(18, 18, 23, 0.88);
       backdrop-filter: blur(16px);
       border: 1px solid rgba(255, 255, 255, 0.12);
       position: relative;
     }
 
-    .nothing-panel:hover {
+    .industrial-panel:hover {
       border-color: rgba(255, 255, 255, 0.22);
     }
 
@@ -181,30 +182,30 @@
     }
   </style>
 </head>
-<body class="bg-nothing-black text-nothing-textLight font-sans antialiased min-h-screen select-none overflow-x-hidden p-3 md:p-4 bg-dot-matrix-pattern">
+<body class="bg-industrial-black text-industrial-textLight font-sans antialiased min-h-screen select-none overflow-x-hidden p-3 md:p-4 bg-dot-matrix-pattern">
 <div class="max-w-[1920px] mx-auto flex flex-col gap-3">
 <!-- BEGIN: TopBar -->
-<header class="nothing-panel rounded-2xl px-5 py-3 flex flex-wrap items-center justify-between gap-4 border border-nothing-border shadow-lg" data-purpose="top-navigation-bar">
+<header class="industrial-panel rounded-2xl px-5 py-3 flex flex-wrap items-center justify-between gap-4 border border-industrial-border shadow-lg" data-purpose="top-navigation-bar">
 <!-- Brand & Cockpit Identity -->
 <div class="flex items-center space-x-4">
-<!-- Iconic Nothing Glyph Inspired Logo -->
+<!-- Iconic industrial Glyph Inspired Logo -->
 <div class="flex items-center justify-center w-9 h-9 rounded-full bg-white text-black font-mono font-bold text-xs tracking-tight shadow-md">
           (IS)
         </div>
 <div>
 <div class="flex items-center gap-2">
-<span class="font-mono tracking-wider text-base text-white font-bold">INDUSTRIALSENSE</span>
-<span class="text-[10px] font-mono tracking-widest text-nothing-red font-bold px-1.5 py-0.5 rounded bg-nothing-red/15 border border-nothing-red/50">N•OS SCADA</span>
+<span class="font-display tracking-widest text-base text-white font-bold uppercase">INDUSTRIALSENSE</span>
+<span class="text-[10px] font-mono tracking-widest text-industrial-red font-bold px-1.5 py-0.5 rounded bg-industrial-red/15 border border-industrial-red/50">N•OS SCADA</span>
 </div>
-<p class="text-[11px] font-mono tracking-wide text-nothing-textMuted uppercase font-medium">Unit-32 // Autonomous Cockpit &amp; Telemetry</p>
+<p class="text-[11px] font-mono tracking-wide text-industrial-textMuted uppercase font-medium">Unit-32 // Autonomous Cockpit &amp; Telemetry</p>
 </div>
 </div>
 <!-- Quick Metrics & Sector Filters Pill -->
-<div class="hidden lg:flex items-center gap-2.5 bg-black/60 px-4 py-1.5 rounded-full border border-nothing-borderLight">
-<span class="text-[11px] font-mono text-nothing-textMuted tracking-wider uppercase font-semibold">SECTOR:</span>
-<span class="text-xs font-mono font-semibold text-white px-2.5 py-0.5 rounded-full bg-nothing-subtle border border-zinc-700">ZONE B (FAB &amp; ROBOTICS)</span>
+<div class="hidden lg:flex items-center gap-2.5 bg-black/60 px-4 py-1.5 rounded-full border border-industrial-borderLight">
+<span class="text-[11px] font-display text-industrial-textMuted tracking-wider uppercase font-semibold">SECTOR:</span>
+<span class="text-xs font-mono font-semibold text-white px-2.5 py-0.5 rounded-full bg-industrial-subtle border border-zinc-700">ZONE B (FAB &amp; ROBOTICS)</span>
 <span class="text-zinc-600 text-xs font-mono">/</span>
-<span class="text-[11px] font-mono text-nothing-textMuted tracking-wider uppercase font-semibold">NODES ACTIVE:</span>
+<span class="text-[11px] font-display text-industrial-textMuted tracking-wider uppercase font-semibold">NODES ACTIVE:</span>
 <span class="font-mono text-xs text-white font-bold tracking-widest">48/48</span>
 </div>
 <!-- Live Clock & Status Controls -->
@@ -219,14 +220,14 @@
 <span class="font-mono font-bold text-sm tracking-widest text-white" id="live-cockpit-clock">21:50:05</span>
 </div>
 <!-- Notification Bell with Red Dot -->
-<button class="relative w-9 h-9 rounded-full bg-nothing-subtle border border-zinc-700 flex items-center justify-center hover:bg-zinc-800 transition-colors">
+<button class="relative w-9 h-9 rounded-full bg-industrial-subtle border border-zinc-700 flex items-center justify-center hover:bg-zinc-800 transition-colors">
 <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" stroke-width="1.8" viewbox="0 0 24 24">
 <path d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" stroke-linecap="round" stroke-linejoin="round"></path>
 </svg>
-<span class="absolute top-2 right-2 w-2 h-2 rounded-full bg-nothing-red led-red"></span>
+<span class="absolute top-2 right-2 w-2 h-2 rounded-full bg-industrial-red led-red"></span>
 </button>
 <!-- User Profile Pill -->
-<div class="flex items-center gap-2 pl-1 pr-3 py-1 rounded-full bg-nothing-subtle border border-zinc-700">
+<div class="flex items-center gap-2 pl-1 pr-3 py-1 rounded-full bg-industrial-subtle border border-zinc-700">
 <div class="w-7 h-7 rounded-full bg-zinc-800 flex items-center justify-center text-[11px] font-mono text-white font-bold border border-zinc-600">
             OP
           </div>
@@ -235,72 +236,47 @@
 </div>
 </header>
 <!-- END: TopBar -->
-<!-- BEGIN: Persistent Top-Tier Command Filter Bar (Variant 1: Spanning Top Grid) -->
-<section class="grid grid-cols-1 md:grid-cols-3 gap-2.5" data-purpose="scada-filter-selectors">
-<div class="nothing-panel rounded-xl p-3 flex flex-col justify-center">
-<span class="text-[10px] font-mono text-zinc-400 uppercase tracking-wider font-semibold pl-1">01 // SELECT CATEGORY</span>
-<div class="flex items-center justify-between mt-1 px-3 py-1.5 rounded bg-black/70 border border-zinc-700 text-xs font-mono text-white font-semibold cursor-pointer hover:border-zinc-500 transition-colors">
-<span>ALL CATEGORIES (15 SECTORS)</span>
-<svg class="w-3.5 h-3.5 text-zinc-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
-</div>
-</div>
-<div class="nothing-panel rounded-xl p-3 flex flex-col justify-center">
-<span class="text-[10px] font-mono text-zinc-400 uppercase tracking-wider font-semibold pl-1">02 // MACHINE IDENTIFIER</span>
-<div class="flex items-center justify-between mt-1 px-3 py-1.5 rounded bg-black/70 border border-zinc-700 text-xs font-mono text-white font-bold cursor-pointer hover:border-zinc-500 transition-colors">
-<span class="truncate">MCH-ASRS-19 — Automated High-Bay</span>
-<svg class="w-3.5 h-3.5 text-zinc-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
-</div>
-</div>
-<div class="nothing-panel rounded-xl p-3 flex flex-col justify-center">
-<span class="text-[10px] font-mono text-zinc-400 uppercase tracking-wider font-semibold pl-1">03 // PHYSICAL ZONE</span>
-<div class="flex items-center justify-between mt-1 px-3 py-1.5 rounded bg-black/70 border border-zinc-700 text-xs font-mono text-white font-semibold cursor-pointer hover:border-zinc-500 transition-colors">
-<span>ZONE B (FABRICATION &amp; ROBOTICS)</span>
-<svg class="w-3.5 h-3.5 text-zinc-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
-</div>
-</div>
-</section>
-<!-- END: Persistent Top-Tier Command Filter Bar -->
-<!-- BEGIN: Main Dashboard Grid - VARIANT 1: Central Cockpit & Dual Lateral Panels -->
-<main class="grid grid-cols-1 xl:grid-cols-12 gap-3 items-stretch" data-purpose="cockpit-main-layout">
-<!-- ======================================================== -->
-<!-- LEFT LATERAL PANEL: ALERTS & MAINTENANCE CART (3 Cols)  -->
-<!-- ======================================================== -->
-<aside class="xl:col-span-3 flex flex-col gap-3" data-purpose="alert-dispatch-column">
-<div class="nothing-panel rounded-2xl p-4 flex-1 flex flex-col justify-between border border-nothing-border h-full">
+<!-- BEGIN: Main Dashboard Grid -->
+<main class="grid grid-cols-1 xl:grid-cols-12 gap-3" data-purpose="cockpit-main-layout">
+<!-- ========================================== -->
+<!-- LEFT COLUMN: ALERTS & DISPATCH (4 Cols)    -->
+<!-- ========================================== -->
+<section class="xl:col-span-4 flex flex-col gap-3" data-purpose="alert-dispatch-column">
+<div class="industrial-panel rounded-2xl p-4 flex-1 flex flex-col justify-between border border-industrial-border">
 <!-- Dispatch Queue Header & Filter Chips -->
 <div>
 <div class="flex items-center justify-between pb-3 border-b border-zinc-800">
 <div class="flex items-center gap-2.5">
-<span class="w-2.5 h-2.5 rounded-full bg-nothing-red led-red animate-pulse"></span>
-<h2 class="font-mono text-sm text-white font-bold tracking-wide">MACHINE ALERT &amp; MAINTENANCE CART</h2>
+<span class="w-2.5 h-2.5 rounded-full bg-industrial-red led-red animate-pulse"></span>
+<h2 class="font-display text-sm text-white font-bold tracking-wider uppercase">MACHINE ALERT &amp; MAINTENANCE CART</h2>
 </div>
-<span class="text-[11px] font-mono text-nothing-textMuted uppercase font-semibold">QUEUE: 10 DISPATCH</span>
+<span class="text-[11px] font-mono text-industrial-textMuted uppercase font-semibold">QUEUE: 10 DISPATCH</span>
 </div>
 <!-- Segmented Filter Pills -->
 <div class="flex items-center gap-2 mt-3 mb-4">
-<button class="px-3 py-1 rounded-full bg-white text-black font-mono text-xs font-bold tracking-tight shadow">
+<button class="px-3.5 py-1 rounded-full bg-white text-black font-display text-xs font-bold tracking-wider shadow uppercase">
                 ALL (10)
               </button>
-<button class="px-2.5 py-1 rounded-full bg-nothing-red/10 border border-nothing-red/60 text-white font-mono text-[11px] font-semibold flex items-center gap-1.5 hover:bg-nothing-red/25 transition-all">
-<span class="w-1.5 h-1.5 rounded-full bg-nothing-red led-red"></span>
+<button class="px-3.5 py-1 rounded-full bg-industrial-red/10 border border-industrial-red/60 text-white font-display text-xs font-semibold uppercase tracking-wider flex items-center gap-1.5 hover:bg-industrial-red/25 transition-all">
+<span class="w-1.5 h-1.5 rounded-full bg-industrial-red led-red"></span>
                 STOP REQ: (3)
               </button>
-<button class="px-2.5 py-1 rounded-full bg-nothing-amber/10 border border-nothing-amber/60 text-amber-300 font-mono text-[11px] font-semibold flex items-center gap-1.5 hover:bg-nothing-amber/25 transition-all">
-<span class="w-1.5 h-1.5 rounded-full bg-nothing-amber"></span>
+<button class="px-3.5 py-1 rounded-full bg-industrial-amber/10 border border-industrial-amber/60 text-amber-300 font-display text-xs font-semibold uppercase tracking-wider flex items-center gap-1.5 hover:bg-industrial-amber/25 transition-all">
+<span class="w-1.5 h-1.5 rounded-full bg-industrial-amber"></span>
                 MAINT: (7)
               </button>
 </div>
 <!-- Scrollable Alerts Container -->
-<div class="space-y-3 max-h-[640px] overflow-y-auto pr-1">
+<div class="space-y-3 max-h-[580px] overflow-y-auto pr-1">
 <!-- ALERT CARD 1: Spindle Harmonic (Warning Amber) -->
-<article class="p-3.5 rounded-xl bg-nothing-card/95 border border-zinc-800 hover:border-zinc-700 transition-all relative" data-purpose="alert-item-cnc">
+<article class="p-3.5 rounded-xl bg-industrial-card/95 border border-zinc-800 hover:border-zinc-700 transition-all relative" data-purpose="alert-item-cnc">
 <div class="flex items-start justify-between">
 <div>
 <div class="flex items-center gap-2 font-mono text-xs">
 <span class="text-white font-bold">MCH-CNC-01</span>
 <span class="text-zinc-400 font-medium">• Zone A</span>
 </div>
-<h3 class="text-sm font-semibold text-white mt-1 font-sans">5-Axis CNC Milling Machine</h3>
+<h3 class="text-sm font-display font-semibold text-white mt-1 tracking-tight">5-Axis CNC Milling Machine</h3>
 <p class="text-xs text-amber-400 font-mono font-medium mt-0.5">Spindle Harmonic Resonance &amp; Heat Buildup</p>
 </div>
 <span class="px-2 py-0.5 rounded text-[11px] font-mono font-bold bg-amber-500/15 text-amber-300 border border-amber-500/40 flex items-center gap-1">
@@ -311,12 +287,12 @@
 <!-- Telemetry Comparison Box -->
 <div class="grid grid-cols-2 gap-2 mt-3 p-2.5 rounded-lg bg-black/70 border border-zinc-800 font-mono text-xs">
 <div>
-<div class="text-zinc-400 text-[10px] uppercase font-semibold tracking-wider">Trigger Telemetry</div>
-<div class="text-amber-400 font-bold mt-0.5 text-xs">68.4°C / 2.85 G</div>
+<div class="text-zinc-400 text-[10px] uppercase font-semibold tracking-wider font-display">Trigger Telemetry</div>
+<div class="text-amber-400 font-bold mt-0.5 text-xs font-mono">68.4°C / 2.85 G</div>
 </div>
 <div>
-<div class="text-zinc-400 text-[10px] uppercase font-semibold tracking-wider">Safety Limit</div>
-<div class="text-zinc-300 font-semibold mt-0.5 text-xs">65.0°C / 2.0 G</div>
+<div class="text-zinc-400 text-[10px] uppercase font-semibold tracking-wider font-display">Safety Limit</div>
+<div class="text-zinc-300 font-semibold mt-0.5 text-xs font-mono">65.0°C / 2.0 G</div>
 </div>
 </div>
 <p class="text-xs text-zinc-300 mt-2.5 leading-relaxed font-sans font-normal">
@@ -324,17 +300,17 @@
                 </p>
 <!-- Actions -->
 <div class="flex items-center justify-between mt-3 pt-2.5 border-t border-zinc-800">
-<button class="px-3 py-1.5 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-white text-xs font-mono font-semibold flex items-center gap-1.5 transition-colors border border-zinc-700">
+<button class="px-3 py-1.5 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-white text-xs font-display uppercase tracking-wider font-semibold flex items-center gap-1.5 transition-colors border border-zinc-700">
 <svg class="w-3.5 h-3.5 text-zinc-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path><path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
                     DISPATCH WORK ORDER
                   </button>
-<a class="text-xs font-mono font-semibold text-zinc-300 hover:text-white flex items-center gap-1" href="#inspect">
+<a class="text-xs font-display uppercase tracking-wider font-semibold text-zinc-300 hover:text-white flex items-center gap-1" href="#inspect">
                     INSPECT <span class="font-sans">→</span>
 </a>
 </div>
 </article>
 <!-- ALERT CARD 2: Centrifugal Slurry Pump (CRITICAL RED) -->
-<article class="p-3.5 rounded-xl bg-nothing-red/10 border-2 border-nothing-red/80 relative" data-purpose="alert-item-pump-critical">
+<article class="p-3.5 rounded-xl bg-industrial-red/10 border-2 border-industrial-red/80 relative" data-purpose="alert-item-pump-critical">
 <!-- Red Corner Badge -->
 <div class="flex items-start justify-between">
 <div>
@@ -342,48 +318,48 @@
 <span class="text-white font-bold">MCH-PMP-01</span>
 <span class="text-zinc-300 font-medium">• Zone A</span>
 </div>
-<h3 class="text-sm font-semibold text-white mt-1 font-sans">Centrifugal Slurry &amp; Cooling Pump</h3>
+<h3 class="text-sm font-display font-semibold text-white mt-1 tracking-tight">Centrifugal Slurry &amp; Cooling Pump</h3>
 <p class="text-xs text-red-400 font-mono font-bold mt-0.5">Severe Acoustic Cavitation &amp; Impeller Vane Stall</p>
 </div>
-<span class="px-2 py-0.5 rounded text-[11px] font-mono font-extrabold bg-nothing-red text-white flex items-center gap-1 led-red">
+<span class="px-2 py-0.5 rounded text-[11px] font-mono font-extrabold bg-industrial-red text-white flex items-center gap-1 led-red">
 <span class="animate-ping w-1.5 h-1.5 rounded-full bg-white"></span>
                     STOP REQ
                   </span>
 </div>
 <!-- Telemetry Comparison Box -->
-<div class="grid grid-cols-2 gap-2 mt-3 p-2.5 rounded-lg bg-black/80 border border-nothing-red/40 font-mono text-xs">
+<div class="grid grid-cols-2 gap-2 mt-3 p-2.5 rounded-lg bg-black/80 border border-industrial-red/40 font-mono text-xs">
 <div>
-<div class="text-red-400 text-[10px] uppercase tracking-wider font-bold">Trigger Acoustic Peak</div>
-<div class="text-white font-extrabold mt-0.5 text-xs">96.4 dB (PEAK)</div>
+<div class="text-red-400 text-[10px] uppercase tracking-wider font-bold font-display">Trigger Acoustic Peak</div>
+<div class="text-white font-extrabold mt-0.5 text-xs font-mono">96.4 dB (PEAK)</div>
 </div>
 <div>
-<div class="text-zinc-400 text-[10px] uppercase tracking-wider font-semibold">Acoustic Safety Limit</div>
-<div class="text-zinc-300 font-semibold mt-0.5 text-xs">82.0 dB</div>
+<div class="text-zinc-400 text-[10px] uppercase tracking-wider font-semibold font-display">Acoustic Safety Limit</div>
+<div class="text-zinc-300 font-semibold mt-0.5 text-xs font-mono">82.0 dB</div>
 </div>
 </div>
 <p class="text-xs text-zinc-200 mt-2.5 leading-relaxed font-sans">
                   Sound emission spiked to 96.4 dB with severe high-frequency cavitation hiss. Fluid vapor collapse threatens impeller destruction. STOP MOTOR IMMEDIATELY.
                 </p>
-<!-- High-Impact Nothing Red Trigger Button -->
-<div class="flex items-center gap-2 mt-3 pt-2.5 border-t border-nothing-red/40">
-<button class="flex-1 py-2 px-3 rounded-lg bg-nothing-red hover:bg-red-700 text-white font-mono text-xs font-bold tracking-wider uppercase flex items-center justify-center gap-2 transition-all led-red shadow-lg">
+<!-- High-Impact industrial Red Trigger Button -->
+<div class="flex items-center gap-2 mt-3 pt-2.5 border-t border-industrial-red/40">
+<button class="flex-1 py-2 px-3 rounded-lg bg-industrial-red hover:bg-red-700 text-white font-display text-xs font-bold tracking-wider uppercase flex items-center justify-center gap-2 transition-all led-red shadow-lg">
 <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
                     [!] TRIGGER E-STOP NOW
                   </button>
-<button class="px-3.5 py-2 rounded-lg bg-zinc-900 border border-zinc-700 text-xs font-mono font-semibold text-zinc-200 hover:text-white transition-colors">
+<button class="px-3.5 py-2 rounded-lg bg-zinc-900 border border-zinc-700 text-xs font-display uppercase tracking-wider font-semibold text-zinc-200 hover:text-white transition-colors">
                     INSPECT →
                   </button>
 </div>
 </article>
 <!-- ALERT CARD 3: Hydraulic Press -->
-<article class="p-3.5 rounded-xl bg-nothing-card/95 border border-zinc-800 hover:border-zinc-700 transition-all" data-purpose="alert-item-hydraulic">
+<article class="p-3.5 rounded-xl bg-industrial-card/95 border border-zinc-800 hover:border-zinc-700 transition-all" data-purpose="alert-item-hydraulic">
 <div class="flex items-start justify-between">
 <div>
 <div class="flex items-center gap-2 font-mono text-xs">
 <span class="text-white font-bold">MCH-HYD-01</span>
 <span class="text-zinc-400 font-medium">• Zone B</span>
 </div>
-<h3 class="text-sm font-semibold text-white mt-1 font-sans">600-Tonne Hydraulic Deep-Draw Press</h3>
+<h3 class="text-sm font-display font-semibold text-white mt-1 tracking-tight">600-Tonne Hydraulic Deep-Draw Press</h3>
 <p class="text-xs text-zinc-300 font-mono mt-0.5">Hydraulic Cylinder Gland Blowby Over-Pressure</p>
 </div>
 <span class="px-2 py-0.5 rounded text-[11px] font-mono font-bold bg-red-950/70 text-red-300 border border-red-800/60">
@@ -392,12 +368,12 @@
 </div>
 <div class="grid grid-cols-2 gap-2 mt-2.5 p-2.5 rounded-lg bg-black/60 border border-zinc-800 font-mono text-xs">
 <div>
-<div class="text-zinc-400 text-[10px] uppercase font-semibold">Telemetry</div>
-<div class="text-red-400 font-bold text-xs">318 bar / 74.2°C</div>
+<div class="text-zinc-400 text-[10px] uppercase font-semibold font-display tracking-wider">Telemetry</div>
+<div class="text-red-400 font-bold text-xs font-mono">318 bar / 74.2°C</div>
 </div>
 <div>
-<div class="text-zinc-400 text-[10px] uppercase font-semibold">Safety Limit</div>
-<div class="text-zinc-300 font-semibold text-xs">280 bar / 60.0°C</div>
+<div class="text-zinc-400 text-[10px] uppercase font-semibold font-display tracking-wider">Safety Limit</div>
+<div class="text-zinc-300 font-semibold text-xs font-mono">280 bar / 60.0°C</div>
 </div>
 </div>
 </article>
@@ -407,33 +383,114 @@
 <div class="mt-4 pt-3 border-t border-zinc-800 flex items-center justify-between text-xs font-mono">
 <div class="flex items-center gap-2">
 <span class="w-2 h-2 rounded-full bg-emerald-400 led-green"></span>
-<span class="text-zinc-400 font-medium">SAFETY INTERLOCK:</span>
-<span class="text-white font-bold">CAT 4 / PL e READY</span>
+<span class="text-zinc-400 font-medium font-display tracking-wider uppercase">SAFETY INTERLOCK:</span>
+<span class="text-white font-bold font-mono">CAT 4 / PL e READY</span>
 </div>
-<span class="text-zinc-400 font-semibold">DISPATCH TOTAL: 10</span>
+<span class="text-zinc-400 font-semibold font-mono">DISPATCH TOTAL: 10</span>
 </div>
 </div>
-</aside>
-<!-- ======================================================== -->
-<!-- COMMANDING CENTRAL STAGE: DIGITAL TWIN (6 Cols)          -->
-<!-- ======================================================== -->
-<section class="xl:col-span-6 flex flex-col gap-3" data-purpose="scada-cockpit-stage">
-<!-- DIGITAL TWIN WIREFRAME SCHEMATIC (Commands Central Focal Position) -->
-<div class="nothing-panel rounded-2xl p-5 flex flex-col justify-between relative overflow-hidden h-full" data-purpose="digital-twin-schematic">
+</section>
+<!-- ========================================== -->
+<!-- CENTER & RIGHT COLUMN: DIGITAL TWIN & AI   -->
+<!-- ========================================== -->
+<section class="xl:col-span-8 flex flex-col gap-3" data-purpose="scada-cockpit-stage">
+<!-- Controls & Selectors Row -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-2.5" data-purpose="scada-filter-selectors">
+<div class="industrial-panel rounded-xl p-3 flex flex-col justify-center">
+<span class="text-[10px] font-mono text-zinc-400 uppercase tracking-wider font-semibold pl-1">01 // SELECT CATEGORY</span>
+<div class="flex items-center justify-between mt-1 px-3 py-1.5 rounded bg-black/70 border border-zinc-700 text-xs font-mono text-white font-semibold cursor-pointer hover:border-zinc-500 transition-colors">
+<span>ALL CATEGORIES (15 SECTORS)</span>
+<svg class="w-3.5 h-3.5 text-zinc-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</div>
+</div>
+<div class="industrial-panel rounded-xl p-3 flex flex-col justify-center">
+<span class="text-[10px] font-mono text-zinc-400 uppercase tracking-wider font-semibold pl-1">02 // MACHINE IDENTIFIER</span>
+<div class="flex items-center justify-between mt-1 px-3 py-1.5 rounded bg-black/70 border border-zinc-700 text-xs font-mono text-white font-bold cursor-pointer hover:border-zinc-500 transition-colors">
+<span class="truncate">MCH-ASRS-19 — Automated High-Bay</span>
+<svg class="w-3.5 h-3.5 text-zinc-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</div>
+</div>
+<div class="industrial-panel rounded-xl p-3 flex flex-col justify-center">
+<span class="text-[10px] font-mono text-zinc-400 uppercase tracking-wider font-semibold pl-1">03 // PHYSICAL ZONE</span>
+<div class="flex items-center justify-between mt-1 px-3 py-1.5 rounded bg-black/70 border border-zinc-700 text-xs font-mono text-white font-semibold cursor-pointer hover:border-zinc-500 transition-colors">
+<span>ZONE B (FABRICATION &amp; ROBOTICS)</span>
+<svg class="w-3.5 h-3.5 text-zinc-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</div>
+</div>
+</div>
+<!-- Upper Cockpit Stage: AI Health Widget + Schematic Twin -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-3">
+<!-- AI HEALTH REPORT CARD (4 Cols) -->
+<div class="lg:col-span-4 industrial-panel rounded-2xl p-5 flex flex-col justify-between" data-purpose="ai-health-index">
+<div>
+<div class="flex items-center justify-between pb-3 border-b border-zinc-800">
+<span class="font-mono text-xs text-white uppercase tracking-wider font-bold">09 // REPORT SUMMARY</span>
+<span class="text-[11px] font-mono text-industrial-red uppercase font-bold tracking-wider">AI HEALTH INDEX</span>
+</div>
+<!-- High Contrast Circular Score Ring Widget -->
+<div class="flex flex-col items-center justify-center my-6">
+<div class="relative w-40 h-40 flex items-center justify-center">
+<!-- Concentric Circular Vector with crisp stroke -->
+<svg class="w-full h-full -rotate-90" viewbox="0 0 120 120">
+<circle cx="60" cy="60" fill="none" r="50" stroke="#25252d" stroke-dasharray="3 3" stroke-width="6"></circle>
+<!-- Progress arc (92%) with pure stark white glow -->
+<circle class="filter drop-shadow-[0_0_8px_rgba(255,255,255,0.4)]" cx="60" cy="60" fill="none" r="50" stroke="#FFFFFF" stroke-dasharray="314.15" stroke-dashoffset="25.1" stroke-linecap="round" stroke-width="6"></circle>
+<!-- Inner Orange Accent Marker -->
+<circle cx="60" cy="60" fill="none" opacity="0.8" r="41" stroke="#F59E0B" stroke-dasharray="2 4" stroke-width="1.8"></circle>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center text-center">
+<span class="text-[10px] font-display text-zinc-400 uppercase tracking-widest font-semibold">AI HEALTH</span>
+<span class="text-4xl font-mono font-extrabold text-white tracking-tight mt-0.5">92%</span>
+<span class="text-[10px] font-mono text-emerald-400 font-bold mt-0.5 flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-400 led-green"></span> NOMINAL
+                  </span>
+</div>
+</div>
+</div>
+<!-- Diagnostics Readouts -->
+<div class="space-y-2.5 text-xs font-mono border-t border-zinc-800 pt-4">
+<div class="flex justify-between items-center py-1">
+<span class="text-zinc-400 font-medium uppercase tracking-wide font-display">NEXT SCHEDULED:</span>
+<span class="text-white font-bold font-mono">OCT 30, 2026</span>
+</div>
+<div class="flex justify-between items-center py-1">
+<span class="text-zinc-400 font-medium uppercase tracking-wide font-display">ACTIVE ALERTS:</span>
+<span class="text-zinc-200 font-semibold font-mono">NONE (STABLE)</span>
+</div>
+<div class="flex justify-between items-center py-1">
+<span class="text-zinc-400 font-medium uppercase tracking-wide font-display">VIBRATION SPECTRUM:</span>
+<span class="text-emerald-400 flex items-center gap-1.5 font-bold font-mono">
+<span class="w-2 h-2 rounded-full bg-emerald-400 led-green"></span> NORMAL
+                  </span>
+</div>
+</div>
+<!-- AI Advisory Recommendation Box -->
+<div class="mt-4 p-3 rounded-xl bg-black/60 border border-zinc-800">
+<span class="text-[10px] font-mono text-amber-400 uppercase tracking-wider block font-bold">PREDICTIVE RECS //</span>
+<p class="text-xs font-mono text-zinc-300 mt-1 leading-relaxed">Check optical positioning barcode scale sensor clean-aperture lens before shift cycle 04.</p>
+</div>
+</div>
+<button class="mt-4 w-full py-2.5 px-3 rounded-xl bg-zinc-900 hover:bg-zinc-800 border border-zinc-700 font-display uppercase tracking-wider text-xs font-bold text-white text-center flex items-center justify-center gap-2 transition-all shadow">
+<span>VIEW FULL AI DIAGNOSTICS &amp; RUL</span>
+<span class="text-industrial-red font-bold text-sm font-sans">→</span>
+</button>
+</div>
+<!-- DIGITAL TWIN WIREFRAME SCHEMATIC (8 Cols) - ANIMATED -->
+<div class="lg:col-span-8 industrial-panel rounded-2xl p-5 flex flex-col justify-between relative overflow-hidden" data-purpose="digital-twin-schematic">
 <!-- Header bar of schematic viewport -->
 <div class="flex items-center justify-between z-10 pb-2 border-b border-zinc-800/80">
 <div class="flex items-center gap-3">
-<span class="font-mono text-sm text-white font-bold tracking-wider">08 // MCH-ASRS-19</span>
+<span class="font-display text-sm text-white font-bold tracking-wider">08 // MCH-ASRS-19</span>
 <span class="text-zinc-600 font-mono text-xs">—</span>
 <span class="text-xs font-mono text-zinc-300 font-medium tracking-wide">AUTOMATED HIGH-BAY STORAGE &amp; RETRIEVAL (ASRS)</span>
 </div>
 <div class="flex items-center gap-3">
 <!-- Active coordinate readout ticker -->
 <div class="hidden sm:flex items-center gap-1.5 font-mono text-[11px] text-zinc-400 bg-black/60 px-2.5 py-0.5 rounded border border-zinc-800">
-<span class="text-zinc-500">POS:</span>
-<span class="text-white font-bold" id="crane-pos-x">X: 182.4</span>
+<span class="text-zinc-500 font-display uppercase">POS:</span>
+<span class="text-white font-bold font-mono" id="crane-pos-x">X: 182.4</span>
 <span class="text-zinc-600">|</span>
-<span class="text-white font-bold" id="crane-pos-y">Y: 142.0</span>
+<span class="text-white font-bold font-mono" id="crane-pos-y">Y: 142.0</span>
 </div>
 <div class="flex items-center gap-2 font-mono text-xs text-emerald-400 font-bold">
 <span class="w-2 h-2 rounded-full bg-emerald-400 led-green animate-ping"></span>
@@ -442,7 +499,7 @@
 </div>
 </div>
 <!-- Central Canvas / Hardware Wireframe Rendering Area -->
-<div class="relative w-full h-[460px] my-3 flex items-center justify-center bg-black/60 rounded-xl border border-zinc-800 overflow-hidden shadow-inner flex-1">
+<div class="relative w-full h-[370px] my-2 flex items-center justify-center bg-black/60 rounded-xl border border-zinc-800 overflow-hidden shadow-inner">
 <!-- Subtle blueprint / glyph coordinate grid lines -->
 <div class="absolute inset-0 bg-dense-matrix opacity-40"></div>
 <!-- Central Animated SVG Schematic -->
@@ -510,7 +567,7 @@
 <div class="absolute top-4 left-5 bg-black/85 backdrop-blur-md px-3.5 py-2.5 rounded-xl border border-zinc-700 font-mono shadow-2xl flex items-center gap-3">
 <div class="w-2.5 h-2.5 rounded-full bg-white led-white"></div>
 <div>
-<div class="text-[10px] text-zinc-400 uppercase tracking-widest font-bold">DRIVE SPEED</div>
+<div class="text-[10px] text-zinc-400 uppercase tracking-widest font-bold font-display">DRIVE SPEED</div>
 <div class="text-sm font-mono font-extrabold text-white">8,400 <span class="text-[11px] font-mono text-zinc-300 font-normal">RPM</span></div>
 </div>
 </div>
@@ -518,7 +575,7 @@
 <div class="absolute top-4 right-5 bg-black/85 backdrop-blur-md px-3.5 py-2.5 rounded-xl border border-zinc-700 font-mono shadow-2xl flex items-center gap-3">
 <div class="w-2.5 h-2.5 rounded-full bg-cyan-400 led-cyan animate-pulse"></div>
 <div>
-<div class="text-[10px] text-zinc-400 uppercase tracking-widest font-bold">ACOUSTIC LEVEL</div>
+<div class="text-[10px] text-zinc-400 uppercase tracking-widest font-bold font-display">ACOUSTIC LEVEL</div>
 <div class="text-sm font-mono font-extrabold text-cyan-300">78.4 <span class="text-[11px] font-mono text-zinc-300 font-normal">dB(SPL)</span></div>
 </div>
 </div>
@@ -526,7 +583,7 @@
 <div class="absolute top-24 right-5 bg-black/85 backdrop-blur-md px-3.5 py-2.5 rounded-xl border border-zinc-700 font-mono shadow-2xl flex items-center gap-3">
 <div class="w-2.5 h-2.5 rounded-full bg-amber-400"></div>
 <div>
-<div class="text-[10px] text-zinc-400 uppercase tracking-widest font-bold">BEARING TEMP</div>
+<div class="text-[10px] text-zinc-400 uppercase tracking-widest font-bold font-display">BEARING TEMP</div>
 <div class="text-sm font-mono font-extrabold text-amber-300">42.5 <span class="text-[11px] font-mono text-zinc-300 font-normal">°C</span></div>
 </div>
 </div>
@@ -534,7 +591,7 @@
 <div class="absolute bottom-5 right-5 bg-black/85 backdrop-blur-md px-3.5 py-2.5 rounded-xl border border-zinc-700 font-mono shadow-2xl flex items-center gap-3">
 <div class="w-2.5 h-2.5 rounded-full bg-emerald-400 led-green"></div>
 <div>
-<div class="text-[10px] text-zinc-400 uppercase tracking-widest font-bold">VIBRATION RMS</div>
+<div class="text-[10px] text-zinc-400 uppercase tracking-widest font-bold font-display">VIBRATION RMS</div>
 <div class="text-sm font-mono font-extrabold text-emerald-300">1.20 <span class="text-[11px] font-mono text-zinc-300 font-normal">G</span></div>
 </div>
 </div>
@@ -552,102 +609,44 @@
 </button>
 </div>
 </div>
-<!-- Hardware Action Control Pill Bar (Nothing tactile styled) -->
+<!-- Hardware Action Control Pill Bar (industrial tactile styled) -->
 <div class="flex flex-wrap items-center justify-between gap-3 pt-2.5 border-t border-zinc-800">
 <div class="flex items-center gap-2">
-<button class="px-4 py-2 rounded-xl bg-nothing-red/15 hover:bg-nothing-red/25 border border-nothing-red text-white font-mono text-xs font-bold tracking-wider flex items-center gap-2 transition-all led-red">
-<span class="w-2 h-2 rounded-full bg-nothing-red led-red animate-ping"></span>
+<button class="px-4 py-2 rounded-xl bg-industrial-red/15 hover:bg-industrial-red/25 border border-industrial-red text-white font-display text-xs font-bold tracking-wider uppercase flex items-center gap-2 transition-all led-red">
+<span class="w-2 h-2 rounded-full bg-industrial-red led-red animate-ping"></span>
                   STOP
                 </button>
-<button class="px-4 py-2 rounded-xl bg-zinc-900 hover:bg-zinc-800 border border-zinc-700 text-zinc-200 font-mono text-xs font-bold flex items-center gap-1.5 transition-all">
+<button class="px-4 py-2 rounded-xl bg-zinc-900 hover:bg-zinc-800 border border-zinc-700 text-zinc-200 font-display text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 transition-all">
 <svg class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
                   FAULT SIM
                 </button>
 </div>
 <!-- Kinematics Multiplier Segmented Interactive Toggle -->
 <div class="flex items-center gap-1 bg-black/70 p-1 rounded-xl border border-zinc-700 font-mono text-xs" id="kinematics-control-group">
-<span class="text-[10px] text-zinc-400 uppercase px-2 font-bold tracking-wider">KINEMATICS:</span>
-<button class="kinematic-btn px-2.5 py-1 rounded-lg bg-white text-black font-extrabold shadow" onclick="setSpeedMultiplier(this, '0.5x')">0.5x</button>
-<button class="kinematic-btn px-2.5 py-1 rounded-lg text-zinc-300 hover:text-white font-bold transition-colors" onclick="setSpeedMultiplier(this, '1x')">1x</button>
-<button class="kinematic-btn px-2.5 py-1 rounded-lg text-zinc-300 hover:text-white font-bold transition-colors" onclick="setSpeedMultiplier(this, '1.5x')">1.5x</button>
-<button class="kinematic-btn px-2.5 py-1 rounded-lg text-zinc-300 hover:text-white font-bold transition-colors" onclick="setSpeedMultiplier(this, '2x')">2x</button>
+<span class="text-[10px] text-zinc-400 uppercase px-2 font-bold tracking-wider font-display">KINEMATICS:</span>
+<button class="kinematic-btn px-2.5 py-1 rounded-lg bg-white text-black font-extrabold shadow font-mono" onclick="setSpeedMultiplier(this, '0.5x')">0.5x</button>
+<button class="kinematic-btn px-2.5 py-1 rounded-lg text-zinc-300 hover:text-white font-bold transition-colors font-mono" onclick="setSpeedMultiplier(this, '1x')">1x</button>
+<button class="kinematic-btn px-2.5 py-1 rounded-lg text-zinc-300 hover:text-white font-bold transition-colors font-mono" onclick="setSpeedMultiplier(this, '1.5x')">1.5x</button>
+<button class="kinematic-btn px-2.5 py-1 rounded-lg text-zinc-300 hover:text-white font-bold transition-colors font-mono" onclick="setSpeedMultiplier(this, '2x')">2x</button>
 </div>
 <div class="text-xs font-mono text-zinc-400 font-medium hidden sm:block">
                 MODEL: <span class="text-zinc-200 font-bold">Unit-Load ASRS Crane</span> • <span class="text-emerald-400 font-bold">60FPS ACTIVE HUD</span>
 </div>
 </div>
 </div>
+</div>
 </section>
-<!-- ======================================================== -->
-<!-- RIGHT LATERAL PANEL: AI HEALTH REPORT SUMMARY (3 Cols)   -->
-<!-- ======================================================== -->
-<aside class="xl:col-span-3 flex flex-col gap-3" data-purpose="ai-health-sidebar">
-<div class="nothing-panel rounded-2xl p-5 flex flex-col justify-between h-full border border-nothing-border" data-purpose="ai-health-index">
-<div>
-<div class="flex items-center justify-between pb-3 border-b border-zinc-800">
-<span class="font-mono text-xs text-white uppercase tracking-wider font-bold">09 // REPORT SUMMARY</span>
-<span class="text-[11px] font-mono text-nothing-red uppercase font-bold tracking-wider">AI HEALTH INDEX</span>
-</div>
-<!-- High Contrast Circular Score Ring Widget -->
-<div class="flex flex-col items-center justify-center my-6">
-<div class="relative w-40 h-40 flex items-center justify-center">
-<!-- Concentric Circular Vector with crisp stroke -->
-<svg class="w-full h-full -rotate-90" viewbox="0 0 120 120">
-<circle cx="60" cy="60" fill="none" r="50" stroke="#25252d" stroke-dasharray="3 3" stroke-width="6"></circle>
-<!-- Progress arc (92%) with pure stark white glow -->
-<circle class="filter drop-shadow-[0_0_8px_rgba(255,255,255,0.4)]" cx="60" cy="60" fill="none" r="50" stroke="#FFFFFF" stroke-dasharray="314.15" stroke-dashoffset="25.1" stroke-linecap="round" stroke-width="6"></circle>
-<!-- Inner Orange Accent Marker -->
-<circle cx="60" cy="60" fill="none" opacity="0.8" r="41" stroke="#F59E0B" stroke-dasharray="2 4" stroke-width="1.8"></circle>
-</svg>
-<div class="absolute inset-0 flex flex-col items-center justify-center text-center">
-<span class="text-[10px] font-mono text-zinc-400 uppercase tracking-widest font-semibold">AI HEALTH</span>
-<span class="text-4xl font-mono font-extrabold text-white tracking-tight mt-0.5">92%</span>
-<span class="text-[10px] font-mono text-emerald-400 font-bold mt-0.5 flex items-center gap-1">
-<span class="w-1.5 h-1.5 rounded-full bg-emerald-400 led-green"></span> NOMINAL
-                  </span>
-</div>
-</div>
-</div>
-<!-- Diagnostics Readouts -->
-<div class="space-y-2.5 text-xs font-mono border-t border-zinc-800 pt-4">
-<div class="flex justify-between items-center py-1">
-<span class="text-zinc-400 font-medium uppercase tracking-wide">NEXT SCHEDULED:</span>
-<span class="text-white font-bold">OCT 30, 2026</span>
-</div>
-<div class="flex justify-between items-center py-1">
-<span class="text-zinc-400 font-medium uppercase tracking-wide">ACTIVE ALERTS:</span>
-<span class="text-zinc-200 font-semibold">NONE (STABLE)</span>
-</div>
-<div class="flex justify-between items-center py-1">
-<span class="text-zinc-400 font-medium uppercase tracking-wide">VIBRATION SPECTRUM:</span>
-<span class="text-emerald-400 flex items-center gap-1.5 font-bold">
-<span class="w-2 h-2 rounded-full bg-emerald-400 led-green"></span> NORMAL
-                  </span>
-</div>
-</div>
-<!-- AI Advisory Recommendation Box -->
-<div class="mt-4 p-3 rounded-xl bg-black/60 border border-zinc-800">
-<span class="text-[10px] font-mono text-amber-400 uppercase tracking-wider block font-bold">PREDICTIVE RECS //</span>
-<p class="text-xs font-mono text-zinc-300 mt-1 leading-relaxed">Check optical positioning barcode scale sensor clean-aperture lens before shift cycle 04.</p>
-</div>
-</div>
-<button class="mt-4 w-full py-2.5 px-3 rounded-xl bg-zinc-900 hover:bg-zinc-800 border border-zinc-700 font-mono text-xs font-bold text-white text-center flex items-center justify-center gap-2 transition-all shadow">
-<span>VIEW FULL AI DIAGNOSTICS &amp; RUL</span>
-<span class="text-nothing-red font-bold text-sm">→</span>
-</button>
-</div>
-</aside>
 <!-- ======================================================= -->
 <!-- BOTTOM FULL-WIDTH ROW: ANALYTICS, SPECTRUM & GAUGES     -->
 <!-- ======================================================= -->
-<section class="xl:col-span-12 nothing-panel rounded-2xl p-4 border border-nothing-border" data-purpose="bottom-analytics-telemetry">
+<section class="xl:col-span-12 industrial-panel rounded-2xl p-4 border border-industrial-border" data-purpose="bottom-analytics-telemetry">
 <!-- Header for Telemetry row -->
 <div class="flex flex-wrap items-center justify-between pb-3 mb-3 border-b border-zinc-800 gap-2">
 <div class="flex items-center gap-3">
-<span class="font-mono text-sm text-white font-bold tracking-wider">10 // ANALYTICS &amp; TELEMETRY STREAM</span>
+<span class="font-display text-sm text-white font-bold tracking-wider uppercase">10 // ANALYTICS &amp; TELEMETRY STREAM</span>
 <span class="text-xs font-mono text-zinc-400 font-semibold">// BUFFER CAPACITY: 99.8%</span>
 </div>
-<div class="flex items-center gap-4 text-xs font-mono font-bold">
+<div class="flex items-center gap-4 text-xs font-display uppercase tracking-wider font-bold">
 <span class="flex items-center gap-1.5 text-zinc-200">
 <span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span> SPEED
             </span>
@@ -663,7 +662,7 @@
 <!-- SOUND SPECTRUM GRAPH (5 Cols) - ANIMATED ACTIVE ACOUSTIC FEED -->
 <div class="lg:col-span-5 bg-black/70 rounded-xl p-3.5 border border-zinc-800 flex flex-col justify-between" data-purpose="audio-spectrum-canvas">
 <div class="flex items-center justify-between mb-2">
-<span class="text-xs font-mono text-white font-bold flex items-center gap-2">
+<span class="text-xs font-display uppercase tracking-wider text-white font-bold flex items-center gap-2">
 <svg class="w-4 h-4 text-cyan-400 animate-pulse" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
                 REAL-TIME SOUND SPECTRUM (dB)
               </span>
@@ -714,11 +713,11 @@
 <div class="lg:col-span-3 grid grid-cols-2 gap-3" data-purpose="metric-widgets">
 <!-- Gauge 1: Drive Speed Radial -->
 <div class="bg-black/70 rounded-xl p-3 border border-zinc-800 flex flex-col items-center justify-center text-center">
-<span class="text-[10px] font-mono text-zinc-300 uppercase tracking-widest font-bold flex items-center gap-1">
+<span class="text-[10px] font-display text-zinc-300 uppercase tracking-widest font-bold flex items-center gap-1">
 <svg class="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
                 SPEED:
               </span>
-<span class="text-2xl font-mono font-extrabold text-white mt-1">8,400 <span class="text-xs text-amber-500 font-bold">RPM</span></span>
+<span class="text-2xl font-mono font-extrabold text-white mt-1">8,400 <span class="text-xs text-amber-500 font-bold font-mono">RPM</span></span>
 <!-- Mini Semi Arc Gauge -->
 <div class="relative w-20 h-10 mt-2 overflow-hidden">
 <svg class="w-20 h-20 -rotate-90 transform translate-y-[-10px]" viewbox="0 0 36 36">
@@ -730,11 +729,11 @@
 </div>
 <!-- Gauge 2: Temperature Radial -->
 <div class="bg-black/70 rounded-xl p-3 border border-zinc-800 flex flex-col items-center justify-center text-center">
-<span class="text-[10px] font-mono text-zinc-300 uppercase tracking-widest font-bold flex items-center gap-1">
+<span class="text-[10px] font-display text-zinc-300 uppercase tracking-widest font-bold flex items-center gap-1">
 <svg class="w-3.5 h-3.5 text-amber-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
                 TEMP:
               </span>
-<span class="text-2xl font-mono font-extrabold text-white mt-1">42.5 <span class="text-xs text-amber-400 font-bold">°C</span></span>
+<span class="text-2xl font-mono font-extrabold text-white mt-1">42.5 <span class="text-xs text-amber-400 font-bold font-mono">°C</span></span>
 <!-- Mini Semi Arc Gauge -->
 <div class="relative w-20 h-10 mt-2 overflow-hidden">
 <svg class="w-20 h-20 -rotate-90 transform translate-y-[-10px]" viewbox="0 0 36 36">
@@ -748,7 +747,7 @@
 <!-- SHIFT TREND & PILL BAR CHART (4 Cols) -->
 <div class="lg:col-span-4 bg-black/70 rounded-xl p-3.5 border border-zinc-800" data-purpose="shift-trend-bars">
 <div class="flex items-center justify-between mb-2">
-<span class="text-xs font-mono text-white font-bold tracking-tight">TEMP TREND &amp; SHIFT RUN-RATE</span>
+<span class="text-xs font-display uppercase tracking-wider text-white font-bold">TEMP TREND &amp; SHIFT RUN-RATE</span>
 <div class="flex items-center gap-2.5 text-[10px] font-mono font-semibold">
 <span class="text-amber-400">• Today</span>
 <span class="text-cyan-400">• Speed &amp; Sound</span>
@@ -786,13 +785,13 @@
 <!-- BEGIN: Cockpit Footer -->
 <footer class="flex flex-wrap items-center justify-between text-xs font-mono text-zinc-400 py-2 px-2 border-t border-zinc-800" data-purpose="cockpit-footer">
 <div class="flex items-center gap-3">
-<span class="text-white font-bold">NOTHING (R) SCADA OS 2.5</span>
+<span class="text-white font-bold font-display uppercase tracking-wider">industrial (R) SCADA OS 2.5</span>
 <span class="text-zinc-600">•</span>
 <span class="font-medium text-zinc-300">NODE ARCHITECTURE: DISTRIBUTED PLC / OPC-UA</span>
 </div>
 <div class="flex items-center gap-4">
-<span>LATENCY: <strong class="text-emerald-400">4ms</strong></span>
-<span class="text-zinc-300 font-bold">ENCRYPTION: HARDWARE SHA-256</span>
+<span>LATENCY: <strong class="text-emerald-400 font-mono font-bold">4ms</strong></span>
+<span class="text-zinc-300 font-bold font-display uppercase tracking-wider">ENCRYPTION: HARDWARE SHA-256</span>
 </div>
 </footer>
 <!-- END: Cockpit Footer -->
@@ -832,9 +831,9 @@
     function setSpeedMultiplier(btn, multiplier) {
       const allBtns = document.querySelectorAll('.kinematic-btn');
       allBtns.forEach(b => {
-        b.className = 'kinematic-btn px-2.5 py-1 rounded-lg text-zinc-300 hover:text-white font-bold transition-colors';
+        b.className = 'kinematic-btn px-2.5 py-1 rounded-lg text-zinc-300 hover:text-white font-bold transition-colors font-mono';
       });
-      btn.className = 'kinematic-btn px-2.5 py-1 rounded-lg bg-white text-black font-extrabold shadow';
+      btn.className = 'kinematic-btn px-2.5 py-1 rounded-lg bg-white text-black font-extrabold shadow font-mono';
     }
   </script>
 </body></html>

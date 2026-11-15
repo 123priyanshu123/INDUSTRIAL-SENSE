@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 
 <html lang="en"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>INDUSTRIALSENSE // SCADA COCKPIT - NOTHING UI</title>
+<title>INDUSTRIALSENSE // SCADA COCKPIT - industrial UI</title>
 <!-- Google Fonts: Space Grotesk, Space Mono, JetBrains Mono, Inter -->
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
@@ -16,7 +16,7 @@
       theme: {
         extend: {
           colors: {
-            nothing: {
+            industrial: {
               black: '#070a0f',
               dark: '#0b111e',
               panel: '#0e1626',
@@ -47,7 +47,7 @@
     }
   </script>
 <!-- Custom CSS for specialized Cyber Cyan & Electric Cobalt elements & animations -->
-<style data-purpose="nothing-theme-custom">
+<style data-purpose="industrial-theme-custom">
     /* Crisp Dot background grid in cyan-tinted glow */
     .bg-dot-matrix-pattern {
       background-size: 20px 20px;
@@ -60,14 +60,14 @@
     }
 
     /* Custom Glass Panel with razor-sharp electric cyan glass border */
-    .nothing-panel {
+    .industrial-panel {
       background: rgba(11, 17, 30, 0.88);
       backdrop-filter: blur(16px);
       border: 1px solid rgba(56, 189, 248, 0.18);
       position: relative;
     }
 
-    .nothing-panel:hover {
+    .industrial-panel:hover {
       border-color: rgba(0, 240, 255, 0.35);
     }
 
@@ -181,13 +181,13 @@
     }
   </style>
 </head>
-<body class="bg-nothing-black text-nothing-textLight font-sans antialiased min-h-screen select-none overflow-x-hidden p-3 md:p-4 bg-dot-matrix-pattern">
+<body class="bg-industrial-black text-industrial-textLight font-sans antialiased min-h-screen select-none overflow-x-hidden p-3 md:p-4 bg-dot-matrix-pattern">
 <div class="max-w-[1920px] mx-auto flex flex-col gap-3">
 <!-- BEGIN: TopBar -->
-<header class="nothing-panel rounded-2xl px-5 py-3 flex flex-wrap items-center justify-between gap-4 border border-cyan-500/25 shadow-lg shadow-cyan-950/20" data-purpose="top-navigation-bar">
+<header class="industrial-panel rounded-2xl px-5 py-3 flex flex-wrap items-center justify-between gap-4 border border-cyan-500/25 shadow-lg shadow-cyan-950/20" data-purpose="top-navigation-bar">
 <!-- Brand & Cockpit Identity -->
 <div class="flex items-center space-x-4">
-<!-- Iconic Nothing Glyph Inspired Logo -->
+<!-- Iconic industrial Glyph Inspired Logo -->
 <div class="flex items-center justify-center w-9 h-9 rounded-full bg-cyan-400 text-black font-mono font-bold text-xs tracking-tight shadow-md shadow-cyan-400/40">
           (IS)
         </div>
@@ -202,7 +202,7 @@
 <!-- Quick Metrics & Sector Filters Pill -->
 <div class="hidden lg:flex items-center gap-2.5 bg-[#080d16]/80 px-4 py-1.5 rounded-full border border-sky-900/60">
 <span class="text-[11px] font-mono text-cyan-300/70 tracking-wider uppercase font-semibold">SECTOR:</span>
-<span class="text-xs font-mono font-semibold text-white px-2.5 py-0.5 rounded-full bg-nothing-subtle border border-sky-800">ZONE B (FAB &amp; ROBOTICS)</span>
+<span class="text-xs font-mono font-semibold text-white px-2.5 py-0.5 rounded-full bg-industrial-subtle border border-sky-800">ZONE B (FAB &amp; ROBOTICS)</span>
 <span class="text-sky-700 text-xs font-mono">/</span>
 <span class="text-[11px] font-mono text-cyan-300/70 tracking-wider uppercase font-semibold">NODES ACTIVE:</span>
 <span class="font-mono text-xs text-cyan-300 font-bold tracking-widest">48/48</span>
@@ -219,14 +219,14 @@
 <span class="font-mono font-bold text-sm tracking-widest text-cyan-200" id="live-cockpit-clock">21:50:05</span>
 </div>
 <!-- Notification Bell with Red Dot -->
-<button class="relative w-9 h-9 rounded-full bg-nothing-subtle border border-sky-800/80 flex items-center justify-center hover:bg-sky-900/40 transition-colors">
+<button class="relative w-9 h-9 rounded-full bg-industrial-subtle border border-sky-800/80 flex items-center justify-center hover:bg-sky-900/40 transition-colors">
 <svg class="w-4 h-4 text-cyan-200" fill="none" stroke="currentColor" stroke-width="1.8" viewbox="0 0 24 24">
 <path d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" stroke-linecap="round" stroke-linejoin="round"></path>
 </svg>
-<span class="absolute top-2 right-2 w-2 h-2 rounded-full bg-nothing-red led-red"></span>
+<span class="absolute top-2 right-2 w-2 h-2 rounded-full bg-industrial-red led-red"></span>
 </button>
 <!-- User Profile Pill -->
-<div class="flex items-center gap-2 pl-1 pr-3 py-1 rounded-full bg-nothing-subtle border border-sky-800/80">
+<div class="flex items-center gap-2 pl-1 pr-3 py-1 rounded-full bg-industrial-subtle border border-sky-800/80">
 <div class="w-7 h-7 rounded-full bg-sky-950 flex items-center justify-center text-[11px] font-mono text-cyan-300 font-bold border border-sky-600/60">
             OP
           </div>
@@ -241,12 +241,12 @@
 <!-- LEFT COLUMN: ALERTS & DISPATCH (4 Cols)    -->
 <!-- ========================================== -->
 <section class="xl:col-span-4 flex flex-col gap-3" data-purpose="alert-dispatch-column">
-<div class="nothing-panel rounded-2xl p-4 flex-1 flex flex-col justify-between border border-cyan-500/20">
+<div class="industrial-panel rounded-2xl p-4 flex-1 flex flex-col justify-between border border-cyan-500/20">
 <!-- Dispatch Queue Header & Filter Chips -->
 <div>
 <div class="flex items-center justify-between pb-3 border-b border-sky-950">
 <div class="flex items-center gap-2.5">
-<span class="w-2.5 h-2.5 rounded-full bg-nothing-red led-red animate-pulse"></span>
+<span class="w-2.5 h-2.5 rounded-full bg-industrial-red led-red animate-pulse"></span>
 <h2 class="font-mono text-sm text-white font-bold tracking-wide">MACHINE ALERT &amp; MAINTENANCE CART</h2>
 </div>
 <span class="text-[11px] font-mono text-cyan-300/70 uppercase font-semibold">QUEUE: 10 DISPATCH</span>
@@ -256,8 +256,8 @@
 <button class="px-3.5 py-1 rounded-full bg-cyan-400 text-black font-mono text-xs font-bold tracking-tight shadow-md shadow-cyan-400/30">
                 ALL (10)
               </button>
-<button class="px-3.5 py-1 rounded-full bg-nothing-red/15 border border-nothing-red/60 text-white font-mono text-xs font-semibold flex items-center gap-1.5 hover:bg-nothing-red/25 transition-all">
-<span class="w-1.5 h-1.5 rounded-full bg-nothing-red led-red"></span>
+<button class="px-3.5 py-1 rounded-full bg-industrial-red/15 border border-industrial-red/60 text-white font-mono text-xs font-semibold flex items-center gap-1.5 hover:bg-industrial-red/25 transition-all">
+<span class="w-1.5 h-1.5 rounded-full bg-industrial-red led-red"></span>
                 STOP REQ: (3)
               </button>
 <button class="px-3.5 py-1 rounded-full bg-sky-950/70 border border-sky-400/50 text-sky-300 font-mono text-xs font-semibold flex items-center gap-1.5 hover:bg-sky-900/50 transition-all">
@@ -268,7 +268,7 @@
 <!-- Scrollable Alerts Container -->
 <div class="space-y-3 max-h-[580px] overflow-y-auto pr-1">
 <!-- ALERT CARD 1: Spindle Harmonic (Warning Amber) -->
-<article class="p-3.5 rounded-xl bg-nothing-card/95 border border-sky-900/70 hover:border-cyan-500/50 transition-all relative" data-purpose="alert-item-cnc">
+<article class="p-3.5 rounded-xl bg-industrial-card/95 border border-sky-900/70 hover:border-cyan-500/50 transition-all relative" data-purpose="alert-item-cnc">
 <div class="flex items-start justify-between">
 <div>
 <div class="flex items-center gap-2 font-mono text-xs">
@@ -309,7 +309,7 @@
 </div>
 </article>
 <!-- ALERT CARD 2: Centrifugal Slurry Pump (CRITICAL RED) -->
-<article class="p-3.5 rounded-xl bg-nothing-red/10 border-2 border-nothing-red/80 relative" data-purpose="alert-item-pump-critical">
+<article class="p-3.5 rounded-xl bg-industrial-red/10 border-2 border-industrial-red/80 relative" data-purpose="alert-item-pump-critical">
 <!-- Red Corner Badge -->
 <div class="flex items-start justify-between">
 <div>
@@ -320,13 +320,13 @@
 <h3 class="text-sm font-semibold text-white mt-1 font-sans">Centrifugal Slurry &amp; Cooling Pump</h3>
 <p class="text-xs text-rose-300 font-mono font-bold mt-0.5">Severe Acoustic Cavitation &amp; Impeller Vane Stall</p>
 </div>
-<span class="px-2 py-0.5 rounded text-[11px] font-mono font-extrabold bg-nothing-red text-white flex items-center gap-1 led-red">
+<span class="px-2 py-0.5 rounded text-[11px] font-mono font-extrabold bg-industrial-red text-white flex items-center gap-1 led-red">
 <span class="animate-ping w-1.5 h-1.5 rounded-full bg-white"></span>
                     STOP REQ
                   </span>
 </div>
 <!-- Telemetry Comparison Box -->
-<div class="grid grid-cols-2 gap-2 mt-3 p-2.5 rounded-lg bg-[#070d18]/90 border border-nothing-red/40 font-mono text-xs">
+<div class="grid grid-cols-2 gap-2 mt-3 p-2.5 rounded-lg bg-[#070d18]/90 border border-industrial-red/40 font-mono text-xs">
 <div>
 <div class="text-rose-400 text-[10px] uppercase tracking-wider font-bold">Trigger Acoustic Peak</div>
 <div class="text-white font-extrabold mt-0.5 text-xs">96.4 dB (PEAK)</div>
@@ -340,8 +340,8 @@
                   Sound emission spiked to 96.4 dB with severe high-frequency cavitation hiss. Fluid vapor collapse threatens impeller destruction. STOP MOTOR IMMEDIATELY.
                 </p>
 <!-- High-Impact Neon Coral Trigger Button -->
-<div class="flex items-center gap-2 mt-3 pt-2.5 border-t border-nothing-red/40">
-<button class="flex-1 py-2 px-3 rounded-lg bg-nothing-red hover:bg-rose-600 text-white font-mono text-xs font-bold tracking-wider uppercase flex items-center justify-center gap-2 transition-all led-red shadow-lg shadow-rose-950/50">
+<div class="flex items-center gap-2 mt-3 pt-2.5 border-t border-industrial-red/40">
+<button class="flex-1 py-2 px-3 rounded-lg bg-industrial-red hover:bg-rose-600 text-white font-mono text-xs font-bold tracking-wider uppercase flex items-center justify-center gap-2 transition-all led-red shadow-lg shadow-rose-950/50">
 <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
                     [!] TRIGGER E-STOP NOW
                   </button>
@@ -351,7 +351,7 @@
 </div>
 </article>
 <!-- ALERT CARD 3: Hydraulic Press -->
-<article class="p-3.5 rounded-xl bg-nothing-card/95 border border-sky-900/70 hover:border-cyan-500/50 transition-all" data-purpose="alert-item-hydraulic">
+<article class="p-3.5 rounded-xl bg-industrial-card/95 border border-sky-900/70 hover:border-cyan-500/50 transition-all" data-purpose="alert-item-hydraulic">
 <div class="flex items-start justify-between">
 <div>
 <div class="flex items-center gap-2 font-mono text-xs">
@@ -395,21 +395,21 @@
 <section class="xl:col-span-8 flex flex-col gap-3" data-purpose="scada-cockpit-stage">
 <!-- Controls & Selectors Row -->
 <div class="grid grid-cols-1 md:grid-cols-3 gap-2.5" data-purpose="scada-filter-selectors">
-<div class="nothing-panel rounded-xl p-3 flex flex-col justify-center">
+<div class="industrial-panel rounded-xl p-3 flex flex-col justify-center">
 <span class="text-[10px] font-mono text-cyan-300/70 uppercase tracking-wider font-semibold pl-1">01 // SELECT CATEGORY</span>
 <div class="flex items-center justify-between mt-1 px-3 py-1.5 rounded bg-[#070d18]/80 border border-sky-900 text-xs font-mono text-white font-semibold cursor-pointer hover:border-cyan-400 transition-colors">
 <span>ALL CATEGORIES (15 SECTORS)</span>
 <svg class="w-3.5 h-3.5 text-cyan-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
 </div>
 </div>
-<div class="nothing-panel rounded-xl p-3 flex flex-col justify-center">
+<div class="industrial-panel rounded-xl p-3 flex flex-col justify-center">
 <span class="text-[10px] font-mono text-cyan-300/70 uppercase tracking-wider font-semibold pl-1">02 // MACHINE IDENTIFIER</span>
 <div class="flex items-center justify-between mt-1 px-3 py-1.5 rounded bg-[#070d18]/80 border border-sky-900 text-xs font-mono text-white font-bold cursor-pointer hover:border-cyan-400 transition-colors">
 <span class="truncate">MCH-ASRS-19 — Automated High-Bay</span>
 <svg class="w-3.5 h-3.5 text-cyan-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
 </div>
 </div>
-<div class="nothing-panel rounded-xl p-3 flex flex-col justify-center">
+<div class="industrial-panel rounded-xl p-3 flex flex-col justify-center">
 <span class="text-[10px] font-mono text-cyan-300/70 uppercase tracking-wider font-semibold pl-1">03 // PHYSICAL ZONE</span>
 <div class="flex items-center justify-between mt-1 px-3 py-1.5 rounded bg-[#070d18]/80 border border-sky-900 text-xs font-mono text-white font-semibold cursor-pointer hover:border-cyan-400 transition-colors">
 <span>ZONE B (FABRICATION &amp; ROBOTICS)</span>
@@ -420,7 +420,7 @@
 <!-- Upper Cockpit Stage: AI Health Widget + Schematic Twin -->
 <div class="grid grid-cols-1 lg:grid-cols-12 gap-3">
 <!-- AI HEALTH REPORT CARD (4 Cols) -->
-<div class="lg:col-span-4 nothing-panel rounded-2xl p-5 flex flex-col justify-between" data-purpose="ai-health-index">
+<div class="lg:col-span-4 industrial-panel rounded-2xl p-5 flex flex-col justify-between" data-purpose="ai-health-index">
 <div>
 <div class="flex items-center justify-between pb-3 border-b border-sky-950">
 <span class="font-mono text-xs text-white uppercase tracking-wider font-bold">09 // REPORT SUMMARY</span>
@@ -475,7 +475,7 @@
 </button>
 </div>
 <!-- DIGITAL TWIN WIREFRAME SCHEMATIC (8 Cols) - ANIMATED -->
-<div class="lg:col-span-8 nothing-panel rounded-2xl p-5 flex flex-col justify-between relative overflow-hidden" data-purpose="digital-twin-schematic">
+<div class="lg:col-span-8 industrial-panel rounded-2xl p-5 flex flex-col justify-between relative overflow-hidden" data-purpose="digital-twin-schematic">
 <!-- Header bar of schematic viewport -->
 <div class="flex items-center justify-between z-10 pb-2 border-b border-sky-950/90">
 <div class="flex items-center gap-3">
@@ -608,11 +608,11 @@
 </button>
 </div>
 </div>
-<!-- Hardware Action Control Pill Bar (Nothing tactile styled) -->
+<!-- Hardware Action Control Pill Bar (industrial tactile styled) -->
 <div class="flex flex-wrap items-center justify-between gap-3 pt-2.5 border-t border-sky-950">
 <div class="flex items-center gap-2">
-<button class="px-4 py-2 rounded-xl bg-nothing-red/15 hover:bg-nothing-red/25 border border-nothing-red text-white font-mono text-xs font-bold tracking-wider flex items-center gap-2 transition-all led-red">
-<span class="w-2 h-2 rounded-full bg-nothing-red led-red animate-ping"></span>
+<button class="px-4 py-2 rounded-xl bg-industrial-red/15 hover:bg-industrial-red/25 border border-industrial-red text-white font-mono text-xs font-bold tracking-wider flex items-center gap-2 transition-all led-red">
+<span class="w-2 h-2 rounded-full bg-industrial-red led-red animate-ping"></span>
                   STOP
                 </button>
 <button class="px-4 py-2 rounded-xl bg-sky-950 hover:bg-sky-900 border border-sky-800 text-cyan-200 font-mono text-xs font-bold flex items-center gap-1.5 transition-all">
@@ -638,7 +638,7 @@
 <!-- ======================================================= -->
 <!-- BOTTOM FULL-WIDTH ROW: ANALYTICS, SPECTRUM & GAUGES     -->
 <!-- ======================================================= -->
-<section class="xl:col-span-12 nothing-panel rounded-2xl p-4 border border-cyan-500/20" data-purpose="bottom-analytics-telemetry">
+<section class="xl:col-span-12 industrial-panel rounded-2xl p-4 border border-cyan-500/20" data-purpose="bottom-analytics-telemetry">
 <!-- Header for Telemetry row -->
 <div class="flex flex-wrap items-center justify-between pb-3 mb-3 border-b border-sky-950 gap-2">
 <div class="flex items-center gap-3">
@@ -653,7 +653,7 @@
 <span class="w-2.5 h-2.5 rounded-full bg-cyan-400 led-cyan"></span> SOUND
             </span>
 <span class="flex items-center gap-1.5 text-slate-200">
-<span class="w-2.5 h-2.5 rounded-full bg-nothing-red led-red"></span> TEMPERATURE
+<span class="w-2.5 h-2.5 rounded-full bg-industrial-red led-red"></span> TEMPERATURE
             </span>
 </div>
 </div>
@@ -784,7 +784,7 @@
 <!-- BEGIN: Cockpit Footer -->
 <footer class="flex flex-wrap items-center justify-between text-xs font-mono text-cyan-300/70 py-2 px-2 border-t border-sky-950" data-purpose="cockpit-footer">
 <div class="flex items-center gap-3">
-<span class="text-white font-bold">NOTHING (R) SCADA OS 2.5</span>
+<span class="text-white font-bold">industrial (R) SCADA OS 2.5</span>
 <span class="text-sky-700">•</span>
 <span class="font-medium text-cyan-100">NODE ARCHITECTURE: DISTRIBUTED PLC / OPC-UA</span>
 </div>

@@ -1,5 +1,5 @@
 /* ==========================================================================
-   NOTHING OS TYPOGRAPHY (NDot 55, NDot 57, NType 82, NType 82 Mono)
+   INDUSTRIAL TELEMETRY TYPOGRAPHY (NDot 55, NDot 57, NType 82, NType 82 Mono)
    ========================================================================== */
 @font-face {
   font-family: 'Ndot 55';
@@ -109,7 +109,7 @@
   }
 }
 
-/* Authentic Nothing OS Typography Utility Classes */
+/* Industrial Dot-Matrix Typography Utility Classes */
 .font-ndot {
   font-family: 'Ndot 57', 'Ndot-57', 'NDot', monospace !important;
   letter-spacing: 0.035em;
