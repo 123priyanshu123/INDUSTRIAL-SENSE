@@ -3,7 +3,7 @@ from __future__ import annotations
 from contextlib import asynccontextmanager
 from typing import Dict, List
 
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, UploadFile, File
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 
@@ -91,3 +91,20 @@ def predict_batch(payload: BatchPredictionRequest):
         raise HTTPException(status_code=422, detail=str(exc))
     except RuntimeError as exc:
         raise HTTPException(status_code=503, detail=str(exc))
+
+
+@app.post("/api/v1/predict/csv")
+async def predict_csv(file: UploadFile = File(...)):
+    """Receives CSV file uploaded by the frontend, parses rows/features,
+    runs inference through the ONNX Autoencoder, and returns machine-wise alerts."""
+    try:
+        content = await file.read()
+        try:
+            csv_text = content.decode("utf-8")
+        except UnicodeDecodeError:
+            csv_text = content.decode("latin-1")
+        return engine.process_csv(file.filename or "uploaded.csv", csv_text)
+    except ValueError as exc:
+        raise HTTPException(status_code=422, detail=str(exc))
+    except Exception as exc:
+        raise HTTPException(status_code=500, detail=str(exc))

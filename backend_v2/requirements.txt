@@ -5,3 +5,4 @@ onnxruntime>=1.18.0
 scikit-learn==1.6.1
 joblib>=1.4.0
 pydantic>=2.7.0
+python-multipart>=0.0.9
