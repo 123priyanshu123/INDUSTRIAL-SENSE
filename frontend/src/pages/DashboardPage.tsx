@@ -201,9 +201,9 @@ export const DashboardPage: React.FC = () => {
       )}
 
       {/* Main Container */}
-      <div className="max-w-[1920px] mx-auto flex flex-col gap-6">
+      <div className="max-w-[1920px] mx-auto flex flex-col gap-2.5">
         {backendHealth && (
-          <div className="bg-[#101014] border border-[#2a2a34] rounded-lg p-3 font-mono text-xs text-zinc-300">
+          <div className="bg-[#101014] border border-[#2a2a34] rounded-lg px-3 py-1.5 font-mono text-xs text-zinc-300">
             <div className="flex flex-wrap items-center gap-3 justify-between">
               <div className="flex flex-wrap gap-4">
                 <span><span className="text-zinc-500">BACKEND</span> {backendHealth.ok ? 'CONNECTED' : 'OFFLINE'}</span>
@@ -222,35 +222,35 @@ export const DashboardPage: React.FC = () => {
           </div>
         )}
         {/* TopBar with Navigation Tabs & System Status */}
-        <header className="bg-[#121218] rounded-2xl px-6 py-4 flex flex-wrap items-center justify-between border border-[#2a2a34] shadow-md relative z-40 gap-4">
-          <div className="flex items-baseline gap-4">
+        <header className="bg-[#121218] rounded-xl px-4 py-2 flex flex-wrap items-center justify-between border border-[#2a2a34] shadow-md relative z-40 gap-3">
+          <div className="flex items-center gap-3">
             <Link
               to="/"
               title="Return to Landing Page"
-              className="font-ndot-57 text-xl md:text-2xl lg:text-3xl font-bold tracking-tight text-white uppercase select-none flex items-center gap-3 hover:text-red-400 transition-colors cursor-pointer group"
+              className="font-ndot-57 text-base md:text-lg font-bold tracking-tight text-white uppercase select-none flex items-center gap-2.5 hover:text-red-400 transition-colors cursor-pointer group"
             >
-              <span className="w-3.5 h-3.5 rounded-full bg-red-600 inline-block group-hover:scale-110 transition-transform" />
+              <span className="w-3 h-3 rounded-full bg-red-600 inline-block group-hover:scale-110 transition-transform" />
               <span className="group-hover:text-white">INDUSTRIALSENSE - SCADA COCKPIT</span>
             </Link>
-            <span className="hidden sm:inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-ntype-mono font-bold bg-[#1b1c1e] text-zinc-300 border border-zinc-700">
-              <Clock className="w-3.5 h-3.5 text-emerald-400" />
+            <span className="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-ntype-mono font-bold bg-[#1b1c1e] text-zinc-300 border border-zinc-700">
+              <Clock className="w-3 h-3 text-emerald-400" />
               <span>{liveClock} UTC</span>
             </span>
           </div>
 
-          <div className="flex items-center gap-3 relative">
+          <div className="flex items-center gap-2 relative">
             <button
               onClick={() => setIsModalOpen(true)}
-              className="px-4 py-2 rounded-xl bg-red-700 hover:bg-red-800 text-white font-mono text-xs font-bold tracking-wider uppercase flex items-center gap-2 transition-all shadow-sm"
+              className="px-3 py-1.5 rounded-lg bg-red-700 hover:bg-red-800 text-white font-mono text-xs font-bold tracking-wider uppercase flex items-center gap-1.5 transition-all shadow-sm"
             >
-              <Plus className="w-4 h-4 font-bold" />
+              <Plus className="w-3.5 h-3.5 font-bold" />
               <span>REGISTER MACHINE</span>
             </button>
 
             <div className="relative">
               <button
                 onClick={() => setShowNavMenu(!showNavMenu)}
-                className="px-4 py-2 rounded-xl bg-zinc-900 border border-zinc-700 hover:border-zinc-500 text-white font-mono text-xs font-bold tracking-widest uppercase flex items-center gap-2 transition-all shadow"
+                className="px-3 py-1.5 rounded-lg bg-zinc-900 border border-zinc-700 hover:border-zinc-500 text-white font-mono text-xs font-bold tracking-widest uppercase flex items-center gap-1.5 transition-all shadow"
               >
                 <span>BUS MENU</span>
                 <ChevronDown className="w-3.5 h-3.5 text-zinc-400" />
@@ -307,76 +307,76 @@ export const DashboardPage: React.FC = () => {
         </header>
 
         {/* SCADA Status Ribbon for Factory Plant Floor */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
-          <div className="bg-[#121218] rounded-xl p-4 flex items-center justify-between border border-[#2a2a34] shadow-sm">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-2.5">
+          <div className="bg-[#121218] rounded-xl px-3 py-2 flex items-center justify-between border border-[#2a2a34] shadow-sm">
             <div>
-              <span className="text-xs font-mono text-zinc-400 uppercase tracking-wider block font-semibold">
+              <span className="text-[10px] font-mono text-zinc-400 uppercase tracking-wider block font-semibold">
                 FACILITY STATUS
               </span>
-              <span className="text-base font-mono font-bold text-white flex items-center gap-2 mt-1">
-                <span className="w-2.5 h-2.5 rounded-full bg-emerald-500" /> ALL ZONES ACTIVE
+              <span className="text-xs font-mono font-bold text-white flex items-center gap-1.5 mt-0.5">
+                <span className="w-2 h-2 rounded-full bg-emerald-500" /> ALL ZONES ACTIVE
               </span>
             </div>
-            <span className="text-xs font-mono bg-zinc-900 border border-zinc-700 text-zinc-300 px-2.5 py-1 rounded">
+            <span className="text-[10px] font-mono bg-zinc-900 border border-zinc-700 text-zinc-300 px-2 py-0.5 rounded">
               ONLINE
             </span>
           </div>
 
-          <div className="bg-[#121218] rounded-xl p-4 flex items-center justify-between border border-[#2a2a34] shadow-sm">
+          <div className="bg-[#121218] rounded-xl px-3 py-2 flex items-center justify-between border border-[#2a2a34] shadow-sm">
             <div>
-              <span className="text-xs font-mono text-zinc-400 uppercase tracking-wider block font-semibold">
+              <span className="text-[10px] font-mono text-zinc-400 uppercase tracking-wider block font-semibold">
                 ACTIVE ALERTS
               </span>
-              <span className="text-base font-mono font-bold text-red-400 flex items-center gap-2 mt-1">
-                <span className="w-2.5 h-2.5 rounded-full bg-red-600 animate-pulse" /> 3 ALERTS LOGGED
+              <span className="text-xs font-mono font-bold text-red-400 flex items-center gap-1.5 mt-0.5">
+                <span className="w-2 h-2 rounded-full bg-red-600 animate-pulse" /> 3 ALERTS LOGGED
               </span>
             </div>
-            <span className="text-xs font-mono bg-red-950/60 border border-red-800/60 text-red-300 px-2.5 py-1 rounded font-bold">
+            <span className="text-[10px] font-mono bg-red-950/60 border border-red-800/60 text-red-300 px-2 py-0.5 rounded font-bold">
               ATTENTION
             </span>
           </div>
 
-          <div className="bg-[#121218] rounded-xl p-4 flex items-center justify-between border border-[#2a2a34] shadow-sm">
+          <div className="bg-[#121218] rounded-xl px-3 py-2 flex items-center justify-between border border-[#2a2a34] shadow-sm">
             <div>
-              <span className="text-xs font-mono text-zinc-400 uppercase tracking-wider block font-semibold">
+              <span className="text-[10px] font-mono text-zinc-400 uppercase tracking-wider block font-semibold">
                 MAINTENANCE SCHEDULE
               </span>
-              <span className="text-base font-mono font-bold text-amber-400 flex items-center gap-2 mt-1">
-                <span className="w-2.5 h-2.5 rounded-full bg-amber-500" /> 7 SCHEDULED
+              <span className="text-xs font-mono font-bold text-amber-400 flex items-center gap-1.5 mt-0.5">
+                <span className="w-2 h-2 rounded-full bg-amber-500" /> 7 SCHEDULED
               </span>
             </div>
-            <span className="text-xs font-mono bg-amber-950/50 border border-amber-800/50 text-amber-300 px-2.5 py-1 rounded font-bold">
+            <span className="text-[10px] font-mono bg-amber-950/50 border border-amber-800/50 text-amber-300 px-2 py-0.5 rounded font-bold">
               UPCOMING
             </span>
           </div>
 
-          <div className="bg-[#121218] rounded-xl p-4 flex items-center justify-between border border-[#2a2a34] shadow-sm">
+          <div className="bg-[#121218] rounded-xl px-3 py-2 flex items-center justify-between border border-[#2a2a34] shadow-sm">
             <div>
-              <span className="text-xs font-mono text-zinc-400 uppercase tracking-wider block font-semibold">
+              <span className="text-[10px] font-mono text-zinc-400 uppercase tracking-wider block font-semibold">
                 MONITORED MACHINES
               </span>
-              <span className="text-base font-mono font-bold text-white flex items-center gap-2 mt-1">
-                <span className="w-2.5 h-2.5 rounded-full bg-sky-400" /> ALL ONLINE
+              <span className="text-xs font-mono font-bold text-white flex items-center gap-1.5 mt-0.5">
+                <span className="w-2 h-2 rounded-full bg-sky-400" /> ALL ONLINE
               </span>
             </div>
-            <span className="text-xs font-mono bg-zinc-900 border border-zinc-700 text-zinc-300 px-2.5 py-1 rounded font-bold">
+            <span className="text-[10px] font-mono bg-zinc-900 border border-zinc-700 text-zinc-300 px-2 py-0.5 rounded font-bold">
               CONNECTED
             </span>
           </div>
         </div>
 
         {/* MAIN WORKSPACE: TWO CORE DOMINANT PANELS (MAP + ALERT CENTER) */}
-        <main className="grid grid-cols-1 xl:grid-cols-12 gap-6">
+        <main className="grid grid-cols-1 xl:grid-cols-12 gap-3.5">
           {/* PANEL A: FACTORY / PLANT SPATIAL MAP (7 Cols) */}
-          <section className="xl:col-span-7 bg-[#121218] rounded-2xl p-6 border border-[#2a2a34] flex flex-col justify-between shadow-md">
+          <section className="xl:col-span-7 bg-[#121218] rounded-2xl p-3.5 border border-[#2a2a34] flex flex-col justify-between shadow-md">
             <div>
               {/* Floor Plan Top Bar */}
-              <div className="flex flex-wrap items-center justify-between pb-4 mb-4 border-b border-zinc-800 gap-2">
-                <div className="flex items-center gap-3">
-                  <span className="font-mono text-base text-white font-bold tracking-wider">
-                    FACTORY SPATIAL MAP & TELEMETRY NODES
+              <div className="flex flex-wrap items-center justify-between pb-2.5 mb-2.5 border-b border-zinc-800 gap-2">
+                <div className="flex items-center gap-2">
+                  <span className="font-mono text-sm text-white font-bold tracking-wider">
+                    FACTORY SPATIAL MAP &amp; TELEMETRY NODES
                   </span>
-                  <span className="text-xs font-mono text-zinc-400 font-semibold">• 2D TOPOLOGY SCHEMATIC v2.5</span>
+                  <span className="text-[11px] font-mono text-zinc-400 font-semibold">• 2D TOPOLOGY</span>
                 </div>
 
                 {/* Zone Filter Selector Pills */}
@@ -398,7 +398,7 @@ export const DashboardPage: React.FC = () => {
               </div>
 
               {/* Interactive Map Floor Canvas */}
-              <div className="relative w-full h-[540px] rounded-xl bg-black/90 border border-zinc-800 overflow-hidden shadow-inner flex items-center justify-center">
+              <div className="relative w-full h-[400px] xl:h-[430px] rounded-xl bg-black/90 border border-zinc-800 overflow-hidden shadow-inner flex items-center justify-center">
                 {/* Background coordinate grid */}
                 <div
                   className="absolute inset-0 opacity-30 pointer-events-none"
@@ -409,15 +409,15 @@ export const DashboardPage: React.FC = () => {
                 />
 
                 {/* Compass HUD Rose & Zone Status */}
-                <div className="absolute top-3 left-3 z-10 font-mono text-[10px] text-zinc-500 flex flex-col items-start bg-black/70 backdrop-blur-md px-2.5 py-1.5 rounded border border-zinc-800">
+                <div className="absolute top-2.5 left-2.5 z-10 font-mono text-[10px] text-zinc-500 flex flex-col items-start bg-black/70 backdrop-blur-md px-2 py-1 rounded border border-zinc-800">
                   <div className="flex items-center gap-1.5">
                     <span className="text-white font-bold">▲ N 004°</span>
                     <span className="text-zinc-600">|</span>
                     <span className="text-zinc-300">SEC-09</span>
                   </div>
-                  <span className="text-xs text-zinc-400 font-mono mt-0.5">GRID: 120.4, 385.2</span>
+                  <span className="text-[10px] text-zinc-400 font-mono mt-0.5">GRID: 120.4, 385.2</span>
                   {activeZone !== 'all' && (
-                    <div className="mt-1 pt-1 border-t border-zinc-800 flex items-center gap-1.5">
+                    <div className="mt-1 pt-0.5 border-t border-zinc-800 flex items-center gap-1">
                       <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
                       <span className="text-cyan-300 font-bold uppercase tracking-wider text-[9px]">
                         ZOOMED: {activeZone.replace('-', ' ').toUpperCase()}
@@ -426,20 +426,16 @@ export const DashboardPage: React.FC = () => {
                   )}
                 </div>
 
-                {/* Quick Interactive Inspect Legend */}
-                <div className="absolute top-3 right-3 z-10 flex flex-wrap gap-3 items-center bg-[#0d0e10]/95 px-3.5 py-1.5 rounded-lg border border-zinc-700 text-xs font-mono">
+                {/* Quick Interactive Inspect Legend (Clean without alarm text) */}
+                <div className="absolute top-2.5 right-2.5 z-10 flex flex-wrap gap-2.5 items-center bg-[#0d0e10]/95 px-2.5 py-1 rounded-lg border border-zinc-700 text-[10px] font-mono">
                   <span className="flex items-center gap-1.5 text-zinc-300">
                     <span className="w-2 h-2 rounded-full bg-emerald-500" /> NOMINAL
                   </span>
                   <span className="flex items-center gap-1.5 text-zinc-300">
-                    <span className="w-2 h-2 rounded-full bg-amber-500" /> WARN / MAINT
-                  </span>
-                  <span className="flex items-center gap-1.5 text-zinc-300">
-                    <span className="w-2 h-2 rounded-full bg-red-600 animate-pulse" />{' '}
-                    CRITICAL E-STOP
+                    <span className="w-2 h-2 rounded-full bg-amber-500" /> MAINT DUE
                   </span>
                   <span className="flex items-center gap-1.5 text-zinc-400">
-                    <span className="w-2 h-0.5 bg-sky-400" /> AGV / EGRESS
+                    <span className="w-2 h-0.5 bg-sky-400" /> AGV ROUTE
                   </span>
                 </div>
 
@@ -468,14 +464,6 @@ export const DashboardPage: React.FC = () => {
                     >
                       <line x1="0" y1="0" x2="0" y2="6" stroke="#1f2937" strokeWidth="1" />
                     </pattern>
-                    <linearGradient id="heatCavitation" x1="0%" y1="0%" x2="100%" y2="100%">
-                      <stop offset="0%" stopColor="#dc2626" stopOpacity="0.35" />
-                      <stop offset="100%" stopColor="#dc2626" stopOpacity="0.0" />
-                    </linearGradient>
-                    <linearGradient id="pressStressGlow" x1="0%" y1="100%" x2="100%" y2="0%">
-                      <stop offset="0%" stopColor="#dc2626" stopOpacity="0.3" />
-                      <stop offset="100%" stopColor="#dc2626" stopOpacity="0.0" />
-                    </linearGradient>
                   </defs>
 
                   {/* EMERGENCY EGRESS & AUXILIARY AISLE ROUTES */}
@@ -660,16 +648,16 @@ export const DashboardPage: React.FC = () => {
                       width="130"
                       height="65"
                       rx="5"
-                      fill="#161622"
-                      stroke={selectedMachine.id === 'MCH-CNC-01' ? '#FFFFFF' : '#F59E0B'}
-                      strokeWidth={selectedMachine.id === 'MCH-CNC-01' ? 2.5 : 1.5}
+                      fill="#12131a"
+                      stroke={selectedMachine.id === 'MCH-CNC-01' ? '#FFFFFF' : '#2a2a3a'}
+                      strokeWidth={selectedMachine.id === 'MCH-CNC-01' ? 2 : 1.2}
                     />
                     <text x="58" y="105" fill="#FFFFFF" fontFamily="Space Mono" fontSize="11" fontWeight="700">
                       CNC Mill
                     </text>
-                    <circle cx="162" cy="100" r="5" fill="#F59E0B" />
-                    <text x="58" y="128" fill="#A1A1AA" fontFamily="Space Mono" fontSize="8">
-                      68.4°C • ATTENTION
+                    <circle cx="162" cy="100" r="4.5" fill="#10B981" />
+                    <text x="58" y="128" fill="#71717a" fontFamily="Space Mono" fontSize="8">
+                      SPINDLE BAY 01
                     </text>
                   </g>
 
@@ -711,7 +699,6 @@ export const DashboardPage: React.FC = () => {
                   </g>
 
                   {/* 3. MCH-HYD-01 */}
-                  <circle cx="210" cy="180" r="65" fill="url(#pressStressGlow)" />
                   <g
                     className="cursor-pointer hover:opacity-90"
                     onClick={() =>
@@ -735,19 +722,16 @@ export const DashboardPage: React.FC = () => {
                       width="294"
                       height="75"
                       rx="6"
-                      fill="#1e1114"
-                      stroke={selectedMachine.id === 'MCH-HYD-01' ? '#FFFFFF' : '#dc2626'}
-                      strokeWidth={selectedMachine.id === 'MCH-HYD-01' ? 3 : 2}
+                      fill="#12131a"
+                      stroke={selectedMachine.id === 'MCH-HYD-01' ? '#FFFFFF' : '#2a2a3a'}
+                      strokeWidth={selectedMachine.id === 'MCH-HYD-01' ? 2 : 1.2}
                     />
                     <text x="60" y="190" fill="#FFFFFF" fontFamily="Space Mono" fontSize="11" fontWeight="700">
                       Hydraulic Press
                     </text>
-                    <circle cx="326" cy="185" r="5.5" fill="#dc2626" />
-                    <text x="60" y="215" fill="#ef4444" fontFamily="Space Mono" fontSize="8" fontWeight="bold">
-                      PRESSURE ALERT
-                    </text>
-                    <text x="240" y="215" fill="#fca5a5" fontFamily="Space Mono" fontSize="8">
-                      318 BAR
+                    <circle cx="326" cy="185" r="4.5" fill="#10B981" />
+                    <text x="60" y="215" fill="#71717a" fontFamily="Space Mono" fontSize="8">
+                      PRESS BAY 02 • 318 BAR
                     </text>
                   </g>
 
@@ -811,7 +795,6 @@ export const DashboardPage: React.FC = () => {
                   </g>
 
                   {/* ================= MACHINES IN ZONE C ================= */}
-                  <circle cx="120" cy="375" r="60" fill="url(#heatCavitation)" />
                   {/* Centrifugal Pump (Cavitation Pump) */}
                   <g
                     className="cursor-pointer"
@@ -836,19 +819,16 @@ export const DashboardPage: React.FC = () => {
                       width="145"
                       height="95"
                       rx="6"
-                      fill="#2a0a0d"
-                      stroke={selectedMachine.id === 'MCH-PMP-01' ? '#FFFFFF' : '#dc2626'}
-                      strokeWidth="2.5"
+                      fill="#12131a"
+                      stroke={selectedMachine.id === 'MCH-PMP-01' ? '#FFFFFF' : '#2a2a3a'}
+                      strokeWidth={selectedMachine.id === 'MCH-PMP-01' ? 2 : 1.2}
                     />
                     <text x="58" y="358" fill="#FFFFFF" fontFamily="Space Mono" fontSize="11" fontWeight="700">
                       Centrifugal Pump
                     </text>
-                    <circle cx="175" cy="354" r="6" fill="#dc2626" className="animate-pulse" />
-                    <text x="58" y="388" fill="#ef4444" fontFamily="Space Mono" fontSize="9" fontWeight="bold">
-                      96.4 dB CAVITATION
-                    </text>
-                    <text x="58" y="404" fill="#FFFFFF" fontFamily="Space Mono" fontSize="8" fontWeight="bold">
-                      HIGH NOISE ALERT
+                    <circle cx="175" cy="354" r="4.5" fill="#10B981" />
+                    <text x="58" y="388" fill="#71717a" fontFamily="Space Mono" fontSize="8">
+                      COOLING YARD • 96 dB
                     </text>
                   </g>
 
@@ -1053,8 +1033,8 @@ export const DashboardPage: React.FC = () => {
             </div>
 
             {/* Map Footer Toolbar */}
-            <div className="flex flex-wrap items-center justify-between gap-3 pt-3 mt-3 border-t border-zinc-800 text-xs font-mono">
-              <div className="flex items-center gap-3">
+            <div className="flex flex-wrap items-center justify-between gap-2 pt-2 mt-2 border-t border-zinc-800 text-xs font-mono">
+              <div className="flex items-center gap-2.5">
                 <span className="text-zinc-400 font-medium">COORDINATES:</span>
                 <span className="text-white font-bold">X: 120.4, Y: 385.2</span>
                 <span className="text-zinc-600">|</span>
@@ -1062,31 +1042,31 @@ export const DashboardPage: React.FC = () => {
                   AGV CADENCE: <strong className="text-emerald-400">OPTIMAL (2.1 m/s)</strong>
                 </span>
               </div>
-              <span className="text-[11px] text-zinc-400">Click any machine node to inspect telemetry envelope</span>
+              <span className="text-[10px] text-zinc-400">Click any machine node to inspect telemetry envelope</span>
             </div>
           </section>
 
           {/* PANEL B: ALERT & MAINTENANCE COMMAND CENTER (5 Cols) */}
-          <section className="xl:col-span-5 bg-[#121218]/90 backdrop-blur-md rounded-2xl p-5 flex flex-col justify-between border border-[#2a2a34]">
+          <section className="xl:col-span-5 bg-[#121218]/90 backdrop-blur-md rounded-2xl p-3.5 flex flex-col justify-between border border-[#2a2a34]">
             <div>
               {/* Alert Center Header */}
-              <div className="flex items-center justify-between pb-3.5 mb-4 border-b border-zinc-800">
-                <div className="flex items-center gap-2.5">
+              <div className="flex items-center justify-between pb-2 mb-2.5 border-b border-zinc-800">
+                <div className="flex items-center gap-2">
                   <span className="w-2.5 h-2.5 rounded-full bg-red-600" />
-                  <h2 className="font-mono text-base text-white font-bold tracking-wide">
+                  <h2 className="font-mono text-sm text-white font-bold tracking-wide">
                     ALERT & MAINTENANCE COMMAND
                   </h2>
                 </div>
-                <span className="text-xs font-mono text-zinc-400 uppercase font-semibold">
+                <span className="text-[10px] font-mono text-zinc-400 uppercase font-semibold">
                   QUEUE: 10 ACTIVE DISPATCHES
                 </span>
               </div>
 
               {/* Filter tabs for alerts */}
-              <div className="flex items-center gap-2 mb-4">
+              <div className="flex items-center gap-1.5 mb-2.5">
                 <button
                   onClick={() => setAlertFilter('ALL')}
-                  className={`px-3.5 py-1 rounded-full font-mono text-xs font-bold tracking-tight shadow transition-all ${
+                  className={`px-3 py-0.5 rounded-full font-mono text-[11px] font-bold tracking-tight shadow transition-all ${
                     alertFilter === 'ALL'
                       ? 'bg-white text-black'
                       : 'bg-zinc-900 border border-zinc-700 text-zinc-300 hover:text-white'
@@ -1096,7 +1076,7 @@ export const DashboardPage: React.FC = () => {
                 </button>
                 <button
                   onClick={() => setAlertFilter('STOP_REQ')}
-                  className={`px-3.5 py-1 rounded-full font-mono text-xs font-semibold flex items-center gap-1.5 transition-all ${
+                  className={`px-3 py-0.5 rounded-full font-mono text-[11px] font-semibold flex items-center gap-1.5 transition-all ${
                     alertFilter === 'STOP_REQ'
                       ? 'bg-[#D71920] text-white shadow-[0_0_10px_#D71920]'
                       : 'bg-[#D71920]/10 border border-[#D71920]/60 text-white hover:bg-[#D71920]/25'
@@ -1107,7 +1087,7 @@ export const DashboardPage: React.FC = () => {
                 </button>
                 <button
                   onClick={() => setAlertFilter('MAINT')}
-                  className={`px-3.5 py-1 rounded-full font-mono text-xs font-semibold flex items-center gap-1.5 transition-all ${
+                  className={`px-3 py-0.5 rounded-full font-mono text-[11px] font-semibold flex items-center gap-1.5 transition-all ${
                     alertFilter === 'MAINT'
                       ? 'bg-amber-500 text-black font-bold'
                       : 'bg-amber-500/10 border border-amber-500/60 text-amber-300 hover:bg-amber-500/25'
@@ -1119,7 +1099,7 @@ export const DashboardPage: React.FC = () => {
               </div>
 
               {/* Scrollable Incident Queue */}
-              <div className="space-y-3 max-h-[515px] overflow-y-auto pr-1">
+              <div className="space-y-2 max-h-[300px] xl:max-h-[325px] overflow-y-auto pr-1">
                 {/* Critical Incident 1: E-STOP Centrifugal Pump */}
                 {(alertFilter === 'ALL' || alertFilter === 'STOP_REQ') && (
                   <article className="p-4 rounded-xl bg-[#D71920]/10 border-2 border-[#D71920]/80 relative">

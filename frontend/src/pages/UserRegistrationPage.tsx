@@ -56,7 +56,7 @@ export const UserRegistrationPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#08080a] text-[#E4E4E7] font-sans flex flex-col items-center justify-center p-3 md:p-6 relative overflow-hidden select-none">
+    <div className="min-h-[calc(100vh-4.5rem)] bg-[#08080a] text-[#E4E4E7] font-sans flex flex-col items-center justify-center p-3 relative overflow-hidden select-none">
       {/* Background radial gradient mesh */}
       <div
         className="absolute inset-0 pointer-events-none opacity-30"
