@@ -10,9 +10,7 @@ import {
   Shield,
   Clock,
   ChevronDown,
-  Upload,
 } from 'lucide-react';
-import { CsvManualTelemetryUpload } from '../components/telemetry/CsvManualTelemetryUpload';
 
 interface MachineInspectorData {
   id: string;
@@ -241,14 +239,6 @@ export const DashboardPage: React.FC = () => {
           </div>
 
           <div className="flex items-center gap-3 relative">
-            <a
-              href="#csv-upload-section"
-              className="px-3.5 py-2 rounded-xl bg-cyan-950/40 hover:bg-cyan-900/60 border border-cyan-500/40 text-cyan-300 font-mono text-xs font-bold tracking-wider uppercase flex items-center gap-2 transition-all shadow-sm"
-            >
-              <Upload className="w-4 h-4 text-cyan-400" />
-              <span>UPLOAD CSV</span>
-            </a>
-
             <button
               onClick={() => setIsModalOpen(true)}
               className="px-4 py-2 rounded-xl bg-red-700 hover:bg-red-800 text-white font-mono text-xs font-bold tracking-wider uppercase flex items-center gap-2 transition-all shadow-sm"
@@ -1376,11 +1366,6 @@ export const DashboardPage: React.FC = () => {
             </div>
           </section>
         </main>
-
-        {/* MANUAL SENSOR TELEMETRY INGESTION (.CSV) SECTION */}
-        <section id="csv-upload-section" className="mt-4">
-          <CsvManualTelemetryUpload onTriggerStop={handleTriggerEStop} />
-        </section>
 
         {/* Machine Registration Modal Dialog */}
         {isModalOpen && (
