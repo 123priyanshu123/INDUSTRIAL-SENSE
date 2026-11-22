@@ -803,28 +803,28 @@ export const BlueprintSchematicView: React.FC<BlueprintSchematicViewProps> = ({
   const Icon4 = cfg.c4Icon;
 
   return (
-    <div className="xl:col-span-8 bg-[#121218] rounded-2xl p-6 relative overflow-hidden flex flex-col justify-between border border-zinc-800 min-h-[500px] shadow-lg">
+    <div className="xl:col-span-8 bg-[#121218] rounded-xl p-3 relative overflow-hidden flex flex-col justify-between border border-zinc-800 shadow-md">
       {/* Stage Top Bar */}
-      <div className="relative z-10 flex items-center justify-between pb-4 border-b border-zinc-800 font-mono text-sm">
-        <div className="flex items-center gap-3">
-          <span className="text-white font-bold tracking-wider uppercase text-sm md:text-base">
-            BLUEPRINT DIGITAL TWIN - KINEMATIC SCHEMATIC ({machine.name})
+      <div className="relative z-10 flex items-center justify-between pb-2 border-b border-zinc-800 font-mono text-xs">
+        <div className="flex items-center gap-2">
+          <span className="text-white font-bold tracking-wider uppercase text-xs sm:text-sm">
+            KINEMATIC SCHEMATIC ({machine.name})
           </span>
-          <span className="w-2.5 h-2.5 rounded-full bg-emerald-500" />
+          <span className="w-2 h-2 rounded-full bg-emerald-500" />
         </div>
-        <div className="flex items-center gap-2 text-zinc-400 text-xs">
-          <span className="px-3 py-1 rounded-md bg-zinc-900 border border-zinc-800 text-zinc-300 font-medium">
-            ISO VIEW • 2.5D CAD
+        <div className="flex items-center gap-1.5 text-zinc-400 text-[10px]">
+          <span className="px-2 py-0.5 rounded bg-zinc-900 border border-zinc-800 text-zinc-300">
+            2.5D CAD
           </span>
-          <span className="px-3 py-1 rounded-md bg-zinc-900 border border-zinc-800 text-emerald-400 font-semibold flex items-center gap-1.5">
-            <span className="w-2 h-2 rounded-full bg-emerald-400" /> 60 FPS LIVE
+          <span className="px-2 py-0.5 rounded bg-zinc-900 border border-zinc-800 text-emerald-400 font-semibold flex items-center gap-1">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" /> 60 FPS
           </span>
         </div>
       </div>
 
       {/* Interactive Blueprint Graphic with Bold Line Art & Callout Badges */}
-      <div className="relative w-full h-[370px] my-auto flex items-center justify-center p-2">
-        <svg className="w-full h-full max-h-[360px] select-none" fill="none" viewBox="0 0 780 350">
+      <div className="relative w-full h-[200px] xl:h-[220px] my-auto flex items-center justify-center p-1">
+        <svg className="w-full h-full max-h-[210px] select-none" fill="none" viewBox="0 0 780 350">
           <defs>
             <pattern id="tech-grid" width="24" height="24" patternUnits="userSpaceOnUse">
               <path d="M 24 0 L 0 0 0 24" fill="none" stroke="#252530" strokeWidth="0.8" />
@@ -838,68 +838,68 @@ export const BlueprintSchematicView: React.FC<BlueprintSchematicViewProps> = ({
 
         {/* 4 Overlay Callout Badges with High-Contrast Hardware Borders */}
         {/* 1. Top-Left Acoustic / Dynamic Sensor Badge */}
-        <div className="absolute top-2 left-2 bg-[#0c0d10] border border-red-900/60 rounded-xl p-3.5 shadow-lg backdrop-blur-md max-w-[230px] z-20">
-          <div className="flex items-center justify-between gap-2 text-xs font-mono text-zinc-400 uppercase tracking-wider font-semibold">
+        <div className="absolute top-1 left-1 bg-[#0c0d10]/95 border border-red-900/60 rounded-lg p-1.5 px-2.5 shadow backdrop-blur-md max-w-[170px] z-20">
+          <div className="flex items-center justify-between gap-1 text-[10px] font-mono text-zinc-400 uppercase tracking-wider font-semibold">
             <span>{cfg.c1Title}</span>
-            <Icon1 className="w-4 h-4 text-red-500" />
+            <Icon1 className="w-3 h-3 text-red-500" />
           </div>
-          <div className="text-2xl font-mono font-bold text-red-500 tracking-tight mt-1">
-            <span>{cfg.c1Val}</span> <span className="text-sm text-zinc-400 font-normal">{cfg.c1Unit}</span>
+          <div className="text-base font-mono font-bold text-red-500 tracking-tight leading-tight">
+            <span>{cfg.c1Val}</span> <span className="text-[10px] text-zinc-400 font-normal">{cfg.c1Unit}</span>
           </div>
-          <div className="text-xs font-mono text-zinc-300 mt-1.5 flex items-center gap-2 font-semibold">
-            <span className="w-2 h-2 rounded-full bg-red-500" />
-            <span className="text-red-400">{cfg.c1Sub}</span>
+          <div className="text-[9px] font-mono text-zinc-300 flex items-center gap-1 font-semibold">
+            <span className="w-1.5 h-1.5 rounded-full bg-red-500" />
+            <span className="text-red-400 truncate">{cfg.c1Sub}</span>
           </div>
         </div>
 
         {/* 2. Bottom-Left Pressure / Load / Feed Badge */}
-        <div className="absolute bottom-2 left-2 bg-[#0c0d10] border border-sky-900/60 rounded-xl p-3.5 shadow-lg backdrop-blur-md max-w-[240px] z-20">
-          <div className="flex items-center justify-between gap-2 text-xs font-mono text-zinc-400 uppercase tracking-wider font-semibold">
+        <div className="absolute bottom-1 left-1 bg-[#0c0d10]/95 border border-sky-900/60 rounded-lg p-1.5 px-2.5 shadow backdrop-blur-md max-w-[180px] z-20">
+          <div className="flex items-center justify-between gap-1 text-[10px] font-mono text-zinc-400 uppercase tracking-wider font-semibold">
             <span>{cfg.c2Title}</span>
-            <Icon2 className="w-4 h-4 text-sky-400" />
+            <Icon2 className="w-3 h-3 text-sky-400" />
           </div>
-          <div className="text-base font-mono font-bold text-white tracking-tight mt-1.5">
-            <span className="text-sky-400 text-xl">{cfg.c2Val}</span>{' '}
-            <span className="text-amber-400 text-base">{cfg.c2Unit}</span>
+          <div className="text-sm font-mono font-bold text-white tracking-tight leading-tight">
+            <span className="text-sky-400">{cfg.c2Val}</span>{' '}
+            <span className="text-amber-400 text-xs">{cfg.c2Unit}</span>
           </div>
-          <div className="text-xs font-mono text-zinc-400 mt-1">{cfg.c2Sub}</div>
+          <div className="text-[9px] font-mono text-zinc-400 truncate">{cfg.c2Sub}</div>
         </div>
 
         {/* 3. Top-Right Thermal / Temperature Badge */}
-        <div className="absolute top-2 right-2 bg-[#0c0d10] border border-amber-900/60 rounded-xl p-3.5 shadow-lg backdrop-blur-md max-w-[230px] z-20">
-          <div className="flex items-center justify-between gap-2 text-xs font-mono text-zinc-400 uppercase tracking-wider font-semibold">
+        <div className="absolute top-1 right-1 bg-[#0c0d10]/95 border border-amber-900/60 rounded-lg p-1.5 px-2.5 shadow backdrop-blur-md max-w-[170px] z-20">
+          <div className="flex items-center justify-between gap-1 text-[10px] font-mono text-zinc-400 uppercase tracking-wider font-semibold">
             <span>{cfg.c3Title}</span>
-            <Icon3 className="w-4 h-4 text-amber-500" />
+            <Icon3 className="w-3 h-3 text-amber-500" />
           </div>
-          <div className="text-2xl font-mono font-bold text-amber-500 tracking-tight mt-1">
-            <span>{cfg.c3Val}</span> <span className="text-sm text-zinc-400 font-normal">{cfg.c3Unit}</span>
+          <div className="text-base font-mono font-bold text-amber-500 tracking-tight leading-tight">
+            <span>{cfg.c3Val}</span> <span className="text-[10px] text-zinc-400 font-normal">{cfg.c3Unit}</span>
           </div>
-          <div className="text-xs font-mono text-amber-400 mt-1.5 flex items-center gap-2 font-semibold">
-            <span className="w-2 h-2 rounded-full bg-amber-500" />
-            <span>{cfg.c3Sub}</span>
+          <div className="text-[9px] font-mono text-amber-400 flex items-center gap-1 font-semibold">
+            <span className="w-1.5 h-1.5 rounded-full bg-amber-500" />
+            <span className="truncate">{cfg.c3Sub}</span>
           </div>
         </div>
 
         {/* 4. Bottom-Right Cycle / RPM / Speed Badge */}
-        <div className="absolute bottom-2 right-2 bg-[#0c0d10] border border-zinc-700 rounded-xl p-3.5 shadow-lg backdrop-blur-md max-w-[230px] z-20">
-          <div className="flex items-center justify-between gap-2 text-xs font-mono text-zinc-400 uppercase tracking-wider font-semibold">
+        <div className="absolute bottom-1 right-1 bg-[#0c0d10]/95 border border-zinc-700 rounded-lg p-1.5 px-2.5 shadow backdrop-blur-md max-w-[170px] z-20">
+          <div className="flex items-center justify-between gap-1 text-[10px] font-mono text-zinc-400 uppercase tracking-wider font-semibold">
             <span>{cfg.c4Title}</span>
-            <Icon4 className="w-4 h-4 text-white" />
+            <Icon4 className="w-3 h-3 text-white" />
           </div>
-          <div className="text-2xl font-mono font-bold text-white tracking-tight mt-1">
-            <span>{cfg.c4Val}</span> <span className="text-sm text-zinc-400 font-normal">{cfg.c4Unit}</span>
+          <div className="text-base font-mono font-bold text-white tracking-tight leading-tight">
+            <span>{cfg.c4Val}</span> <span className="text-[10px] text-zinc-400 font-normal">{cfg.c4Unit}</span>
           </div>
-          <div className="text-xs font-mono text-zinc-400 mt-1">{cfg.c4Sub}</div>
+          <div className="text-[9px] font-mono text-zinc-400 truncate">{cfg.c4Sub}</div>
         </div>
       </div>
 
       {/* Stage Bottom Status Strip */}
-      <div className="relative z-10 pt-4 border-t border-zinc-800 flex flex-wrap items-center justify-between text-sm font-mono gap-3">
-        <div className="flex items-center gap-3">
-          <span className="text-zinc-300 font-semibold">{cfg.footerL}</span>
+      <div className="relative z-10 pt-2 border-t border-zinc-800 flex flex-wrap items-center justify-between text-xs font-mono gap-2">
+        <div className="flex items-center gap-2">
+          <span className="text-zinc-300 font-semibold text-[11px]">{cfg.footerL}</span>
         </div>
-        <div className="text-amber-400 font-semibold flex items-center gap-2">
-          <span className="w-2 h-2 rounded-full bg-amber-500" />
+        <div className="text-amber-400 font-semibold flex items-center gap-1.5 text-[11px]">
+          <span className="w-1.5 h-1.5 rounded-full bg-amber-500" />
           <span>{cfg.footerR}</span>
         </div>
       </div>

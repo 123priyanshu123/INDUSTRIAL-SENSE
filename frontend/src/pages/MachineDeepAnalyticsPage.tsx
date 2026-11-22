@@ -160,31 +160,31 @@ export const MachineDeepAnalyticsPage: React.FC = () => {
   const deltaPressure = (pressureDisc - pressureSuct).toFixed(2);
 
   return (
-    <div className="min-h-screen bg-[#08080a] text-[#E4E4E7] font-sans select-none overflow-x-hidden p-3 md:p-6">
-      <div className="max-w-[1920px] mx-auto flex flex-col gap-6">
+    <div className="min-h-[calc(100vh-4.5rem)] bg-[#08080a] text-[#E4E4E7] font-sans select-none p-2.5 xl:p-3 flex flex-col justify-between gap-2.5 overflow-hidden">
+      <div className="max-w-[1920px] mx-auto w-full flex flex-col justify-between h-full gap-2.5">
         {/* Top Header */}
-        <header className="bg-[#121218] rounded-2xl px-6 py-4 flex flex-wrap items-center justify-between border border-[#2a2a34] shadow-md relative z-40 gap-4">
-          <div className="flex items-center gap-3">
+        <header className="bg-[#121218] rounded-xl px-4 py-2 flex flex-wrap items-center justify-between border border-[#2a2a34] shadow relative z-40 gap-2">
+          <div className="flex items-center gap-2.5">
             <Link
               to="/dashboard"
-              className="px-3 py-2 rounded-xl bg-zinc-900 hover:bg-zinc-800 text-zinc-300 hover:text-white border border-zinc-700 transition-all flex items-center gap-2 font-mono text-xs font-semibold"
+              className="px-2.5 py-1 rounded-lg bg-zinc-900 hover:bg-zinc-800 text-zinc-300 hover:text-white border border-zinc-700 transition-all flex items-center gap-1.5 font-mono text-xs font-semibold"
             >
-              <ArrowLeft className="w-4 h-4" />
-              <span className="hidden sm:inline">DASHBOARD</span>
+              <ArrowLeft className="w-3.5 h-3.5" />
+              <span>DASHBOARD</span>
             </Link>
             <Link
               to="/"
               title="Return to Landing Page"
-              className="font-ndot-57 text-xl md:text-2xl font-bold tracking-tight text-white uppercase flex items-center gap-3 hover:text-red-400 transition-colors cursor-pointer group"
+              className="font-ndot-57 text-sm sm:text-base font-bold tracking-tight text-white uppercase flex items-center gap-2 hover:text-red-400 transition-colors cursor-pointer group"
             >
-              <span className="w-3.5 h-3.5 rounded-full bg-red-600 inline-block group-hover:scale-110 transition-transform" />
-              <span className="group-hover:text-white">MACHINE TWIN & ANALYTICS - {selectedMachine.name}</span>
+              <span className="w-2.5 h-2.5 rounded-full bg-red-600 inline-block group-hover:scale-110 transition-transform" />
+              <span>MACHINE TWIN &amp; ANALYTICS — {selectedMachine.name}</span>
             </Link>
           </div>
 
-          <div className="flex items-center gap-3">
-            <div className="flex items-center gap-2 bg-black/60 px-3.5 py-2 rounded-xl border border-zinc-800 font-mono text-xs">
-              <span className="text-zinc-400 font-semibold hidden md:inline">SELECT MACHINE:</span>
+          <div className="flex items-center gap-2.5">
+            <div className="flex items-center gap-2 bg-black/60 px-3 py-1 rounded-lg border border-zinc-800 font-mono text-xs">
+              <span className="text-zinc-400 font-semibold hidden md:inline text-[11px]">SELECT MACHINE:</span>
               <select
                 value={selectedMachine.id}
                 onChange={(e) => navigate(`/analytics/${e.target.value}`)}
@@ -200,88 +200,75 @@ export const MachineDeepAnalyticsPage: React.FC = () => {
 
             <button
               onClick={handleEStop}
-              className="flex items-center gap-2 bg-red-700 hover:bg-red-800 text-white font-mono text-xs font-bold uppercase px-4 py-2 rounded-xl transition-all shadow-sm"
+              className="flex items-center gap-1.5 bg-red-700 hover:bg-red-800 text-white font-mono text-xs font-bold uppercase px-3 py-1.5 rounded-lg transition-all shadow-sm"
             >
               <span>EMERGENCY STOP</span>
             </button>
           </div>
         </header>
 
-        {/* Quick Status Ribbon */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
-          <div className="bg-[#121218] rounded-xl p-4 flex items-center justify-between border border-[#2a2a34] shadow-sm">
+        {/* Quick Compact Status Ribbon */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-2.5">
+          <div className="bg-[#121218] rounded-xl px-3 py-2 flex items-center justify-between border border-[#2a2a34] shadow-sm">
             <div>
-              <span className="text-xs font-mono text-zinc-400 uppercase tracking-wider block font-semibold">
+              <span className="text-[10px] font-mono text-zinc-400 uppercase tracking-wider block font-semibold">
                 FACILITY STATUS
               </span>
-              <span className="text-base font-mono font-bold text-white flex items-center gap-2 mt-1">
-                <span className="w-2.5 h-2.5 rounded-full bg-emerald-500" /> 3 ZONES ONLINE
+              <span className="text-xs font-mono font-bold text-white flex items-center gap-1.5 mt-0.5">
+                <span className="w-2 h-2 rounded-full bg-emerald-500" /> 3 ZONES ONLINE
               </span>
             </div>
-            <span className="text-xs font-mono bg-zinc-900 border border-zinc-700 text-zinc-300 px-2.5 py-1 rounded">
+            <span className="text-[10px] font-mono bg-zinc-900 border border-zinc-700 text-zinc-300 px-2 py-0.5 rounded">
               ALL ONLINE
             </span>
           </div>
 
-          <div className="bg-[#121218] rounded-xl p-4 flex items-center justify-between border border-[#2a2a34] shadow-sm">
+          <div className="bg-[#121218] rounded-xl px-3 py-2 flex items-center justify-between border border-[#2a2a34] shadow-sm">
             <div>
-              <span className="text-xs font-mono text-zinc-400 uppercase tracking-wider block font-semibold">
+              <span className="text-[10px] font-mono text-zinc-400 uppercase tracking-wider block font-semibold">
                 ACTIVE ALERTS
               </span>
-              <span className="text-base font-mono font-bold text-red-400 flex items-center gap-2 mt-1">
-                <span className="w-2.5 h-2.5 rounded-full bg-red-600 animate-pulse" /> {selectedMachine.activeAlertCount} ALERTS LOGGED
+              <span className="text-xs font-mono font-bold text-red-400 flex items-center gap-1.5 mt-0.5">
+                <span className="w-2 h-2 rounded-full bg-red-600 animate-pulse" /> {selectedMachine.activeAlertCount} ALERTS LOGGED
               </span>
             </div>
-            <span className="text-xs font-mono bg-red-950/60 border border-red-800/60 text-red-300 px-2.5 py-1 rounded font-bold">
-              {selectedMachine.status === 'critical' ? 'ATTENTION REQUIRED' : 'MONITORING'}
+            <span className="text-[10px] font-mono bg-red-950/60 border border-red-800/60 text-red-300 px-2 py-0.5 rounded font-bold">
+              {selectedMachine.status === 'critical' ? 'ATTENTION REQ' : 'MONITORING'}
             </span>
           </div>
 
-          <div className="bg-[#121218] rounded-xl p-4 flex items-center justify-between border border-[#2a2a34] shadow-sm">
+          <div className="bg-[#121218] rounded-xl px-3 py-2 flex items-center justify-between border border-[#2a2a34] shadow-sm">
             <div>
-              <span className="text-xs font-mono text-zinc-400 uppercase tracking-wider block font-semibold">
+              <span className="text-[10px] font-mono text-zinc-400 uppercase tracking-wider block font-semibold">
                 MACHINE STATUS
               </span>
-              <span className="text-base font-mono font-bold text-white flex items-center gap-2 mt-1">
-                <span className={`w-2.5 h-2.5 rounded-full ${selectedMachine.status === 'critical' ? 'bg-red-600 animate-pulse' : selectedMachine.status === 'warning' ? 'bg-amber-500' : 'bg-emerald-500'}`} /> {selectedMachine.name}
+              <span className="text-xs font-mono font-bold text-white flex items-center gap-1.5 mt-0.5 truncate max-w-[150px]">
+                <span className={`w-2 h-2 shrink-0 rounded-full ${selectedMachine.status === 'critical' ? 'bg-red-600 animate-pulse' : selectedMachine.status === 'warning' ? 'bg-amber-500' : 'bg-emerald-500'}`} />
+                <span className="truncate">{selectedMachine.name}</span>
               </span>
             </div>
-            <span className={`text-xs font-mono px-2.5 py-1 rounded font-bold ${selectedMachine.status === 'critical' ? 'bg-red-950/60 border border-red-800/60 text-red-300' : selectedMachine.status === 'warning' ? 'bg-amber-950/60 border border-amber-800/60 text-amber-300' : 'bg-emerald-950/60 border border-emerald-800/60 text-emerald-300'}`}>
-              {selectedMachine.status === 'critical' ? 'STOP REQUIRED' : selectedMachine.status === 'warning' ? 'MAINTENANCE' : 'NOMINAL'}
+            <span className={`text-[10px] font-mono px-2 py-0.5 rounded font-bold ${selectedMachine.status === 'critical' ? 'bg-red-950/60 border border-red-800/60 text-red-300' : selectedMachine.status === 'warning' ? 'bg-amber-950/60 border border-amber-800/60 text-amber-300' : 'bg-emerald-950/60 border border-emerald-800/60 text-emerald-300'}`}>
+              {selectedMachine.status === 'critical' ? 'STOP REQ' : selectedMachine.status === 'warning' ? 'MAINT' : 'NOMINAL'}
             </span>
           </div>
 
-          <div className="bg-[#121218] rounded-xl p-4 flex items-center justify-between border border-[#2a2a34] shadow-sm">
+          <div className="bg-[#121218] rounded-xl px-3 py-2 flex items-center justify-between border border-[#2a2a34] shadow-sm">
             <div>
-              <span className="text-xs font-mono text-zinc-400 uppercase tracking-wider block font-semibold">
+              <span className="text-[10px] font-mono text-zinc-400 uppercase tracking-wider block font-semibold">
                 LIVE TELEMETRY
               </span>
-              <span className="text-base font-mono font-bold text-white flex items-center gap-2 mt-1">
-                <span className="w-2.5 h-2.5 rounded-full bg-sky-400" /> STREAM ACTIVE
+              <span className="text-xs font-mono font-bold text-white flex items-center gap-1.5 mt-0.5">
+                <span className="w-2 h-2 rounded-full bg-sky-400" /> 60 FPS • MODBUS 0x07F4
               </span>
             </div>
-            <span className="text-xs font-mono bg-zinc-900 border border-zinc-700 text-emerald-400 px-2.5 py-1 rounded font-bold">
+            <span className="text-[10px] font-mono bg-zinc-900 border border-zinc-700 text-emerald-400 px-2 py-0.5 rounded font-bold">
               REAL-TIME
             </span>
           </div>
         </div>
 
-        {/* Sub-Header Notice Bar */}
-        <div className="flex flex-wrap items-center justify-between gap-4 px-1">
-          <div className="flex items-center gap-3">
-            <h2 className="text-xl md:text-2xl font-ndot-57 font-bold tracking-tight text-white">
-              {selectedMachine.name}
-            </h2>
-            <span className="text-sm font-ntype-mono text-zinc-400">• {selectedMachine.category} • {selectedMachine.industry}</span>
-          </div>
-          <div className="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#1b1c24] border border-zinc-700 text-zinc-300 font-ntype-mono text-xs">
-            <span className={`w-2 h-2 rounded-full ${selectedMachine.status === 'critical' ? 'bg-red-600 animate-pulse' : 'bg-emerald-500'}`} />
-            <span className="uppercase font-bold">{selectedMachine.status}</span>
-          </div>
-        </div>
-
         {/* Top Row: Dynamic Blueprint CAD Schematic (8 cols) + Condition Score (4 cols) */}
-        <div className="grid grid-cols-1 xl:grid-cols-12 gap-6">
+        <div className="grid grid-cols-1 xl:grid-cols-12 gap-2.5">
           {/* Dynamic Machine Blueprint CAD Line Art Stage */}
           <BlueprintSchematicView
             machine={selectedMachine}
@@ -293,67 +280,67 @@ export const MachineDeepAnalyticsPage: React.FC = () => {
           />
 
           {/* Right Side: Condition & Performance Radial Gauge */}
-          <div className="xl:col-span-4 bg-[#121218]/90 backdrop-blur-md rounded-2xl p-6 flex flex-col justify-between border border-zinc-800 shadow-2xl">
+          <div className="xl:col-span-4 bg-[#121218]/90 backdrop-blur-md rounded-xl p-3 flex flex-col justify-between border border-zinc-800 shadow-md">
             <div>
-              <div className="flex items-center justify-between border-b border-zinc-800 pb-3.5 mb-4">
-                <span className="font-mono text-sm font-bold text-white tracking-wider flex items-center gap-2">
-                  <Activity className="w-4 h-4 text-zinc-400" />
+              <div className="flex items-center justify-between border-b border-zinc-800 pb-2 mb-2">
+                <span className="font-mono text-xs font-bold text-white tracking-wider flex items-center gap-1.5">
+                  <Activity className="w-3.5 h-3.5 text-zinc-400" />
                   MACHINE CONDITION SCORE
                 </span>
-                <span className="text-zinc-400 font-mono text-xs">{selectedMachine.category}</span>
+                <span className="text-zinc-400 font-mono text-[10px]">{selectedMachine.category}</span>
               </div>
 
               {/* Radial Gauge with Dashed Arc Track */}
-              <div className="relative flex flex-col items-center justify-center my-4">
-                <svg className="w-56 h-36 select-none" viewBox="0 0 200 120">
+              <div className="relative flex flex-col items-center justify-center my-1">
+                <svg className="w-44 h-24 select-none" viewBox="0 0 200 115">
                   <path
-                    d="M 20 110 A 80 80 0 0 1 180 110"
+                    d="M 20 105 A 80 80 0 0 1 180 105"
                     fill="none"
                     stroke="#26262d"
-                    strokeWidth="14"
+                    strokeWidth="12"
                     strokeDasharray="3.5 3"
                   />
                   <path
-                    d="M 20 110 A 80 80 0 0 1 156 50"
+                    d="M 20 105 A 80 80 0 0 1 156 48"
                     fill="none"
                     stroke={selectedMachine.healthScore < 70 ? '#D71920' : selectedMachine.healthScore < 85 ? '#F59E0B' : '#10B981'}
-                    strokeWidth="14"
+                    strokeWidth="12"
                     strokeDasharray="3.5 3"
                   />
                 </svg>
-                <div className="absolute bottom-2 flex flex-col items-center">
-                  <div className="text-4xl font-mono font-bold text-white tracking-tight flex items-baseline">
-                    {selectedMachine.healthScore}<span className="text-xl text-[#D71920] font-semibold">%</span>
+                <div className="absolute bottom-1 flex flex-col items-center">
+                  <div className="text-3xl font-mono font-bold text-white tracking-tight flex items-baseline leading-none">
+                    {selectedMachine.healthScore}<span className="text-lg text-[#D71920] font-semibold">%</span>
                   </div>
-                  <div className="text-xs font-mono text-zinc-400 mt-1 uppercase tracking-wider font-semibold">
+                  <div className="text-[10px] font-mono text-zinc-400 mt-0.5 uppercase tracking-wider font-semibold">
                     Overall Condition
                   </div>
                 </div>
               </div>
 
               {/* Operating Metrics List */}
-              <div className="space-y-2.5 pt-4 border-t border-zinc-800 text-xs font-mono">
-                <div className="flex items-center justify-between py-1.5 border-b border-zinc-900">
+              <div className="space-y-1.5 pt-2 border-t border-zinc-800 text-[11px] font-mono">
+                <div className="flex items-center justify-between py-1 border-b border-zinc-900">
                   <span className="text-zinc-400">Operating Mode</span>
                   <span className="text-white font-bold">Automatic [VFD]</span>
                 </div>
-                <div className="flex items-center justify-between py-1.5 border-b border-zinc-900">
+                <div className="flex items-center justify-between py-1 border-b border-zinc-900">
                   <span className="text-zinc-400">Acoustic Spike</span>
                   <span className="text-[#D71920] font-bold">+14.4 dB [CRIT]</span>
                 </div>
-                <div className="flex items-center justify-between py-1.5 border-b border-zinc-900">
+                <div className="flex items-center justify-between py-1 border-b border-zinc-900">
                   <span className="text-zinc-400">Thermal Index</span>
                   <span className="text-amber-400 font-bold">
                     {baseTemp.toFixed(1)} °C (+{(baseTemp - 75).toFixed(1)}°)
                   </span>
                 </div>
-                <div className="flex items-center justify-between py-1.5 border-b border-zinc-900">
+                <div className="flex items-center justify-between py-1 border-b border-zinc-900">
                   <span className="text-zinc-400">Active Pressure</span>
                   <span className="text-cyan-400 font-bold">
                     {pressureDisc.toFixed(2)} / {pressureSuct.toFixed(2)} bar
                   </span>
                 </div>
-                <div className="flex items-center justify-between py-1.5">
+                <div className="flex items-center justify-between py-1">
                   <span className="text-zinc-400">Predictive RUL</span>
                   <span className="text-white font-bold">04.2 Hours</span>
                 </div>
@@ -361,60 +348,44 @@ export const MachineDeepAnalyticsPage: React.FC = () => {
             </div>
 
             {/* Hazard Alert Bar */}
-            <div className="mt-4 pt-3.5 border-t border-zinc-800">
-              <div className="w-full bg-zinc-900 h-2 rounded-full overflow-hidden p-0.5 border border-zinc-800">
+            <div className="mt-2 pt-2 border-t border-zinc-800">
+              <div className="w-full bg-zinc-900 h-1.5 rounded-full overflow-hidden p-0.5 border border-zinc-800">
                 <div className="bg-[#D71920] h-full rounded-full w-[78%] animate-pulse" />
               </div>
-              <div className="flex justify-between items-center text-[10px] font-mono text-zinc-400 mt-2 uppercase tracking-wider">
-                <span className="text-zinc-300">HAZARD: IMPELLER CAVITATION</span>
+              <div className="flex justify-between items-center text-[10px] font-mono text-zinc-400 mt-1 uppercase tracking-wider">
+                <span className="text-zinc-300">HAZARD: CAVITATION</span>
                 <span className="text-[#D71920] font-bold">STOP DISPATCH REQ</span>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Telemetry Streaming Status Indicator Bar */}
-        <div className="bg-[#121218] rounded-xl px-4 py-2.5 flex flex-wrap items-center justify-between border border-zinc-800 text-xs font-mono text-zinc-400">
-          <div className="flex items-center gap-3">
-            <span className="w-2.5 h-2.5 rounded-full bg-emerald-500" />
-            <span className="text-white font-bold tracking-wider">
-              LOCAL DB TELEMETRY STREAM: ACTIVE [● 60 FPS / 10ms TICK]
-            </span>
-            <span className="text-zinc-600 hidden sm:inline">•</span>
-            <span className="text-zinc-400 hidden sm:inline">BUFFER: 12,400 FRAMES INGESTED</span>
-          </div>
-          <div className="flex items-center gap-4 text-xs">
-            <span className="text-sky-400">MODBUS/TCP: 0x07F4</span>
-            <span className="text-zinc-300">JITTER: ±0.12ms</span>
-          </div>
-        </div>
-
         {/* Bottom Row: 3 STRICT LIVE ANIMATED MOTION ANALYTICS MODULES */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-2.5">
           {/* MODULE 1: Live Animated Temperature Analytics */}
-          <div className="bg-[#121218]/90 backdrop-blur-md rounded-2xl p-5 border-l-4 border-l-amber-500 border border-zinc-800 shadow-xl flex flex-col justify-between min-h-[250px]">
+          <div className="bg-[#121218]/90 backdrop-blur-md rounded-xl p-3 border-l-4 border-l-amber-500 border border-zinc-800 shadow-md flex flex-col justify-between min-h-[160px] max-h-[175px]">
             <div>
-              <div className="flex items-center justify-between text-xs font-mono pb-2.5 border-b border-zinc-800">
-                <div className="flex items-center gap-2">
-                  <Thermometer className="w-4 h-4 text-amber-400" />
-                  <span className="text-white font-bold uppercase tracking-wider">Temperature Analytics</span>
+              <div className="flex items-center justify-between text-xs font-mono pb-1.5 border-b border-zinc-800">
+                <div className="flex items-center gap-1.5">
+                  <Thermometer className="w-3.5 h-3.5 text-amber-400" />
+                  <span className="text-white font-bold uppercase tracking-wider text-[11px]">Temperature Analytics</span>
                 </div>
-                <span className="text-[10px] text-amber-400 font-bold px-2 py-0.5 rounded bg-amber-500/15 border border-amber-500/40">
+                <span className="text-[9px] text-amber-400 font-bold px-1.5 py-0.2 rounded bg-amber-500/15 border border-amber-500/40">
                   +13.1°C WARN
                 </span>
               </div>
 
-              <div className="my-3 flex items-baseline justify-between">
+              <div className="my-1.5 flex items-baseline justify-between">
                 <div>
-                  <div className="font-mono text-3xl font-bold text-amber-400 tracking-tight">
+                  <div className="font-mono text-2xl font-bold text-amber-400 tracking-tight leading-none">
                     {baseTemp.toFixed(1)}
-                    <span className="text-base text-zinc-400 font-normal"> °C</span>
+                    <span className="text-xs text-zinc-400 font-normal"> °C</span>
                   </div>
-                  <div className="text-[11px] font-mono text-zinc-400 mt-0.5">Bearing & Seal Skin Temp</div>
+                  <div className="text-[10px] font-mono text-zinc-400 mt-0.5">Bearing &amp; Seal Skin Temp</div>
                 </div>
-                <div className="text-right text-[11px] font-mono">
-                  <div className="text-zinc-500">Threshold: 75.0 °C</div>
-                  <div className="text-amber-400 font-semibold mt-0.5 flex items-center justify-end gap-1">
+                <div className="text-right text-[10px] font-mono">
+                  <div className="text-zinc-500">Limit: 75.0 °C</div>
+                  <div className="text-amber-400 font-semibold flex items-center justify-end gap-1">
                     <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-ping" />
                     <span>OVERHEATING</span>
                   </div>
@@ -422,64 +393,64 @@ export const MachineDeepAnalyticsPage: React.FC = () => {
               </div>
 
               {/* Dynamic Live Canvas Streaming Sparkline Curve */}
-              <div className="relative w-full h-14 bg-black/80 rounded-lg p-1 overflow-hidden border border-zinc-800 my-2">
-                <canvas ref={canvasRef} width={340} height={56} className="w-full h-full block" />
-                <div className="absolute top-1 right-2 text-[9px] font-mono text-zinc-500">LIVE TICK</div>
+              <div className="relative w-full h-10 bg-black/80 rounded-md p-1 overflow-hidden border border-zinc-800 my-1">
+                <canvas ref={canvasRef} width={340} height={40} className="w-full h-full block" />
+                <div className="absolute top-0.5 right-1.5 text-[8px] font-mono text-zinc-500">LIVE TICK</div>
               </div>
             </div>
 
             <div>
-              <div className="w-full bg-zinc-900 h-2 rounded-full overflow-hidden p-0.5 border border-zinc-800">
+              <div className="w-full bg-zinc-900 h-1.5 rounded-full overflow-hidden border border-zinc-800">
                 <div
                   className="bg-amber-500 h-full rounded-full transition-all duration-300"
                   style={{ width: `${Math.min(100, (baseTemp / 100) * 100)}%` }}
                 />
               </div>
-              <div className="flex items-center justify-between text-[10px] font-mono text-zinc-400 mt-2.5">
+              <div className="flex items-center justify-between text-[9px] font-mono text-zinc-400 mt-1">
                 <span>Cooling Jacket: 42 L/min</span>
-                <span className="text-amber-300 font-semibold">Thermal Stress: High</span>
+                <span className="text-amber-300 font-semibold">Stress: High</span>
               </div>
             </div>
           </div>
 
           {/* MODULE 2: Live Animated Pressure Analytics */}
-          <div className="bg-[#121218]/90 backdrop-blur-md rounded-2xl p-5 border-l-4 border-l-cyan-400 border border-zinc-800 shadow-xl flex flex-col justify-between min-h-[250px]">
+          <div className="bg-[#121218]/90 backdrop-blur-md rounded-xl p-3 border-l-4 border-l-cyan-400 border border-zinc-800 shadow-md flex flex-col justify-between min-h-[160px] max-h-[175px]">
             <div>
-              <div className="flex items-center justify-between text-xs font-mono pb-2.5 border-b border-zinc-800">
-                <div className="flex items-center gap-2">
-                  <Gauge className="w-4 h-4 text-cyan-400" />
-                  <span className="text-white font-bold uppercase tracking-wider">Pressure Analytics</span>
+              <div className="flex items-center justify-between text-xs font-mono pb-1.5 border-b border-zinc-800">
+                <div className="flex items-center gap-1.5">
+                  <Gauge className="w-3.5 h-3.5 text-cyan-400" />
+                  <span className="text-white font-bold uppercase tracking-wider text-[11px]">Pressure Analytics</span>
                 </div>
-                <span className="text-[10px] text-cyan-400 font-bold px-2 py-0.5 rounded bg-cyan-400/10 border border-cyan-400/40">
+                <span className="text-[9px] text-cyan-400 font-bold px-1.5 py-0.2 rounded bg-cyan-400/10 border border-cyan-400/40">
                   HEAD DEFICIT
                 </span>
               </div>
 
-              <div className="my-3 flex items-baseline justify-between">
+              <div className="my-1.5 flex items-baseline justify-between">
                 <div>
-                  <div className="font-mono text-3xl font-bold text-white tracking-tight">
+                  <div className="font-mono text-2xl font-bold text-white tracking-tight leading-none">
                     <span className="text-cyan-400">{pressureDisc.toFixed(2)}</span>
-                    <span className="text-zinc-500 font-normal text-xl"> / </span>
-                    <span className="text-amber-400 text-2xl">{pressureSuct.toFixed(2)}</span>{' '}
-                    <span className="text-xs text-zinc-400 font-normal">bar</span>
+                    <span className="text-zinc-500 font-normal text-base"> / </span>
+                    <span className="text-amber-400 text-xl">{pressureSuct.toFixed(2)}</span>{' '}
+                    <span className="text-[10px] text-zinc-400 font-normal">bar</span>
                   </div>
-                  <div className="text-[11px] font-mono text-zinc-400 mt-0.5">Discharge vs Suction Head</div>
+                  <div className="text-[10px] font-mono text-zinc-400 mt-0.5">Discharge vs Suction Head</div>
                 </div>
-                <div className="text-right text-[11px] font-mono">
+                <div className="text-right text-[10px] font-mono">
                   <div className="text-zinc-400">
-                    ΔP Head: <span className="text-white font-bold">{deltaPressure} bar</span>
+                    ΔP: <span className="text-white font-bold">{deltaPressure} bar</span>
                   </div>
-                  <div className="text-[#D71920] font-semibold mt-0.5">NPSHa &lt; 3.0m</div>
+                  <div className="text-[#D71920] font-semibold">NPSHa &lt; 3.0m</div>
                 </div>
               </div>
 
               {/* Live Undulating Safety Differential Stream Graphic */}
-              <div className="relative w-full h-14 bg-black/80 rounded-lg p-2.5 overflow-hidden border border-zinc-800 my-2 flex flex-col justify-center gap-2">
-                <div className="flex justify-between text-[9px] font-mono text-zinc-400">
-                  <span>Suction: {pressureSuct.toFixed(2)} bar (Low)</span>
-                  <span>Discharge: {pressureDisc.toFixed(2)} bar (Normal)</span>
+              <div className="relative w-full h-10 bg-black/80 rounded-md p-1.5 overflow-hidden border border-zinc-800 my-1 flex flex-col justify-center gap-1">
+                <div className="flex justify-between text-[8px] font-mono text-zinc-400 leading-none">
+                  <span>Suct: {pressureSuct.toFixed(2)} bar</span>
+                  <span>Disc: {pressureDisc.toFixed(2)} bar</span>
                 </div>
-                <div className="w-full bg-zinc-900 h-2.5 rounded-full overflow-hidden flex border border-zinc-800">
+                <div className="w-full bg-zinc-900 h-2 rounded-full overflow-hidden flex border border-zinc-800">
                   <div
                     className="bg-amber-400 h-full transition-all duration-150"
                     style={{ width: `${(pressureSuct / 4) * 50}%` }}
@@ -494,59 +465,59 @@ export const MachineDeepAnalyticsPage: React.FC = () => {
             </div>
 
             <div>
-              <div className="w-full bg-zinc-900 h-2 rounded-full overflow-hidden p-0.5 border border-zinc-800">
+              <div className="w-full bg-zinc-900 h-1.5 rounded-full overflow-hidden border border-zinc-800">
                 <div className="bg-cyan-400 h-full rounded-full transition-all duration-200" style={{ width: '65%' }} />
               </div>
-              <div className="flex items-center justify-between text-[10px] font-mono text-zinc-400 mt-2.5">
-                <span>Cavitation Safety Margin</span>
-                <span className="text-[#D71920] font-bold">-0.9m Sub-critical</span>
+              <div className="flex items-center justify-between text-[9px] font-mono text-zinc-400 mt-1">
+                <span>Margin NPSH</span>
+                <span className="text-[#D71920] font-bold">-0.9m Critical</span>
               </div>
             </div>
           </div>
 
           {/* MODULE 3: Live Animated Sound Analytics (Equalizer) */}
-          <div className="bg-[#121218]/90 backdrop-blur-md rounded-2xl p-5 border-l-4 border-l-[#D71920] border border-zinc-800 shadow-xl flex flex-col justify-between min-h-[250px]">
+          <div className="bg-[#121218]/90 backdrop-blur-md rounded-xl p-3 border-l-4 border-l-[#D71920] border border-zinc-800 shadow-md flex flex-col justify-between min-h-[160px] max-h-[175px]">
             <div>
-              <div className="flex items-center justify-between text-xs font-mono pb-2.5 border-b border-zinc-800">
-                <div className="flex items-center gap-2">
-                  <Volume2 className="w-4 h-4 text-[#D71920]" />
-                  <span className="text-white font-bold uppercase tracking-wider">Sound Analytics</span>
+              <div className="flex items-center justify-between text-xs font-mono pb-1.5 border-b border-zinc-800">
+                <div className="flex items-center gap-1.5">
+                  <Volume2 className="w-3.5 h-3.5 text-[#D71920]" />
+                  <span className="text-white font-bold uppercase tracking-wider text-[11px]">Sound Analytics</span>
                 </div>
-                <span className="text-[10px] text-[#D71920] font-bold px-2 py-0.5 rounded bg-[#D71920]/20 border border-[#D71920]/50">
-                  PEAK 12.41 kHz
+                <span className="text-[9px] text-[#D71920] font-bold px-1.5 py-0.2 rounded bg-[#D71920]/20 border border-[#D71920]/50">
+                  PEAK 12.4 kHz
                 </span>
               </div>
 
-              <div className="my-3 flex items-baseline justify-between">
+              <div className="my-1.5 flex items-baseline justify-between">
                 <div>
-                  <div className="font-mono text-3xl font-bold text-[#D71920] tracking-tight">
+                  <div className="font-mono text-2xl font-bold text-[#D71920] tracking-tight leading-none">
                     {soundDb.toFixed(1)}
-                    <span className="text-base text-zinc-400 font-normal"> dB(SPL)</span>
+                    <span className="text-xs text-zinc-400 font-normal"> dB</span>
                   </div>
-                  <div className="text-[11px] font-mono text-zinc-400 mt-0.5">Cavitation Shock Hiss</div>
+                  <div className="text-[10px] font-mono text-zinc-400 mt-0.5">Cavitation Shock Hiss</div>
                 </div>
-                <div className="text-right text-[11px] font-mono">
-                  <div className="text-zinc-500">Baseline: 68.2 dB</div>
-                  <div className="text-[#D71920] font-semibold mt-0.5 flex items-center justify-end gap-1">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#D71920] shadow-[0_0_8px_#D71920] animate-ping" />
+                <div className="text-right text-[10px] font-mono">
+                  <div className="text-zinc-500">Base: 68.2 dB</div>
+                  <div className="text-[#D71920] font-semibold flex items-center justify-end gap-1">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#D71920] animate-ping" />
                     <span>HIGH HAZARD</span>
                   </div>
                 </div>
               </div>
 
               {/* Real-Time Dancing Frequency Equalizer Bars */}
-              <div className="relative w-full h-14 bg-black/80 rounded-lg p-2 overflow-hidden border border-zinc-800 my-2 flex items-end justify-between gap-1">
+              <div className="relative w-full h-10 bg-black/80 rounded-md p-1.5 overflow-hidden border border-zinc-800 my-1 flex items-end justify-between gap-1">
                 {eqHeights.map((h, i) => {
                   let barColor = 'bg-zinc-700';
                   if (i >= 4 && i <= 6) barColor = 'bg-zinc-500';
                   if (i === 6 || i === 10) barColor = 'bg-amber-400';
-                  if (i >= 7 && i <= 9) barColor = 'bg-[#D71920] shadow-[0_0_6px_#D71920]';
+                  if (i >= 7 && i <= 9) barColor = 'bg-[#D71920]';
 
                   return (
                     <div
                       key={i}
                       className={`${barColor} w-1.5 rounded-t transition-all duration-75`}
-                      style={{ height: `${h}px` }}
+                      style={{ height: `${Math.min(32, Math.max(4, h * 0.65))}px` }}
                     />
                   );
                 })}
@@ -554,11 +525,11 @@ export const MachineDeepAnalyticsPage: React.FC = () => {
             </div>
 
             <div>
-              <div className="w-full bg-zinc-900 h-2 rounded-full overflow-hidden p-0.5 border border-zinc-800">
+              <div className="w-full bg-zinc-900 h-1.5 rounded-full overflow-hidden border border-zinc-800">
                 <div className="bg-[#D71920] h-full rounded-full w-[94%] animate-pulse" />
               </div>
-              <div className="flex items-center justify-between text-[10px] font-mono text-zinc-400 mt-2.5">
-                <span>Acoustic Velocity: 1,482 m/s</span>
+              <div className="flex items-center justify-between text-[9px] font-mono text-zinc-400 mt-1">
+                <span>Velocity: 1,482 m/s</span>
                 <span className="text-white font-semibold">{impactsRate} Impacts/s</span>
               </div>
             </div>
@@ -566,18 +537,18 @@ export const MachineDeepAnalyticsPage: React.FC = () => {
         </div>
 
         {/* Footer */}
-        <footer className="flex flex-wrap items-center justify-between text-xs font-mono text-zinc-500 py-2.5 px-2 border-t border-zinc-800">
-          <div className="flex items-center gap-3">
-            <Link to="/" title="Return to Landing Page" className="flex items-center gap-2 text-zinc-400 hover:text-white transition-colors cursor-pointer group">
-              <span className="w-2 h-2 rounded-full bg-red-600 inline-block group-hover:scale-110 transition-transform" />
-              <span className="font-semibold text-zinc-300 group-hover:text-white">INDUSTRIALSENSE SCADA 2.5</span>
+        <footer className="flex flex-wrap items-center justify-between text-[10px] font-mono text-zinc-500 py-1 px-1 border-t border-zinc-800/80">
+          <div className="flex items-center gap-2">
+            <Link to="/" title="Return to Landing Page" className="flex items-center gap-1.5 text-zinc-400 hover:text-white transition-colors cursor-pointer group">
+              <span className="w-1.5 h-1.5 rounded-full bg-red-600 inline-block group-hover:scale-110 transition-transform" />
+              <span className="font-semibold text-zinc-300 group-hover:text-white">SCADA 2.5</span>
             </Link>
             <span className="text-zinc-700">•</span>
-            <span>{selectedMachine.name} DIGITAL TWIN &amp; ANALYTICS</span>
+            <span>{selectedMachine.name} DIGITAL TWIN</span>
           </div>
-          <div className="flex items-center gap-4">
-            <span className="text-emerald-400 flex items-center gap-1.5">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_8px_#10B981]" /> MODBUS TCP LIVE
+          <div className="flex items-center gap-3">
+            <span className="text-emerald-400 flex items-center gap-1">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" /> MODBUS LIVE
             </span>
             <span className="text-zinc-400">LATENCY: 4ms</span>
             <span className="text-zinc-600">|</span>
