@@ -15,13 +15,13 @@ export const MachineRegistrationPage: React.FC = () => {
   const navigate = useNavigate();
 
   // Form input states
-  const [machineId, setMachineId] = useState<string>('MCH-ROB-07');
+  const [machineId, setMachineId] = useState<string>('ROBOTIC-01');
   const [machineName, setMachineName] = useState<string>('Laser Deposition Welder & Annealer');
   const [hardwareMac, setHardwareMac] = useState<string>('HW-ETH-00:1B:44:11:3A:B7');
   const [machineType, setMachineType] = useState<string>('robotic-arm');
   const [protocol, setProtocol] = useState<string>('opcua');
   const [zone, setZone] = useState<string>('Zone B - Robotics & Stamping');
-  const [silLevel, setSilLevel] = useState<string>('SIL-4 / Cat-4 Dual Relay');
+  const [silLevel, setSilLevel] = useState<string>('Dual Relay Emergency Stop');
   const [samplingFreq, setSamplingFreq] = useState<string>('500 Hz');
   const [baselineRpm, setBaselineRpm] = useState<number>(3000);
 
@@ -172,7 +172,7 @@ export const MachineRegistrationPage: React.FC = () => {
                 required
                 value={machineId}
                 onChange={(e) => setMachineId(e.target.value)}
-                placeholder="e.g. MCH-ROB-07"
+                placeholder="e.g. ROBOTIC-01"
                 className="bg-zinc-900 border border-zinc-700 px-3.5 py-2.5 rounded-xl text-white focus:outline-none focus:border-[#D71920] uppercase text-xs font-mono font-bold"
               />
             </div>
@@ -270,9 +270,9 @@ export const MachineRegistrationPage: React.FC = () => {
                 onChange={(e) => setSilLevel(e.target.value)}
                 className="bg-zinc-900 border border-zinc-700 px-3.5 py-2.5 rounded-xl text-white focus:outline-none focus:border-[#D71920] text-xs cursor-pointer font-mono"
               >
-                <option value="SIL-4 / Cat-4 Dual Relay">SIL-4 / Cat-4 Dual Relay E-Stop</option>
-                <option value="SIL-3 / Fail-Safe Monitored">SIL-3 / Fail-Safe Monitored</option>
-                <option value="SIL-2 / Standard Optical Curtain">SIL-2 / Standard Optical Curtain</option>
+                <option value="Dual Relay Emergency Stop">Dual Relay Emergency Stop</option>
+                <option value="Fail-Safe Monitored">Fail-Safe Monitored</option>
+                <option value="Standard Optical Curtain">Standard Optical Curtain</option>
               </select>
             </div>
           </div>

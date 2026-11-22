@@ -126,7 +126,7 @@ export const SensorConfig: React.FC = () => {
             >
               {MACHINE_REGISTRY.map((m) => (
                 <option key={m.id} value={m.id} className="bg-[#1b1c1e]">
-                  {m.code} • {m.name}
+                  {m.name}
                 </option>
               ))}
             </select>

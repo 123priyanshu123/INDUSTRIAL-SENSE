@@ -35,6 +35,22 @@ export const MOCK_USERS: Record<string, UserProfile> = {
 
 export const MOCK_ALERTS: Alert[] = [
   {
+    id: 'alt-mafaulda-001',
+    machineId: 'mch-cnc-01',
+    machineName: '5-Axis High-Speed CNC Milling Center',
+    machineCode: 'MCH-CNC-01',
+    sensorType: 'sound',
+    severity: 'critical',
+    title: 'Multimodal Autoencoder Anomaly: Rotor Mass Imbalance (sample_imbalance.csv)',
+    message: 'Autoencoder reconstruction MSE (0.4891) exceeded healthy baseline (0.1222) by 4.0x. Health Index dropped to 13.5%. Dominant residual: vib_x_rms (+1.842), vib_y_kurtosis (+1.215) at 1,802.4 RPM.',
+    value: 0.4891,
+    threshold: 0.1222,
+    unit: 'MSE',
+    timestamp: '2026-11-22T08:14:10Z',
+    acknowledged: false,
+    actionRequired: 'Perform emergency spindle balance check; inspect dynamic counterweights and toolholder taper for eccentricity or chip entrapment.',
+  },
+  {
     id: 'alt-001',
     machineId: 'mch-mtr-01',
     machineName: '3-Phase Induction Motor (Main Drive)',
@@ -139,6 +155,37 @@ export const MOCK_ALERTS: Alert[] = [
 ];
 
 export const MOCK_ANOMALIES: AnomalyRecord[] = [
+  {
+    id: 'anm-mafaulda-001',
+    machineId: 'mch-cnc-01',
+    machineName: '5-Axis High-Speed CNC Milling Center',
+    machineCode: 'MCH-CNC-01',
+    sensorType: 'sound',
+    anomalyScore: 0.4891,
+    severity: 'critical',
+    confidence: 99.5,
+    detectionTime: '2026-11-22T08:14:10Z',
+    explanation: 'Multimodal autoencoder reconstruction MSE (0.4891) breached healthy baseline threshold (0.1222) by 4.0x. Severe rotor mass imbalance at 1,802.4 RPM with elevated vib_x_rms error (1.842) and vib_y_kurtosis impulsiveness (1.215).',
+    recommendation: 'Perform emergency spindle balance check; inspect dynamic counterweights and toolholder taper for eccentricity or chip entrapment.',
+    modelVersion: 'IndustrialAutoencoder-v0.1.0-alpha',
+    rulEstimateHours: 18,
+    status: 'active',
+    filename: 'sample_imbalance.csv',
+    anomalyStatus: 'ANOMALY_DETECTED',
+    isAnomaly: true,
+    threshold: 0.1222,
+    healthIndex: 13.5,
+    estimatedRpm: 1802.4,
+    topContributingFeatures: [
+      { feature: 'vib_x_rms', error: 1.842 },
+      { feature: 'vib_y_kurtosis', error: 1.215 },
+      { feature: 'vib_x_peak_to_peak', error: 0.983 },
+      { feature: 'aud_mfcc_1', error: 0.612 },
+      { feature: 'vib_z_rms', error: 0.44 },
+    ],
+    windowScores: [0.461, 0.489, 0.512, 0.494],
+    faultClass: 'imbalance',
+  },
   {
     id: 'anm-001',
     machineId: 'mch-mtr-01',

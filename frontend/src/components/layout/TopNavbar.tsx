@@ -18,9 +18,6 @@ export const TopNavbar: React.FC = () => {
     { to: '/machines', label: 'FLEET' },
     { to: '/analytics', label: 'ANALYTICS' },
     { to: '/monitoring', label: 'TELEMETRY' },
-    { to: '/ai-insights', label: 'AI DIAGNOSTICS' },
-    { to: '/alerts', label: 'ALERTS' },
-    { to: '/reports', label: 'REPORTS' },
     { to: '/profile', label: 'SETTINGS' },
   ];
 
@@ -154,28 +151,6 @@ export const TopNavbar: React.FC = () => {
                 </Link>
 
                 <Link
-                  to="/ai-insights"
-                  className="flex items-center justify-between px-3 py-2 rounded-lg text-[#c6c6c7] hover:text-white hover:bg-[#1f2022]"
-                >
-                  <span className="flex items-center gap-2">
-                    <span>🧠</span>
-                    <span>AI Anomaly & RUL Prognostics</span>
-                  </span>
-                  <span className="text-xs text-zinc-500">ML</span>
-                </Link>
-
-                <Link
-                  to="/alerts"
-                  className="flex items-center justify-between px-3 py-2 rounded-lg text-[#c6c6c7] hover:text-white hover:bg-[#1f2022]"
-                >
-                  <span className="flex items-center gap-2">
-                    <span>⚠</span>
-                    <span>Incident Command Queue</span>
-                  </span>
-                  <span className="text-xs text-zinc-500">ALERTS</span>
-                </Link>
-
-                <Link
                   to="/machine-registration"
                   className="flex items-center justify-between px-3 py-2 rounded-lg text-[#c6c6c7] hover:text-white hover:bg-[#1f2022]"
                 >
@@ -184,17 +159,6 @@ export const TopNavbar: React.FC = () => {
                     <span>Machine Provisioning</span>
                   </span>
                   <span className="text-xs text-zinc-500">ADD</span>
-                </Link>
-
-                <Link
-                  to="/reports"
-                  className="flex items-center justify-between px-3 py-2 rounded-lg text-[#c6c6c7] hover:text-white hover:bg-[#1f2022]"
-                >
-                  <span className="flex items-center gap-2">
-                    <span>📋</span>
-                    <span>Shift Audit & Telemetry Reports</span>
-                  </span>
-                  <span className="text-xs text-zinc-500">PDF/CSV</span>
                 </Link>
 
                 <Link
@@ -232,7 +196,7 @@ export const TopNavbar: React.FC = () => {
               >
                 <div className="p-2 border-b border-[#292a2c]">
                   <div className="font-bold text-white">{currentUser?.name || 'Operator'}</div>
-                  <div className="text-xs text-[#a1a1aa] mt-0.5">{currentUser?.role?.toUpperCase() || 'ADMIN'} • SIL-4</div>
+                  <div className="text-xs text-[#a1a1aa] mt-0.5">{currentUser?.role?.toUpperCase() || 'ADMIN'} • AUTHORIZED</div>
                   <div className="text-xs text-zinc-400 mt-1">{currentUser?.shift || 'Shift Alpha'}</div>
                 </div>
                 <div className="pt-2 flex flex-col gap-1">

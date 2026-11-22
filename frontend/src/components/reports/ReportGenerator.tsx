@@ -27,7 +27,7 @@ export const ReportGenerator: React.FC = () => {
         anomaliesCount: targetMachine?.activeAlertCount || 0,
         averageHealth: targetMachine?.healthScore || 90,
       });
-      addNotification('success', `Industrial telemetry report compiled for ${targetMachine?.code}`);
+      addNotification('success', `Industrial telemetry report compiled for ${targetMachine?.name}`);
     }, 1200);
   };
 
@@ -57,7 +57,7 @@ export const ReportGenerator: React.FC = () => {
           >
             {MACHINE_REGISTRY.map((m) => (
               <option key={m.id} value={m.id} className="bg-[#1b1c1e]">
-                {m.code} • {m.name}
+                {m.name}
               </option>
             ))}
           </select>
@@ -151,7 +151,7 @@ export const ReportGenerator: React.FC = () => {
                 REPORT READY • ID: {generatedReport.id}
               </span>
               <h4 className="text-base font-bold text-white mt-0.5">
-                {generatedReport.machine?.name} ({generatedReport.machine?.code})
+                {generatedReport.machine?.name}
               </h4>
             </div>
 

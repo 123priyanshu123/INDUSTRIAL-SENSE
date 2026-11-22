@@ -20,20 +20,24 @@ interface SidebarProps {
   onToggle: () => void;
 }
 
+interface NavItem {
+  to: string;
+  label: string;
+  icon: React.ComponentType<{ className?: string }>;
+  badge?: number | string;
+}
+
 export const Sidebar: React.FC<SidebarProps> = ({ collapsed, onToggle }) => {
   const activeAlerts = useAppStore(state => state.activeAlerts);
   const unackCount = activeAlerts.filter(a => !a.acknowledged).length;
 
-  const navItems = [
+  const navItems: NavItem[] = [
     { to: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
     { to: '/machines', label: 'Fleet Catalogue', icon: Cpu },
-    { to: '/analytics', label: 'Machine Deep Analytics', icon: LineChart },
-    { to: '/monitoring', label: 'Live Telemetry Bus', icon: Activity },
-    { to: '/ai-insights', label: 'AI Anomaly Intelligence', icon: BrainCircuit },
-    { to: '/alerts', label: 'Incident Command', icon: Bell, badge: unackCount > 0 ? unackCount : undefined },
-    { to: '/machine-registration', label: 'Machine Provisioning', icon: Layers },
-    { to: '/reports', label: 'Shift Reports', icon: FileText },
-    { to: '/profile', label: 'Profile & Settings', icon: Settings },
+    { to: '/analytics', label: 'Analytics', icon: LineChart },
+    { to: '/monitoring', label: 'Live Telemetry', icon: Activity },
+    { to: '/machine-registration', label: 'Register Machine', icon: Layers },
+    { to: '/profile', label: 'Settings', icon: Settings },
   ];
 
   return (

@@ -38,7 +38,7 @@ export const MachineAnimation: React.FC<MachineAnimationProps> = ({
       <div className="flex items-center justify-between px-3 py-2 bg-[#1b1c1e] border border-[#292a2c] rounded-xl text-xs font-mono">
         <div className="flex items-center gap-2">
           <span className={`w-2.5 h-2.5 rounded-full ${statusConfig.dot}`} />
-          <span className="font-bold text-[#e3e2e5]">{machine.code}</span>
+          <span className="font-bold text-[#e3e2e5]">{machine.name}</span>
           <span className="text-[#a1a1aa]">•</span>
           <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${statusConfig.bg} ${statusConfig.text} border ${statusConfig.border}`}>
             {statusConfig.label}

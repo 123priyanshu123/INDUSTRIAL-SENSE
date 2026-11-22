@@ -49,7 +49,7 @@ export const UserProfileSettingsPage: React.FC = () => {
   };
 
   const auditLogs = [
-    { time: '14:28:12 UTC', event: 'E-STOP PRIMED FOR MCH-PMP-01', status: 'CRITICAL', user: 'ENG-9821' },
+    { time: '14:28:12 UTC', event: 'EMERGENCY STOP ARMED FOR COOLING PUMP', status: 'CRITICAL', user: 'ENG-9821' },
     { time: '14:20:05 UTC', event: 'CALIBRATED DISCHARGE PRESSURE THRESHOLD (280 bar)', status: 'OK', user: 'ENG-9821' },
     { time: '14:05:40 UTC', event: 'NFC BADGE VERIFIED AT GATEWAY ZONE-B', status: 'AUTH', user: 'SYSTEM' },
     { time: '13:58:22 UTC', event: 'OPC-UA TELEMETRY RE-SYNC COMPLETE', status: 'INFO', user: 'DAEMON' },
@@ -81,7 +81,7 @@ export const UserProfileSettingsPage: React.FC = () => {
             <Link to="/" title="Return to Landing Page" className="flex items-center gap-2 mb-1 group cursor-pointer">
               <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 group-hover:scale-110 transition-transform" />
               <span className="font-ndot-55 text-xs text-zinc-400 group-hover:text-white uppercase tracking-widest font-semibold transition-colors">
-                [OPERATOR CREDENTIALS - HARDWARE SIL-4 ENCLAVE]
+                [OPERATOR CREDENTIALS & SECURITY PROTOCOLS]
               </span>
             </Link>
             <h1 className="font-ndot-57 text-2xl md:text-3xl font-bold uppercase text-white tracking-tight">
@@ -115,7 +115,7 @@ export const UserProfileSettingsPage: React.FC = () => {
                   </span>
                 </div>
                 <span className="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 font-mono text-[10px] font-bold border border-emerald-500/40">
-                  SIL-4 ACTIVE
+                  SECURITY ACTIVE
                 </span>
               </div>
 
@@ -350,7 +350,7 @@ export const UserProfileSettingsPage: React.FC = () => {
                 </label>
 
                 <label className="flex items-center justify-between p-2 rounded-lg bg-zinc-900 border border-zinc-800 cursor-pointer">
-                  <span className="text-zinc-300">Enable Hardware Remote E-STOP Override (SIL-4)</span>
+                  <span className="text-zinc-300">Enable Hardware Remote Emergency Stop Override</span>
                   <input
                     type="checkbox"
                     checked={remoteEStop}
@@ -365,7 +365,7 @@ export const UserProfileSettingsPage: React.FC = () => {
                 className="w-full py-2.5 px-4 rounded-xl bg-[#D71920] hover:bg-red-700 text-white font-mono font-bold uppercase tracking-wider transition-all shadow-lg flex items-center justify-center gap-2"
               >
                 <Save className="w-4 h-4" />
-                <span>SAVE CONFIGURATION TO HARDWARE ENCLAVE</span>
+                <span>SAVE CONFIGURATION</span>
               </button>
             </div>
 
@@ -375,7 +375,7 @@ export const UserProfileSettingsPage: React.FC = () => {
                 <div className="flex items-center gap-2">
                   <History className="w-4 h-4 text-emerald-400" />
                   <span className="font-bold text-white uppercase tracking-wider">
-                    IMMUTABLE AUDIT TRAIL - SIL-4 REGISTERS
+                    SYSTEM AUDIT TRAIL & LOGS
                   </span>
                 </div>
                 <span className="text-[10px] text-zinc-500">SHA-256 SIGNED</span>

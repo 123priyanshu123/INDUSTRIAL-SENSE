@@ -629,30 +629,24 @@ export const LandingPage: React.FC = () => {
 
               {/* Subheading */}
               <p className="font-ntype-mono text-sm sm:text-base md:text-lg text-[#c6c6c7] max-w-3xl mb-8 leading-relaxed">
-                Autonomous edge telemetry, real-time kinematics, and physics-driven digital twin cockpits. High-speed acoustic cavitation diagnostics, multi-modal sensor streams, and SIL-4 safety interlocks.
+                Autonomous edge telemetry, real-time kinematics, and physics-driven digital twins. High-speed acoustic diagnostics, multi-modal sensor streams, and automated safety interlocks.
               </p>
 
               {/* CTA Group */}
               <div className="flex flex-wrap items-center justify-center gap-4 font-mono text-xs">
-                <a
-                  className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#d71920] text-[#ffece9] uppercase hover:bg-[#c00014] transition-all duration-200 shadow-md font-bold"
-                  href="#cockpit"
-                >
-                  <span>INSPECT 2D SCADA TWIN</span>
-                  <ArrowRight className="w-4 h-4" />
-                </a>
                 <Link
                   to="/dashboard"
-                  className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#1b1c1e] border border-[#d71920]/40 text-[#ffb4ab] uppercase hover:bg-[#292a2c] transition-all duration-200 shadow-sm font-bold"
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#d71920] text-[#ffece9] uppercase hover:bg-[#c00014] transition-all duration-200 shadow-md font-bold"
                 >
-                  <Cpu className="w-4 h-4 text-cyan-400" />
-                  <span>OPEN SCADA COCKPIT</span>
+                  <Cpu className="w-4 h-4 text-white" />
+                  <span>OPEN DASHBOARD</span>
+                  <ArrowRight className="w-4 h-4" />
                 </Link>
                 <Link
-                  to="/analytics"
-                  className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#292a2c] text-[#e3e2e5] uppercase hover:bg-[#38393b] transition-all duration-200 shadow-sm font-bold"
+                  to="/machines"
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#1b1c1e] border border-zinc-700 text-zinc-300 uppercase hover:bg-[#292a2c] hover:text-white transition-all duration-200 shadow-sm font-bold"
                 >
-                  <span>DEEP ANALYTICS</span>
+                  <span>VIEW FLEET CATALOGUE</span>
                 </Link>
               </div>
             </div>
@@ -684,7 +678,7 @@ export const LandingPage: React.FC = () => {
                   </h2>
                 </div>
                 <p className="font-ntype-mono text-xs md:text-sm text-[#c6c6c7] max-w-md leading-relaxed">
-                  Enterprise-grade machine intelligence combining high-frequency acoustic analysis, mathematical twin kinematics, and SIL-4 safety interlocks.
+                  Enterprise-grade machine intelligence combining high-frequency acoustic analysis, mathematical twin kinematics, and automated safety interlocks.
                 </p>
               </div>
 
@@ -777,7 +771,7 @@ export const LandingPage: React.FC = () => {
                       <Shield className="text-[#ffb4ab] w-6 h-6" />
                     </div>
                     <h3 className="text-lg font-bold text-[#e3e2e5] uppercase mb-2 leading-tight">
-                      SAFETY INTEGRITY LEVEL 4 (SIL-4 / CAT 4) INTERLOCK
+                      AUTOMATED SAFETY INTERLOCK SYSTEM
                     </h3>
                     <p className="text-xs text-[#c6c6c7] mb-4 font-sans leading-relaxed">
                       Lab-built hardware emergency stop trigger with automated multi-zone pneumatic/solenoid isolation protocols operating under 12 milliseconds.
@@ -851,13 +845,13 @@ export const LandingPage: React.FC = () => {
                   <div>
                     <div className="flex items-center justify-between mb-4">
                       <span className="text-sm text-[#ffb4ab] font-bold">[ 02 ]</span>
-                      <span className="px-2 py-0.5 rounded bg-[#d71920] text-white text-[10px] font-bold">SIL-4</span>
+                      <span className="px-2 py-0.5 rounded bg-[#d71920] text-white text-[10px] font-bold">SAFETY</span>
                     </div>
                     <h3 className="text-base text-[#e3e2e5] uppercase mb-2 leading-snug font-bold">
-                      SUB-5MS HARDWARE INTERLOCK
+                      AUTOMATIC SAFETY INTERLOCK
                     </h3>
                     <p className="text-xs text-[#c6c6c7] font-sans leading-relaxed mb-6">
-                      Instantaneous deterministic SIL-4 / Cat-4 hardware bus disconnection prevents equipment destruction and operator injury under extreme runaway loads.
+                      Instantaneous automatic disconnection prevents equipment damage and operator injury under extreme runaway loads.
                     </p>
                   </div>
                   <div className="pt-2 border-t border-[#343537]/40 flex items-center justify-between text-[#c6c6c7] text-[10px]">

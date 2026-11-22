@@ -21,6 +21,11 @@ export interface Alert {
   actionRequired: string;
 }
 
+export interface FeatureContribution {
+  feature: string;
+  error: number;
+}
+
 export interface AnomalyRecord {
   id: string;
   machineId: string;
@@ -36,4 +41,14 @@ export interface AnomalyRecord {
   modelVersion: string; // e.g. "EdgeAcoustic-v4.2.1"
   rulEstimateHours: number; // Remaining Useful Life
   status: 'active' | 'investigating' | 'resolved';
+  // Multimodal Autoencoder Inference contract (from MAFAULDA pipeline)
+  filename?: string;
+  anomalyStatus?: string;
+  isAnomaly?: boolean;
+  threshold?: number;
+  healthIndex?: number; // 0 - 100% normalized health index: 100 * exp(-0.5 * score / threshold)
+  estimatedRpm?: number;
+  topContributingFeatures?: FeatureContribution[];
+  windowScores?: number[];
+  faultClass?: string;
 }

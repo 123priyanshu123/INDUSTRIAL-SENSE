@@ -10,15 +10,12 @@ import { UserProfileSettingsPage } from '../pages/UserProfileSettingsPage';
 import { MachineCataloguePage } from '../pages/MachineCataloguePage';
 import { MachineDetailsPage } from '../pages/MachineDetailsPage';
 import { LiveMonitoringPage } from '../pages/LiveMonitoringPage';
-import { AIInsightsPage } from '../pages/AIInsightsPage';
-import { AlertsPage } from '../pages/AlertsPage';
-import { ReportsPage } from '../pages/ReportsPage';
 import { NotFoundPage } from '../pages/NotFoundPage';
 
 export const AppRoutes: React.FC = () => {
   return (
     <Routes>
-      {/* 1. Landing Page (Full-screen Technical Kinematics & Thesis) */}
+      {/* 1. Landing Page */}
       <Route path="/" element={<LandingPage />} />
 
       {/* Security Gateway & Portal */}
@@ -42,22 +39,18 @@ export const AppRoutes: React.FC = () => {
         {/* Live Telemetry Monitoring */}
         <Route path="/monitoring" element={<LiveMonitoringPage />} />
 
-        {/* AI Diagnostics & Anomaly Intelligence */}
-        <Route path="/ai-insights" element={<AIInsightsPage />} />
-
-        {/* Incident Command & Alert Management */}
-        <Route path="/alerts" element={<AlertsPage />} />
-
         {/* Machine Registration */}
         <Route path="/machine-registration" element={<MachineRegistrationPage />} />
         <Route path="/machines/register" element={<MachineRegistrationPage />} />
 
-        {/* Shift Audit & Compliance Reports */}
-        <Route path="/reports" element={<ReportsPage />} />
-
         {/* User Profile & Safety Threshold Settings */}
         <Route path="/profile" element={<UserProfileSettingsPage />} />
         <Route path="/settings" element={<UserProfileSettingsPage />} />
+
+        {/* Redirects for removed pages */}
+        <Route path="/ai-insights" element={<Navigate to="/dashboard" replace />} />
+        <Route path="/alerts" element={<Navigate to="/dashboard" replace />} />
+        <Route path="/reports" element={<Navigate to="/dashboard" replace />} />
       </Route>
 
       {/* 404 Route */}

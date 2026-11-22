@@ -55,14 +55,14 @@ export const MachineConfig: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
             <label className="block text-[10px] text-[#a1a1aa] uppercase font-bold mb-1">
-              ASSET DESIGNATION / CODE (e.g. MCH-PMP-08):
+              ASSET IDENTIFIER / TAG:
             </label>
             <input
               type="text"
               required
               value={code}
               onChange={(e) => setCode(e.target.value.toUpperCase())}
-              placeholder="MCH-NEW-01"
+              placeholder="e.g. PUMP-UNIT-01"
               className="w-full bg-[#121315] border border-[#292a2c] focus:border-[#d71920] rounded-xl px-3 py-2 text-xs text-white outline-none"
             />
           </div>

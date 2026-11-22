@@ -27,12 +27,12 @@ export const MachineDetailsPage: React.FC = () => {
   return (
     <div className="flex flex-col gap-6">
       <PageHeader
-        title={`${machine.code} • ${machine.name}`}
+        title={machine.name}
         description={`${machine.category} • Installed ${machine.installationDate} by ${machine.manufacturer} (${machine.model})`}
         badge={`HEALTH SCORE: ${machine.healthScore}%`}
         breadcrumbs={[
           { label: 'Catalogue', href: '/machines' },
-          { label: machine.code },
+          { label: machine.name },
         ]}
         actions={
           <div className="flex items-center gap-2 font-mono text-xs">
@@ -41,14 +41,14 @@ export const MachineDetailsPage: React.FC = () => {
               className="px-3.5 py-1.5 rounded-xl bg-[#292a2c] hover:bg-[#343537] text-white font-bold flex items-center gap-1.5 transition-all"
             >
               <Activity className="w-3.5 h-3.5 text-cyan-400" />
-              <span>LIVE TELEMETRY BUS</span>
+              <span>LIVE TELEMETRY</span>
             </Link>
             <Link
-              to="/ai-insights"
+              to={`/analytics/${machine.id}`}
               className="px-3.5 py-1.5 rounded-xl bg-[#d71920] hover:bg-[#c00014] text-white font-bold flex items-center gap-1.5 transition-all shadow-md"
             >
               <BrainCircuit className="w-3.5 h-3.5" />
-              <span>AI DIAGNOSTICS</span>
+              <span>MACHINE ANALYTICS</span>
             </Link>
           </div>
         }
@@ -136,7 +136,7 @@ export const MachineDetailsPage: React.FC = () => {
           <div className="flex items-center gap-2">
             <Activity className="w-5 h-5 text-cyan-400" />
             <h3 className="text-sm font-bold text-white uppercase tracking-wider">
-              TELEMETRY SENSOR PANELS FOR {machine.code}
+              TELEMETRY SENSOR PANELS FOR {machine.name}
             </h3>
           </div>
 

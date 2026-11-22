@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { PageHeader } from '../components/layout/PageHeader';
 import { AIInsightPanel } from '../components/ai-insights/AIInsightPanel';
+import { ModelDiagnosticDashboard } from '../components/ai-insights/ModelDiagnosticDashboard';
 import { MOCK_ANOMALIES } from '../data/mockData';
-import { BrainCircuit, ShieldAlert, Sparkles, Filter, CheckCircle2 } from 'lucide-react';
+import { MAFAULDA_MODEL_METADATA } from '../data/modelMetadata';
+import { BrainCircuit, ShieldAlert, Sparkles, Filter, CheckCircle2, Award, Zap } from 'lucide-react';
 
 export const AIInsightsPage: React.FC = () => {
   const [severityFilter, setSeverityFilter] = useState<'ALL' | 'warning' | 'critical'>('ALL');
@@ -14,55 +16,71 @@ export const AIInsightsPage: React.FC = () => {
     return matchesSev && matchesSensor;
   });
 
+  const { metrics, anomaly_threshold_mse } = MAFAULDA_MODEL_METADATA;
+
   return (
     <div className="flex flex-col gap-6">
       <PageHeader
         title="AI ANOMALY INTELLIGENCE & RUL PROGNOSTICS"
-        description="Edge autoencoder and spectral decomposition models evaluating operational signatures against baseline mechanical models."
-        badge="EDGE AI v4.2"
+        description="Edge autoencoder and multimodal spectral decomposition models evaluating real-time operational signatures against baseline mechanical models."
+        badge={`EDGE AI ${MAFAULDA_MODEL_METADATA.model_version}`}
       />
 
-      {/* RUL Overview Stats Banner */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 font-mono">
-        <div className="bg-[#1b1c1e] border border-[#292a2c] rounded-2xl p-5 flex items-center justify-between">
+      {/* RUL Overview Stats Banner (Calibrated with MAFAULDA Model Metadata) */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 font-mono">
+        <div className="bg-[#1b1c1e] border border-[#292a2c] rounded-2xl p-4 flex items-center justify-between">
           <div>
             <span className="text-[10px] text-[#ffb4ab] uppercase font-bold">CRITICAL TRIP RISK</span>
-            <div className="text-2xl font-bold text-rose-400 mt-1">MCH-MTR-01 (48h RUL)</div>
-            <p className="text-xs text-[#a1a1aa] font-sans mt-0.5">Rapid bearing thermal degradation</p>
+            <div className="text-xl font-bold text-rose-400 mt-1">5-Axis CNC Milling (18h RUL)</div>
+            <p className="text-[11px] text-[#a1a1aa] font-sans mt-0.5">sample_imbalance.csv (13.5% Health)</p>
           </div>
-          <div className="p-3 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-400">
-            <ShieldAlert className="w-6 h-6" />
-          </div>
-        </div>
-
-        <div className="bg-[#1b1c1e] border border-[#292a2c] rounded-2xl p-5 flex items-center justify-between">
-          <div>
-            <span className="text-[10px] text-[#ffb4ab] uppercase font-bold">MODELS IN INFERENCE</span>
-            <div className="text-2xl font-bold text-white mt-1">4 Neural Architectures</div>
-            <p className="text-xs text-[#a1a1aa] font-sans mt-0.5">Spectral FFT + Wavelet + Autoencoder</p>
-          </div>
-          <div className="p-3 rounded-xl bg-[#121315] border border-[#292a2c] text-[#06b6d4]">
-            <BrainCircuit className="w-6 h-6" />
+          <div className="p-2.5 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-400">
+            <ShieldAlert className="w-5 h-5" />
           </div>
         </div>
 
-        <div className="bg-[#1b1c1e] border border-[#292a2c] rounded-2xl p-5 flex items-center justify-between">
+        <div className="bg-[#1b1c1e] border border-[#292a2c] rounded-2xl p-4 flex items-center justify-between">
           <div>
-            <span className="text-[10px] text-[#ffb4ab] uppercase font-bold">PROGNOSTIC PRECISION</span>
-            <div className="text-2xl font-bold text-emerald-400 mt-1">94.8% F1 Score</div>
-            <p className="text-xs text-[#a1a1aa] font-sans mt-0.5">Zero false negative bearing trips</p>
+            <span className="text-[10px] text-cyan-400 uppercase font-bold">MODEL ROC-AUC</span>
+            <div className="text-xl font-bold text-cyan-300 mt-1">{metrics.roc_auc} AUC</div>
+            <p className="text-[11px] text-[#a1a1aa] font-sans mt-0.5">MAFAULDA 42-Dim Autoencoder</p>
           </div>
-          <div className="p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400">
-            <CheckCircle2 className="w-6 h-6" />
+          <div className="p-2.5 rounded-xl bg-[#121315] border border-[#292a2c] text-[#06b6d4]">
+            <BrainCircuit className="w-5 h-5" />
+          </div>
+        </div>
+
+        <div className="bg-[#1b1c1e] border border-[#292a2c] rounded-2xl p-4 flex items-center justify-between">
+          <div>
+            <span className="text-[10px] text-emerald-400 uppercase font-bold">FAULT RECALL (SENSITIVITY)</span>
+            <div className="text-xl font-bold text-emerald-400 mt-1">{(metrics.recall * 100).toFixed(1)}% Recall</div>
+            <p className="text-[11px] text-[#a1a1aa] font-sans mt-0.5">0 False Negatives on Test Set</p>
+          </div>
+          <div className="p-2.5 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400">
+            <CheckCircle2 className="w-5 h-5" />
+          </div>
+        </div>
+
+        <div className="bg-[#1b1c1e] border border-[#292a2c] rounded-2xl p-4 flex items-center justify-between">
+          <div>
+            <span className="text-[10px] text-amber-400 uppercase font-bold">CALIBRATED THRESHOLD</span>
+            <div className="text-xl font-bold text-amber-300 mt-1">{anomaly_threshold_mse.toFixed(4)} MSE</div>
+            <p className="text-[11px] text-[#a1a1aa] font-sans mt-0.5">F1-Score: {(metrics.f1_score * 100).toFixed(2)}%</p>
+          </div>
+          <div className="p-2.5 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-400">
+            <Zap className="w-5 h-5" />
           </div>
         </div>
       </div>
+
+      {/* Interactive Model Diagnostic Dashboard (Inspection + 3 Evaluation Plots + 42 Features) */}
+      <ModelDiagnosticDashboard />
 
       {/* Filter Bar */}
       <div className="bg-[#1b1c1e] border border-[#292a2c] rounded-2xl p-4 flex items-center justify-between gap-4 font-mono text-xs">
         <div className="flex items-center gap-2">
           <Filter className="w-4 h-4 text-[#a1a1aa]" />
-          <span className="text-[10px] text-[#a1a1aa] uppercase font-bold">FILTER ANOMALIES:</span>
+          <span className="text-[10px] text-[#a1a1aa] uppercase font-bold">FLEET ANOMALY FEED:</span>
         </div>
 
         <div className="flex flex-wrap items-center gap-2">
@@ -90,7 +108,7 @@ export const AIInsightsPage: React.FC = () => {
             className="bg-[#121315] border border-[#292a2c] text-white font-bold rounded-xl px-3 py-1.5 outline-none cursor-pointer text-xs"
           >
             <option value="ALL" className="bg-[#1b1c1e]">All Sensors</option>
-            <option value="sound" className="bg-[#1b1c1e]">Sound (dB)</option>
+            <option value="sound" className="bg-[#1b1c1e]">Sound / Acoustic (MFCC)</option>
             <option value="temperature" className="bg-[#1b1c1e]">Temperature (°C)</option>
             <option value="pressure" className="bg-[#1b1c1e]">Pressure (bar)</option>
           </select>

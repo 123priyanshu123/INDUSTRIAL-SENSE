@@ -153,7 +153,7 @@ export const MachineDeepAnalyticsPage: React.FC = () => {
 
   const handleEStop = () => {
     alert(
-      `CAT 4 SIL-4 HARDWARE EMERGENCY STOP INITIATED FOR ${selectedMachine.code}.\nVFD Inverter coasting down to 0 RPM. Failsafe isolation triggered.`
+      `EMERGENCY STOP INITIATED FOR ${selectedMachine.name}.\nMotor powering down safely. Machine isolation triggered.`
     );
   };
 
@@ -170,7 +170,7 @@ export const MachineDeepAnalyticsPage: React.FC = () => {
               className="px-3 py-2 rounded-xl bg-zinc-900 hover:bg-zinc-800 text-zinc-300 hover:text-white border border-zinc-700 transition-all flex items-center gap-2 font-mono text-xs font-semibold"
             >
               <ArrowLeft className="w-4 h-4" />
-              <span className="hidden sm:inline">COCKPIT</span>
+              <span className="hidden sm:inline">DASHBOARD</span>
             </Link>
             <Link
               to="/"
@@ -178,13 +178,13 @@ export const MachineDeepAnalyticsPage: React.FC = () => {
               className="font-ndot-57 text-xl md:text-2xl font-bold tracking-tight text-white uppercase flex items-center gap-3 hover:text-red-400 transition-colors cursor-pointer group"
             >
               <span className="w-3.5 h-3.5 rounded-full bg-red-600 inline-block group-hover:scale-110 transition-transform" />
-              <span className="group-hover:text-white">MACHINE TWIN & ANALYTICS - {selectedMachine.code}</span>
+              <span className="group-hover:text-white">MACHINE TWIN & ANALYTICS - {selectedMachine.name}</span>
             </Link>
           </div>
 
           <div className="flex items-center gap-3">
             <div className="flex items-center gap-2 bg-black/60 px-3.5 py-2 rounded-xl border border-zinc-800 font-mono text-xs">
-              <span className="text-zinc-400 font-semibold hidden md:inline">SELECT UNIT:</span>
+              <span className="text-zinc-400 font-semibold hidden md:inline">SELECT MACHINE:</span>
               <select
                 value={selectedMachine.id}
                 onChange={(e) => navigate(`/analytics/${e.target.value}`)}
@@ -192,7 +192,7 @@ export const MachineDeepAnalyticsPage: React.FC = () => {
               >
                 {MACHINE_REGISTRY.map((m) => (
                   <option key={m.id} value={m.id} className="bg-[#121218] text-white">
-                    {m.code} — {m.name}
+                    {m.name}
                   </option>
                 ))}
               </select>
@@ -202,12 +202,12 @@ export const MachineDeepAnalyticsPage: React.FC = () => {
               onClick={handleEStop}
               className="flex items-center gap-2 bg-red-700 hover:bg-red-800 text-white font-mono text-xs font-bold uppercase px-4 py-2 rounded-xl transition-all shadow-sm"
             >
-              <span>E-STOP [CAT 4]</span>
+              <span>EMERGENCY STOP</span>
             </button>
           </div>
         </header>
 
-        {/* SCADA Quick Status Ribbon */}
+        {/* Quick Status Ribbon */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
           <div className="bg-[#121218] rounded-xl p-4 flex items-center justify-between border border-[#2a2a34] shadow-sm">
             <div>
@@ -219,21 +219,21 @@ export const MachineDeepAnalyticsPage: React.FC = () => {
               </span>
             </div>
             <span className="text-xs font-mono bg-zinc-900 border border-zinc-700 text-zinc-300 px-2.5 py-1 rounded">
-              12,500 m²
+              ALL ONLINE
             </span>
           </div>
 
           <div className="bg-[#121218] rounded-xl p-4 flex items-center justify-between border border-[#2a2a34] shadow-sm">
             <div>
               <span className="text-xs font-mono text-zinc-400 uppercase tracking-wider block font-semibold">
-                ACTIVE CRITICAL ALERTS
+                ACTIVE ALERTS
               </span>
               <span className="text-base font-mono font-bold text-red-400 flex items-center gap-2 mt-1">
                 <span className="w-2.5 h-2.5 rounded-full bg-red-600 animate-pulse" /> {selectedMachine.activeAlertCount} ALERTS LOGGED
               </span>
             </div>
             <span className="text-xs font-mono bg-red-950/60 border border-red-800/60 text-red-300 px-2.5 py-1 rounded font-bold">
-              {selectedMachine.status === 'critical' ? 'SIL-4 REQ' : 'MONITORING'}
+              {selectedMachine.status === 'critical' ? 'ATTENTION REQUIRED' : 'MONITORING'}
             </span>
           </div>
 
@@ -243,25 +243,25 @@ export const MachineDeepAnalyticsPage: React.FC = () => {
                 MACHINE STATUS
               </span>
               <span className="text-base font-mono font-bold text-white flex items-center gap-2 mt-1">
-                <span className={`w-2.5 h-2.5 rounded-full ${selectedMachine.status === 'critical' ? 'bg-red-600 animate-pulse' : selectedMachine.status === 'warning' ? 'bg-amber-500' : 'bg-emerald-500'}`} /> {selectedMachine.code} • {selectedMachine.status.toUpperCase()}
+                <span className={`w-2.5 h-2.5 rounded-full ${selectedMachine.status === 'critical' ? 'bg-red-600 animate-pulse' : selectedMachine.status === 'warning' ? 'bg-amber-500' : 'bg-emerald-500'}`} /> {selectedMachine.name}
               </span>
             </div>
             <span className={`text-xs font-mono px-2.5 py-1 rounded font-bold ${selectedMachine.status === 'critical' ? 'bg-red-950/60 border border-red-800/60 text-red-300' : selectedMachine.status === 'warning' ? 'bg-amber-950/60 border border-amber-800/60 text-amber-300' : 'bg-emerald-950/60 border border-emerald-800/60 text-emerald-300'}`}>
-              {selectedMachine.status === 'critical' ? 'E-STOP REQ' : selectedMachine.status === 'warning' ? 'MAINT REQ' : 'NOMINAL'}
+              {selectedMachine.status === 'critical' ? 'STOP REQUIRED' : selectedMachine.status === 'warning' ? 'MAINTENANCE' : 'NOMINAL'}
             </span>
           </div>
 
           <div className="bg-[#121218] rounded-xl p-4 flex items-center justify-between border border-[#2a2a34] shadow-sm">
             <div>
               <span className="text-xs font-mono text-zinc-400 uppercase tracking-wider block font-semibold">
-                TELEMETRY INGEST BUS
+                LIVE TELEMETRY
               </span>
               <span className="text-base font-mono font-bold text-white flex items-center gap-2 mt-1">
-                <span className="w-2.5 h-2.5 rounded-full bg-sky-400" /> STREAM ACTIVE (4ms)
+                <span className="w-2.5 h-2.5 rounded-full bg-sky-400" /> STREAM ACTIVE
               </span>
             </div>
             <span className="text-xs font-mono bg-zinc-900 border border-zinc-700 text-emerald-400 px-2.5 py-1 rounded font-bold">
-              60 FPS
+              REAL-TIME
             </span>
           </div>
         </div>
@@ -300,7 +300,7 @@ export const MachineDeepAnalyticsPage: React.FC = () => {
                   <Activity className="w-4 h-4 text-zinc-400" />
                   MACHINE CONDITION SCORE
                 </span>
-                <span className="text-zinc-400 font-mono text-xs">{selectedMachine.code}</span>
+                <span className="text-zinc-400 font-mono text-xs">{selectedMachine.category}</span>
               </div>
 
               {/* Radial Gauge with Dashed Arc Track */}
@@ -573,7 +573,7 @@ export const MachineDeepAnalyticsPage: React.FC = () => {
               <span className="font-semibold text-zinc-300 group-hover:text-white">INDUSTRIALSENSE SCADA 2.5</span>
             </Link>
             <span className="text-zinc-700">•</span>
-            <span>{selectedMachine.code} DIGITAL TWIN &amp; ANALYTICS</span>
+            <span>{selectedMachine.name} DIGITAL TWIN &amp; ANALYTICS</span>
           </div>
           <div className="flex items-center gap-4">
             <span className="text-emerald-400 flex items-center gap-1.5">

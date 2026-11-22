@@ -53,7 +53,7 @@ export const MachineCataloguePage: React.FC = () => {
         <SearchBar
           value={search}
           onChange={setSearch}
-          placeholder="Filter by machine name, asset tag (MCH-PMP-01), or mechanical component..."
+          placeholder="Filter by machine name or category..."
           className="w-full md:w-96"
         />
 
@@ -117,7 +117,7 @@ export const MachineCataloguePage: React.FC = () => {
 
       {/* Machine Results View */}
       {viewMode === 'grid' ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
           {filteredMachines.map((machine) => (
             <MachineCard key={machine.id} machine={machine} />
           ))}

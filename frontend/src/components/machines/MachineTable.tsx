@@ -15,7 +15,7 @@ export const MachineTable: React.FC<MachineTableProps> = ({ machines }) => {
         <table className="w-full text-left border-collapse">
           <thead>
             <tr className="bg-[#121315] border-b border-[#292a2c] text-[#a1a1aa] uppercase text-[10px]">
-              <th className="py-3 px-4">Asset ID • Name</th>
+              <th className="py-3 px-4">Machine Name</th>
               <th className="py-3 px-4">Category</th>
               <th className="py-3 px-4">Operating State</th>
               <th className="py-3 px-4">Health Index</th>
@@ -32,9 +32,8 @@ export const MachineTable: React.FC<MachineTableProps> = ({ machines }) => {
                   <td className="py-3.5 px-4">
                     <div className="font-bold text-white flex items-center gap-2">
                       <span className={`w-2 h-2 rounded-full ${status.dot}`} />
-                      <span>{m.code}</span>
+                      <span>{m.name}</span>
                     </div>
-                    <div className="text-[11px] text-[#a1a1aa] font-sans truncate max-w-xs">{m.name}</div>
                   </td>
 
                   <td className="py-3.5 px-4 text-[#a1a1aa]">{m.category}</td>

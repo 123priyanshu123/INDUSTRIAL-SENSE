@@ -44,7 +44,7 @@ export const UserRegistrationPage: React.FC = () => {
       if (authMode === 'enroll') {
         addNotification('success', `Personnel ${badgeSerial} provisioned with ${operationalRole.toUpperCase()} clearance.`);
       } else {
-        addNotification('success', `Session authorized for ${operatorId} under SIL-4 safety protocol.`);
+        addNotification('success', `Session authorized for ${operatorId}.`);
       }
       navigate('/dashboard');
     }, 700);
@@ -135,8 +135,7 @@ export const UserRegistrationPage: React.FC = () => {
             <div className="flex flex-col">
               <span className="font-bold text-[#ffb4ab]">FACILITY CLEARANCE MANDATE: LEVEL-4</span>
               <p className="text-zinc-400 text-[11px] mt-0.5 leading-relaxed font-sans">
-                Cryptographic hardware authorization required. Access logged to immutable plant telemetry registers under
-                SIL-4 safety protocol.
+                Cryptographic operator authorization required. Access logged to plant audit registry.
               </p>
             </div>
           </div>

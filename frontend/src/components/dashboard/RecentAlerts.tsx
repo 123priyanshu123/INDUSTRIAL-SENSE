@@ -21,13 +21,6 @@ export const RecentAlerts: React.FC<RecentAlertsProps> = ({ alerts }) => {
             ACTIVE ANOMALIES & INCIDENTS
           </h3>
         </div>
-        <Link
-          to="/alerts"
-          className="text-xs text-[#ffb4ab] hover:text-white flex items-center gap-1 font-bold"
-        >
-          <span>VIEW ALL INCIDENTS</span>
-          <ChevronRight className="w-3.5 h-3.5" />
-        </Link>
       </div>
 
       <div className="flex flex-col gap-2.5">
@@ -53,7 +46,7 @@ export const RecentAlerts: React.FC<RecentAlertsProps> = ({ alerts }) => {
 
                 <div>
                   <div className="flex items-center gap-2">
-                    <span className="font-bold text-white text-xs">{alert.machineCode}</span>
+                    <span className="font-bold text-white text-xs">{alert.machineName || alert.machineCode}</span>
                     <span className="text-xs text-[#a1a1aa]">•</span>
                     <span
                       className={`text-[9px] font-bold px-1.5 py-0.2 rounded uppercase ${

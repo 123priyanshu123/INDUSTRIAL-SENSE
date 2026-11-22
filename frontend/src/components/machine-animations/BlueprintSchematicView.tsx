@@ -808,7 +808,7 @@ export const BlueprintSchematicView: React.FC<BlueprintSchematicViewProps> = ({
       <div className="relative z-10 flex items-center justify-between pb-4 border-b border-zinc-800 font-mono text-sm">
         <div className="flex items-center gap-3">
           <span className="text-white font-bold tracking-wider uppercase text-sm md:text-base">
-            BLUEPRINT DIGITAL TWIN - KINEMATIC SCHEMATIC ({machine.code})
+            BLUEPRINT DIGITAL TWIN - KINEMATIC SCHEMATIC ({machine.name})
           </span>
           <span className="w-2.5 h-2.5 rounded-full bg-emerald-500" />
         </div>

@@ -39,7 +39,7 @@ export const AnalyticsPage: React.FC = () => {
             {MACHINE_REGISTRY.slice(0, 5).map((m) => (
               <div key={m.id} className="flex flex-col gap-1">
                 <div className="flex items-center justify-between text-xs">
-                  <span className="text-white font-bold">{m.code} ({m.name.split('(')[0]})</span>
+                  <span className="text-white font-bold">{m.name}</span>
                   <span className={m.healthScore < 80 ? 'text-amber-400' : 'text-emerald-400'}>
                     {m.healthScore}% Availability
                   </span>
