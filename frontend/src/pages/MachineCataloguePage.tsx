@@ -18,8 +18,7 @@ export const MachineCataloguePage: React.FC = () => {
     return MACHINE_REGISTRY.filter((m) => {
       const matchesSearch =
         m.name.toLowerCase().includes(search.toLowerCase()) ||
-        m.code.toLowerCase().includes(search.toLowerCase()) ||
-        m.description.toLowerCase().includes(search.toLowerCase());
+        m.category.toLowerCase().includes(search.toLowerCase());
 
       const matchesCategory =
         selectedCategory === 'ALL' || m.category === selectedCategory;

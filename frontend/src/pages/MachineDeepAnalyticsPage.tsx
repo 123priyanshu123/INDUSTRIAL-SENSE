@@ -276,7 +276,7 @@ export const MachineDeepAnalyticsPage: React.FC = () => {
           </div>
           <div className="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#1b1c24] border border-zinc-700 text-zinc-300 font-ntype-mono text-xs">
             <span className={`w-2 h-2 rounded-full ${selectedMachine.status === 'critical' ? 'bg-red-600 animate-pulse' : 'bg-emerald-500'}`} />
-            <span>{selectedMachine.description}</span>
+            <span className="uppercase font-bold">{selectedMachine.status}</span>
           </div>
         </div>
 

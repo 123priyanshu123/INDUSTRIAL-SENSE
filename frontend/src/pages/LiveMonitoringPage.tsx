@@ -8,12 +8,14 @@ import { DEFAULT_SENSOR_THRESHOLDS } from '../data/sensorProfiles';
 import { GENERATE_SERIES_DATA } from '../data/mockData';
 import { useSensorReadings } from '../hooks/useSensorReadings';
 import { useLiveUpdates } from '../hooks/useLiveUpdates';
-import { Radio, Cpu, RefreshCw } from 'lucide-react';
+import { Radio, Cpu, RefreshCw, Upload } from 'lucide-react';
 import { useAppStore } from '../store/appStore';
+import { CsvManualTelemetryUpload } from '../components/telemetry/CsvManualTelemetryUpload';
 
 export const LiveMonitoringPage: React.FC = () => {
-  const { isLiveStreaming, toggleLiveStreaming } = useAppStore();
+  const { isLiveStreaming, toggleLiveStreaming, addNotification } = useAppStore();
   const [selectedMachineId, setSelectedMachineId] = useState(MACHINE_REGISTRY[0].id);
+  const [showCsvUpload, setShowCsvUpload] = useState(false);
 
   const currentMachine =
     MACHINE_REGISTRY.find(m => m.id === selectedMachineId) || MACHINE_REGISTRY[0];
@@ -30,6 +32,18 @@ export const LiveMonitoringPage: React.FC = () => {
         badge={isConnected ? 'CONNECTED' : 'OFFLINE'}
         actions={
           <div className="flex items-center gap-2 font-mono text-xs">
+            <button
+              onClick={() => setShowCsvUpload(!showCsvUpload)}
+              className={`px-3.5 py-1.5 rounded-xl font-bold flex items-center gap-1.5 transition-all ${
+                showCsvUpload
+                  ? 'bg-cyan-500 text-black shadow-sm'
+                  : 'bg-[#1b1c1e] text-cyan-300 border border-cyan-500/40 hover:bg-cyan-950/40'
+              }`}
+            >
+              <Upload className="w-3.5 h-3.5" />
+              <span>{showCsvUpload ? 'HIDE CSV UPLOAD' : 'UPLOAD CSV DATA'}</span>
+            </button>
+
             <button
               onClick={toggleLiveStreaming}
               className={`px-3.5 py-1.5 rounded-xl font-bold flex items-center gap-1.5 transition-all ${
@@ -52,6 +66,15 @@ export const LiveMonitoringPage: React.FC = () => {
           </div>
         }
       />
+
+      {/* Manual CSV File Upload & Red Alert Analyzer */}
+      {showCsvUpload && (
+        <CsvManualTelemetryUpload
+          onTriggerStop={(sys) =>
+            addNotification('error', `EMERGENCY STOP EXECUTED FOR ${sys}. Motor decelerating to 0 RPM.`)
+          }
+        />
+      )}
 
       {/* Machine Selector Bar */}
       <div className="bg-[#1b1c1e] border border-[#292a2c] rounded-2xl p-4 flex flex-col md:flex-row items-center justify-between gap-4 font-mono text-xs">

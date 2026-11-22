@@ -10,7 +10,9 @@ import {
   Shield,
   Clock,
   ChevronDown,
+  Upload,
 } from 'lucide-react';
+import { CsvManualTelemetryUpload } from '../components/telemetry/CsvManualTelemetryUpload';
 
 interface MachineInspectorData {
   id: string;
@@ -42,8 +44,16 @@ export const DashboardPage: React.FC = () => {
     pressure: '316 bar',
   });
 
-  // Zone filter
+  // Zone filter & Dynamic Zoom ViewBoxes
   const [activeZone, setActiveZone] = useState<string>('all');
+
+  const ZONE_VIEWBOXES: Record<string, string> = {
+    all: '0 0 860 520',
+    'zone-a': '15 20 395 245',
+    'zone-b': '395 20 450 315',
+    'zone-c': '15 260 395 235',
+    'zone-d': '395 340 450 155',
+  };
 
   // Alert category filter
   const [alertFilter, setAlertFilter] = useState<'ALL' | 'STOP_REQ' | 'MAINT'>('ALL');
@@ -231,6 +241,14 @@ export const DashboardPage: React.FC = () => {
           </div>
 
           <div className="flex items-center gap-3 relative">
+            <a
+              href="#csv-upload-section"
+              className="px-3.5 py-2 rounded-xl bg-cyan-950/40 hover:bg-cyan-900/60 border border-cyan-500/40 text-cyan-300 font-mono text-xs font-bold tracking-wider uppercase flex items-center gap-2 transition-all shadow-sm"
+            >
+              <Upload className="w-4 h-4 text-cyan-400" />
+              <span>UPLOAD CSV</span>
+            </a>
+
             <button
               onClick={() => setIsModalOpen(true)}
               className="px-4 py-2 rounded-xl bg-red-700 hover:bg-red-800 text-white font-mono text-xs font-bold tracking-wider uppercase flex items-center gap-2 transition-all shadow-sm"
@@ -400,7 +418,7 @@ export const DashboardPage: React.FC = () => {
                   }}
                 />
 
-                {/* Compass HUD Rose */}
+                {/* Compass HUD Rose & Zone Status */}
                 <div className="absolute top-3 left-3 z-10 font-mono text-[10px] text-zinc-500 flex flex-col items-start bg-black/70 backdrop-blur-md px-2.5 py-1.5 rounded border border-zinc-800">
                   <div className="flex items-center gap-1.5">
                     <span className="text-white font-bold">▲ N 004°</span>
@@ -408,6 +426,14 @@ export const DashboardPage: React.FC = () => {
                     <span className="text-zinc-300">SEC-09</span>
                   </div>
                   <span className="text-xs text-zinc-400 font-mono mt-0.5">GRID: 120.4, 385.2</span>
+                  {activeZone !== 'all' && (
+                    <div className="mt-1 pt-1 border-t border-zinc-800 flex items-center gap-1.5">
+                      <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
+                      <span className="text-cyan-300 font-bold uppercase tracking-wider text-[9px]">
+                        ZOOMED: {activeZone.replace('-', ' ').toUpperCase()}
+                      </span>
+                    </div>
+                  )}
                 </div>
 
                 {/* Quick Interactive Inspect Legend */}
@@ -428,7 +454,11 @@ export const DashboardPage: React.FC = () => {
                 </div>
 
                 {/* SVG Architectural SCADA Plant Map */}
-                <svg className="w-full h-full p-2 relative z-0 select-none" viewBox="0 0 860 520">
+                <svg
+                  className="w-full h-full p-2 relative z-0 select-none transition-all duration-500 ease-in-out"
+                  viewBox={ZONE_VIEWBOXES[activeZone] || '0 0 860 520'}
+                  preserveAspectRatio="xMidYMid meet"
+                >
                   <defs>
                     <pattern
                       id="rackHatch"
@@ -469,7 +499,11 @@ export const DashboardPage: React.FC = () => {
                   </text>
 
                   {/* ZONE A: CNC & Heavy Machining */}
-                  <g opacity={activeZone === 'all' || activeZone === 'zone-a' ? 1 : 0.25}>
+                  <g
+                    className="cursor-pointer transition-opacity"
+                    opacity={activeZone === 'all' || activeZone === 'zone-a' ? 1 : 0.25}
+                    onClick={() => setActiveZone(activeZone === 'zone-a' ? 'all' : 'zone-a')}
+                  >
                     <rect
                       x="30"
                       y="35"
@@ -477,8 +511,8 @@ export const DashboardPage: React.FC = () => {
                       height="215"
                       rx="8"
                       fill="#0d0d12"
-                      stroke="#2a2a38"
-                      strokeWidth="1.5"
+                      stroke={activeZone === 'zone-a' ? '#D71920' : '#2a2a38'}
+                      strokeWidth={activeZone === 'zone-a' ? 2 : 1.5}
                       strokeDasharray="4 4"
                     />
                     <text x="45" y="56" fill="#a1a1aa" fontFamily="Space Mono" fontSize="11" fontWeight="700" letterSpacing="1">
@@ -490,7 +524,11 @@ export const DashboardPage: React.FC = () => {
                   </g>
 
                   {/* ZONE B: ASRS Automated Logistics */}
-                  <g opacity={activeZone === 'all' || activeZone === 'zone-b' ? 1 : 0.25}>
+                  <g
+                    className="cursor-pointer transition-opacity"
+                    opacity={activeZone === 'all' || activeZone === 'zone-b' ? 1 : 0.25}
+                    onClick={() => setActiveZone(activeZone === 'zone-b' ? 'all' : 'zone-b')}
+                  >
                     <rect
                       x="405"
                       y="35"
@@ -498,8 +536,8 @@ export const DashboardPage: React.FC = () => {
                       height="295"
                       rx="8"
                       fill="#0d0d12"
-                      stroke="#2a2a38"
-                      strokeWidth="1.5"
+                      stroke={activeZone === 'zone-b' ? '#D71920' : '#2a2a38'}
+                      strokeWidth={activeZone === 'zone-b' ? 2 : 1.5}
                       strokeDasharray="4 4"
                     />
                     <text x="420" y="56" fill="#a1a1aa" fontFamily="Space Mono" fontSize="11" fontWeight="700" letterSpacing="1">
@@ -511,7 +549,11 @@ export const DashboardPage: React.FC = () => {
                   </g>
 
                   {/* ZONE C: Slurry, Pumps & Coolant Utilities */}
-                  <g opacity={activeZone === 'all' || activeZone === 'zone-c' ? 1 : 0.25}>
+                  <g
+                    className="cursor-pointer transition-opacity"
+                    opacity={activeZone === 'all' || activeZone === 'zone-c' ? 1 : 0.25}
+                    onClick={() => setActiveZone(activeZone === 'zone-c' ? 'all' : 'zone-c')}
+                  >
                     <rect
                       x="30"
                       y="275"
@@ -519,8 +561,8 @@ export const DashboardPage: React.FC = () => {
                       height="210"
                       rx="8"
                       fill="#0d0d12"
-                      stroke="#2a2a38"
-                      strokeWidth="1.5"
+                      stroke={activeZone === 'zone-c' ? '#D71920' : '#2a2a38'}
+                      strokeWidth={activeZone === 'zone-c' ? 2 : 1.5}
                       strokeDasharray="4 4"
                     />
                     <text x="45" y="296" fill="#a1a1aa" fontFamily="Space Mono" fontSize="11" fontWeight="700" letterSpacing="1">
@@ -532,7 +574,11 @@ export const DashboardPage: React.FC = () => {
                   </g>
 
                   {/* ZONE D: Quality & Inspection Lab */}
-                  <g opacity={activeZone === 'all' || activeZone === 'zone-d' ? 1 : 0.25}>
+                  <g
+                    className="cursor-pointer transition-opacity"
+                    opacity={activeZone === 'all' || activeZone === 'zone-d' ? 1 : 0.25}
+                    onClick={() => setActiveZone(activeZone === 'zone-d' ? 'all' : 'zone-d')}
+                  >
                     <rect
                       x="405"
                       y="355"
@@ -540,8 +586,8 @@ export const DashboardPage: React.FC = () => {
                       height="130"
                       rx="8"
                       fill="#0e1014"
-                      stroke="#2a2a38"
-                      strokeWidth="1.5"
+                      stroke={activeZone === 'zone-d' ? '#D71920' : '#2a2a38'}
+                      strokeWidth={activeZone === 'zone-d' ? 2 : 1.5}
                       strokeDasharray="4 4"
                     />
                     <text x="420" y="374" fill="#a1a1aa" fontFamily="Space Mono" fontSize="11" fontWeight="700" letterSpacing="1">
@@ -628,14 +674,11 @@ export const DashboardPage: React.FC = () => {
                       stroke={selectedMachine.id === 'MCH-CNC-01' ? '#FFFFFF' : '#F59E0B'}
                       strokeWidth={selectedMachine.id === 'MCH-CNC-01' ? 2.5 : 1.5}
                     />
-                    <text x="58" y="100" fill="#FFFFFF" fontFamily="Space Mono" fontSize="11" fontWeight="700">
+                    <text x="58" y="105" fill="#FFFFFF" fontFamily="Space Mono" fontSize="11" fontWeight="700">
                       CNC Mill
                     </text>
-                    <text x="58" y="116" fill="#F59E0B" fontFamily="Inter" fontSize="9" fontWeight="600">
-                      5-Axis Machining
-                    </text>
-                    <circle cx="162" cy="93" r="5" fill="#F59E0B" />
-                    <text x="58" y="133" fill="#A1A1AA" fontFamily="Space Mono" fontSize="8">
+                    <circle cx="162" cy="100" r="5" fill="#F59E0B" />
+                    <text x="58" y="128" fill="#A1A1AA" fontFamily="Space Mono" fontSize="8">
                       68.4°C • ATTENTION
                     </text>
                   </g>
@@ -668,14 +711,11 @@ export const DashboardPage: React.FC = () => {
                       stroke={selectedMachine.id === 'MCH-CNC-02' ? '#FFFFFF' : '#2a2a3a'}
                       strokeWidth={selectedMachine.id === 'MCH-CNC-02' ? 2 : 1.2}
                     />
-                    <text x="222" y="100" fill="#FFFFFF" fontFamily="Space Mono" fontSize="11" fontWeight="700">
+                    <text x="222" y="105" fill="#FFFFFF" fontFamily="Space Mono" fontSize="11" fontWeight="700">
                       Twin Lathe
                     </text>
-                    <text x="222" y="116" fill="#A1A1AA" fontFamily="Inter" fontSize="9">
-                      Precision Lathe Unit
-                    </text>
-                    <circle cx="326" cy="93" r="4.5" fill="#10B981" />
-                    <text x="222" y="133" fill="#10B981" fontFamily="Space Mono" fontSize="8">
+                    <circle cx="326" cy="100" r="4.5" fill="#10B981" />
+                    <text x="222" y="128" fill="#10B981" fontFamily="Space Mono" fontSize="8">
                       NOMINAL • 41°C
                     </text>
                   </g>
@@ -709,13 +749,10 @@ export const DashboardPage: React.FC = () => {
                       stroke={selectedMachine.id === 'MCH-HYD-01' ? '#FFFFFF' : '#dc2626'}
                       strokeWidth={selectedMachine.id === 'MCH-HYD-01' ? 3 : 2}
                     />
-                    <text x="60" y="182" fill="#FFFFFF" fontFamily="Space Mono" fontSize="11" fontWeight="700">
+                    <text x="60" y="190" fill="#FFFFFF" fontFamily="Space Mono" fontSize="11" fontWeight="700">
                       Hydraulic Press
                     </text>
-                    <text x="60" y="198" fill="#E4E4E7" fontFamily="Inter" fontSize="9">
-                      Cylinder Over-Pressure: 318 bar (Limit: 280 bar)
-                    </text>
-                    <circle cx="326" cy="175" r="5.5" fill="#dc2626" />
+                    <circle cx="326" cy="185" r="5.5" fill="#dc2626" />
                     <text x="60" y="215" fill="#ef4444" fontFamily="Space Mono" fontSize="8" fontWeight="bold">
                       PRESSURE ALERT
                     </text>
@@ -813,13 +850,10 @@ export const DashboardPage: React.FC = () => {
                       stroke={selectedMachine.id === 'MCH-PMP-01' ? '#FFFFFF' : '#dc2626'}
                       strokeWidth="2.5"
                     />
-                    <text x="58" y="350" fill="#FFFFFF" fontFamily="Space Mono" fontSize="11" fontWeight="700">
+                    <text x="58" y="358" fill="#FFFFFF" fontFamily="Space Mono" fontSize="11" fontWeight="700">
                       Centrifugal Pump
                     </text>
-                    <text x="58" y="367" fill="#fca5a5" fontFamily="Inter" fontSize="9" fontWeight="bold">
-                      Slurry & Cooling
-                    </text>
-                    <circle cx="175" cy="346" r="6" fill="#dc2626" className="animate-pulse" />
+                    <circle cx="175" cy="354" r="6" fill="#dc2626" className="animate-pulse" />
                     <text x="58" y="388" fill="#ef4444" fontFamily="Space Mono" fontSize="9" fontWeight="bold">
                       96.4 dB CAVITATION
                     </text>
@@ -856,13 +890,10 @@ export const DashboardPage: React.FC = () => {
                       stroke={selectedMachine.id === 'MCH-CMP-02' ? '#FFFFFF' : '#2e2e40'}
                       strokeWidth={selectedMachine.id === 'MCH-CMP-02' ? 2 : 1.2}
                     />
-                    <text x="232" y="350" fill="#FFFFFF" fontFamily="Space Mono" fontSize="11" fontWeight="700">
+                    <text x="232" y="358" fill="#FFFFFF" fontFamily="Space Mono" fontSize="11" fontWeight="700">
                       Air Chiller
                     </text>
-                    <text x="232" y="367" fill="#A1A1AA" fontFamily="Inter" fontSize="9">
-                      Cooling System
-                    </text>
-                    <circle cx="342" cy="346" r="4.5" fill="#10B981" />
+                    <circle cx="342" cy="354" r="4.5" fill="#10B981" />
                     <text x="232" y="388" fill="#10B981" fontFamily="Space Mono" fontSize="8">
                       NOMINAL • 4.1°C
                     </text>
@@ -891,13 +922,10 @@ export const DashboardPage: React.FC = () => {
                     }
                   >
                     <circle cx="480" cy="425" r="26" fill="#14141e" stroke="#333346" strokeWidth="1.5" />
-                    <text x="480" y="422" fill="#FFFFFF" fontFamily="Space Mono" fontSize="8" fontWeight="bold" textAnchor="middle">
-                      ROB-04
+                    <text x="480" y="426" fill="#FFFFFF" fontFamily="Space Mono" fontSize="8" fontWeight="bold" textAnchor="middle">
+                      ROBOT-04
                     </text>
-                    <circle cx="480" cy="436" r="3.5" fill="#10B981" />
-                    <text x="480" y="460" fill="#A1A1AA" fontFamily="Inter" fontSize="7.5" textAnchor="middle">
-                      Depalletizer
-                    </text>
+                    <circle cx="480" cy="438" r="3.5" fill="#10B981" />
                   </g>
 
                   {/* CMM-INS-01 */}
@@ -919,14 +947,11 @@ export const DashboardPage: React.FC = () => {
                     }
                   >
                     <rect x="545" y="400" width="135" height="55" rx="4" fill="#12131e" stroke="#2a2a3e" strokeWidth="1.2" />
-                    <text x="556" y="420" fill="#FFFFFF" fontFamily="Space Mono" fontSize="10" fontWeight="700">
-                      CMM-INS-01
+                    <text x="556" y="424" fill="#FFFFFF" fontFamily="Space Mono" fontSize="10" fontWeight="700">
+                      Bridge CMM
                     </text>
-                    <text x="556" y="434" fill="#00E5FF" fontFamily="Inter" fontSize="8">
-                      Optical Metrology
-                    </text>
-                    <circle cx="665" cy="416" r="4" fill="#10B981" />
-                    <text x="556" y="448" fill="#10B981" fontFamily="Space Mono" fontSize="7.5">
+                    <circle cx="665" cy="420" r="4" fill="#10B981" />
+                    <text x="556" y="444" fill="#10B981" fontFamily="Space Mono" fontSize="7.5">
                       TOL: ±0.002mm PASS
                     </text>
                   </g>
@@ -950,14 +975,11 @@ export const DashboardPage: React.FC = () => {
                     }
                   >
                     <rect x="695" y="400" width="120" height="55" rx="4" fill="#12131e" stroke="#2a2a3e" strokeWidth="1.2" />
-                    <text x="705" y="420" fill="#FFFFFF" fontFamily="Space Mono" fontSize="10" fontWeight="700">
-                      QC-SCAN-02
+                    <text x="705" y="424" fill="#FFFFFF" fontFamily="Space Mono" fontSize="10" fontWeight="700">
+                      Laser Scanner
                     </text>
-                    <text x="705" y="434" fill="#A1A1AA" fontFamily="Inter" fontSize="8">
-                      Laser Thickness
-                    </text>
-                    <circle cx="800" cy="416" r="4" fill="#10B981" />
-                    <text x="705" y="448" fill="#10B981" fontFamily="Space Mono" fontSize="7.5">
+                    <circle cx="800" cy="420" r="4" fill="#10B981" />
+                    <text x="705" y="444" fill="#10B981" fontFamily="Space Mono" fontSize="7.5">
                       INLINE 100% OK
                     </text>
                   </g>
@@ -1003,7 +1025,6 @@ export const DashboardPage: React.FC = () => {
                             : 'NOMINAL RUNNING'}
                         </span>
                       </div>
-                      <h4 className="text-xs font-mono text-zinc-400 mt-0.5">{selectedMachine.note}</h4>
                     </div>
                   </div>
 
@@ -1121,9 +1142,6 @@ export const DashboardPage: React.FC = () => {
                         <h3 className="text-sm font-bold text-white mt-1 font-mono tracking-tight">
                           Centrifugal Slurry & Cooling Pump
                         </h3>
-                        <p className="text-xs text-red-400 font-semibold mt-0.5">
-                          Severe Acoustic Cavitation & Impeller Vane Stall
-                        </p>
                       </div>
                       <span className="px-2.5 py-1 rounded-md text-[10px] font-mono font-bold bg-[#D71920] text-white flex items-center gap-1.5 shadow-[0_0_8px_#D71920] uppercase tracking-wider">
                         <span className="w-1.5 h-1.5 rounded-full bg-white animate-ping" />
@@ -1145,10 +1163,6 @@ export const DashboardPage: React.FC = () => {
                         <div className="text-zinc-300 font-semibold mt-0.5 text-xs">82.0 dB</div>
                       </div>
                     </div>
-
-                    <p className="text-xs text-zinc-300 mt-2.5 leading-relaxed">
-                      Sound emission elevated to 96.4 dB with high-frequency cavitation signals. Fluid vapor collapse detected on primary impeller. Immediate shutdown recommended.
-                    </p>
 
                     <div className="flex items-center gap-2 mt-3 pt-2.5 border-t border-[#D71920]/40">
                       <button
@@ -1192,7 +1206,6 @@ export const DashboardPage: React.FC = () => {
                         <h3 className="text-sm font-bold text-white mt-1 font-mono tracking-tight">
                           600-Tonne Hydraulic Deep-Draw Press
                         </h3>
-                        <p className="text-xs text-red-300 mt-0.5">Hydraulic Cylinder Pressure Anomaly</p>
                       </div>
                       <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-red-950/70 text-red-300 border border-red-800/60 uppercase tracking-wider">
                         CRITICAL STOP
@@ -1253,9 +1266,6 @@ export const DashboardPage: React.FC = () => {
                         <h3 className="text-sm font-bold text-white mt-1 font-mono tracking-tight">
                           5-Axis CNC Milling Machine
                         </h3>
-                        <p className="text-xs text-amber-400 font-medium mt-0.5">
-                          Spindle Vibration & Thermal Elevation
-                        </p>
                       </div>
                       <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-amber-500/15 text-amber-300 border border-amber-500/40 flex items-center gap-1 uppercase tracking-wider">
                         DUE SOON
@@ -1272,10 +1282,6 @@ export const DashboardPage: React.FC = () => {
                         <div className="text-zinc-300 font-semibold text-xs">65.0°C • 2.0 G</div>
                       </div>
                     </div>
-
-                    <p className="text-xs text-zinc-300 mt-2 leading-relaxed">
-                      Bearing vibration harmonic detected. Scheduled inspection queued for upcoming maintenance window.
-                    </p>
 
                     <div className="flex items-center justify-between mt-2.5 pt-2 border-t border-zinc-800">
                       <button
@@ -1320,7 +1326,6 @@ export const DashboardPage: React.FC = () => {
                         <h3 className="text-sm font-bold text-white mt-1 font-mono tracking-tight">
                           Unit-Load Stacker Crane
                         </h3>
-                        <p className="text-xs text-zinc-300 mt-0.5">Optical Sensor Calibration Recommended</p>
                       </div>
                       <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-zinc-800 text-zinc-300 border border-zinc-700 uppercase tracking-wider">
                         ROUTINE
@@ -1328,7 +1333,6 @@ export const DashboardPage: React.FC = () => {
                     </div>
 
                     <div className="flex items-center justify-between mt-2 pt-2 border-t border-zinc-800 text-xs font-mono">
-                      <span className="text-zinc-400">RUL: 92% Nominal Health</span>
                       <button
                         onClick={() =>
                           handleSelectMachine({
@@ -1372,6 +1376,11 @@ export const DashboardPage: React.FC = () => {
             </div>
           </section>
         </main>
+
+        {/* MANUAL SENSOR TELEMETRY INGESTION (.CSV) SECTION */}
+        <section id="csv-upload-section" className="mt-4">
+          <CsvManualTelemetryUpload onTriggerStop={handleTriggerEStop} />
+        </section>
 
         {/* Machine Registration Modal Dialog */}
         {isModalOpen && (

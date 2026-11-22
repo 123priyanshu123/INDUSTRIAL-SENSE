@@ -28,7 +28,6 @@ export const MachineDetailsPage: React.FC = () => {
     <div className="flex flex-col gap-6">
       <PageHeader
         title={machine.name}
-        description={`${machine.category} • Installed ${machine.installationDate} by ${machine.manufacturer} (${machine.model})`}
         badge={`HEALTH SCORE: ${machine.healthScore}%`}
         breadcrumbs={[
           { label: 'Catalogue', href: '/machines' },

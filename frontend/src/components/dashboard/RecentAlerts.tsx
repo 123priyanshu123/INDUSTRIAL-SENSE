@@ -59,7 +59,6 @@ export const RecentAlerts: React.FC<RecentAlertsProps> = ({ alerts }) => {
                   </div>
 
                   <h4 className="text-xs font-bold text-white mt-1 font-sans">{alert.title}</h4>
-                  <p className="text-[11px] text-[#a1a1aa] font-sans mt-0.5">{alert.message}</p>
                 </div>
               </div>
 
