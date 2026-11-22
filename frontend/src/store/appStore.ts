@@ -39,7 +39,7 @@ export const useAppStore = create<AppState>((set, get) => ({
     {
       id: 'notif-1',
       type: 'warning',
-      message: 'MCH-MTR-01 temperature critical alert active (89.2 °C)',
+      message: 'Induction Motor temperature critical alert active (89.2 °C)',
       timestamp: '1 min ago',
     },
   ],

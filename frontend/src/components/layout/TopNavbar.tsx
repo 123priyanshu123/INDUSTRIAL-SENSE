@@ -18,6 +18,7 @@ export const TopNavbar: React.FC = () => {
     { to: '/machines', label: 'FLEET' },
     { to: '/analytics', label: 'ANALYTICS' },
     { to: '/monitoring', label: 'TELEMETRY' },
+    { to: '/manual-testing', label: 'MANUAL TESTING' },
     { to: '/profile', label: 'SETTINGS' },
   ];
 
@@ -148,6 +149,17 @@ export const TopNavbar: React.FC = () => {
                     <span>Live Telemetry & Sensor Bus</span>
                   </span>
                   <span className="text-xs text-zinc-500">REAL-TIME</span>
+                </Link>
+
+                <Link
+                  to="/manual-testing"
+                  className="flex items-center justify-between px-3 py-2 rounded-lg text-[#c6c6c7] hover:text-white hover:bg-[#1f2022]"
+                >
+                  <span className="flex items-center gap-2">
+                    <span>📄</span>
+                    <span>Manual CSV Testing</span>
+                  </span>
+                  <span className="text-xs text-zinc-500">TEST</span>
                 </Link>
 
                 <Link

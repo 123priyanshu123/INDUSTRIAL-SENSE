@@ -11,6 +11,7 @@ import {
   BrainCircuit,
   Bell,
   FileText,
+  FileSpreadsheet,
   Cpu,
 } from 'lucide-react';
 import { useAppStore } from '../../store/appStore';
@@ -36,6 +37,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ collapsed, onToggle }) => {
     { to: '/machines', label: 'Fleet Catalogue', icon: Cpu },
     { to: '/analytics', label: 'Analytics', icon: LineChart },
     { to: '/monitoring', label: 'Live Telemetry', icon: Activity },
+    { to: '/manual-testing', label: 'Manual Testing', icon: FileSpreadsheet },
     { to: '/machine-registration', label: 'Register Machine', icon: Layers },
     { to: '/profile', label: 'Settings', icon: Settings },
   ];

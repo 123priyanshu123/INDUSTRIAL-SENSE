@@ -10,6 +10,7 @@ import { UserProfileSettingsPage } from '../pages/UserProfileSettingsPage';
 import { MachineCataloguePage } from '../pages/MachineCataloguePage';
 import { MachineDetailsPage } from '../pages/MachineDetailsPage';
 import { LiveMonitoringPage } from '../pages/LiveMonitoringPage';
+import { ManualTestingPage } from '../pages/ManualTestingPage';
 import { NotFoundPage } from '../pages/NotFoundPage';
 
 export const AppRoutes: React.FC = () => {
@@ -38,6 +39,9 @@ export const AppRoutes: React.FC = () => {
 
         {/* Live Telemetry Monitoring */}
         <Route path="/monitoring" element={<LiveMonitoringPage />} />
+
+        {/* Manual Testing & Sensor Upload */}
+        <Route path="/manual-testing" element={<ManualTestingPage />} />
 
         {/* Machine Registration */}
         <Route path="/machine-registration" element={<MachineRegistrationPage />} />
