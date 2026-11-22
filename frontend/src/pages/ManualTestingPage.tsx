@@ -14,6 +14,7 @@ import {
   ChevronRight,
   Cpu,
   Power,
+  Bell,
 } from 'lucide-react';
 import { MACHINE_REGISTRY } from '../data/machineRegistry';
 import { useAppStore } from '../store/appStore';
@@ -408,112 +409,59 @@ export const ManualTestingPage: React.FC = () => {
         </div>
 
         {/* Machine Alert Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5">
           {filteredAlerts.map((item) => {
             const isStop = item.status === 'STOP_REQ';
             const isWarn = item.status === 'WARNING';
-            const isNominal = item.status === 'NOMINAL';
 
             return (
               <div
                 key={item.id}
-                className={`rounded-2xl p-5 flex flex-col justify-between transition-all relative overflow-hidden ${
+                className={`rounded-xl p-3.5 flex flex-col justify-between transition-all bg-[#151619] border ${
                   isStop
-                    ? 'border-2 border-red-500 bg-gradient-to-br from-red-950/80 via-[#18080a] to-[#121218] shadow-[0_0_25px_rgba(239,68,68,0.25)]'
+                    ? 'border-rose-500/60 bg-gradient-to-br from-rose-950/20 to-[#151619]'
                     : isWarn
-                    ? 'border border-amber-500/80 bg-gradient-to-br from-amber-950/40 via-[#16140c] to-[#121218]'
-                    : 'border border-zinc-800 bg-[#121218]'
+                    ? 'border-amber-500/50 bg-gradient-to-br from-amber-950/15 to-[#151619]'
+                    : 'border-zinc-800/80 hover:border-zinc-700'
                 }`}
               >
-                <div>
-                  {/* Top Header: Badge & Health */}
-                  <div className="flex items-center justify-between gap-2 mb-3">
-                    <span
-                      className={`px-2.5 py-1 rounded-lg text-[10px] font-bold uppercase tracking-wider flex items-center gap-1.5 ${
-                        isStop
-                          ? 'bg-red-600 text-white shadow-[0_0_10px_#dc2626]'
-                          : isWarn
-                          ? 'bg-amber-500 text-black'
-                          : 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/40'
-                      }`}
-                    >
-                      {isStop && <span className="w-1.5 h-1.5 rounded-full bg-white animate-ping" />}
-                      <span>
-                        {item.stopped
-                          ? 'SHUT DOWN SAFELY'
-                          : isStop
-                          ? 'STOP REQUIRED'
-                          : isWarn
-                          ? 'ATTENTION'
-                          : 'NOMINAL'}
-                      </span>
-                    </span>
-
-                    <span
-                      className={`text-xs font-bold ${
-                        isStop ? 'text-red-400' : isWarn ? 'text-amber-400' : 'text-emerald-400'
-                      }`}
-                    >
-                      {item.healthScore}% Health
-                    </span>
-                  </div>
-
-                  {/* Machine Name & Zone */}
-                  <div className="mb-3">
-                    <h3 className="text-base font-bold text-white tracking-tight">
-                      {item.name}
-                    </h3>
-                    <div className="text-[11px] text-zinc-400 mt-0.5">{item.zone}</div>
-                  </div>
-
-                  {/* Pure Alert Message (No Technical Jargon) */}
-                  <div
-                    className={`p-3 rounded-xl mb-4 font-sans text-xs font-semibold leading-relaxed ${
-                      isStop
-                        ? 'bg-red-950/60 border border-red-800/80 text-red-200'
-                        : isWarn
-                        ? 'bg-amber-950/40 border border-amber-800/60 text-amber-200'
-                        : 'bg-zinc-900 border border-zinc-800 text-zinc-300'
-                    }`}
-                  >
-                    {item.stopped ? 'System has been isolated and powered down safely.' : item.alertTitle}
-                  </div>
+                {/* Machine Name & Small Alarm Icon in the same line */}
+                <div className="flex items-center justify-between gap-2">
+                  <h3 className="font-mono text-sm font-bold text-white truncate" title={item.name}>
+                    {item.name}
+                  </h3>
+                  <span className="shrink-0 flex items-center">
+                    {isStop ? (
+                      <Bell className="w-3.5 h-3.5 text-rose-500" />
+                    ) : isWarn ? (
+                      <Bell className="w-3.5 h-3.5 text-amber-400" />
+                    ) : (
+                      <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
+                    )}
+                  </span>
                 </div>
 
                 {/* Machine-Wise Action Buttons: Track & Simulation */}
-                <div className="flex flex-col gap-2 pt-3 border-t border-zinc-800/80">
-                  {/* Emergency Stop Button if Stop Required */}
-                  {isStop && !item.stopped && (
-                    <button
-                      onClick={() => handleStopMachine(item.id, item.name)}
-                      className="w-full py-2 px-3 rounded-xl bg-red-600 hover:bg-red-700 text-white font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-[0_0_15px_#dc2626] transition-all cursor-pointer"
-                    >
-                      <Power className="w-4 h-4" />
-                      <span>STOP MACHINE NOW</span>
-                    </button>
-                  )}
+                <div className="grid grid-cols-2 gap-2 mt-3 pt-2.5 border-t border-zinc-800/80 font-mono text-xs">
+                  {/* Track Button */}
+                  <button
+                    onClick={() => navigate('/dashboard')}
+                    className="py-1.5 px-2.5 rounded-lg bg-zinc-900 hover:bg-zinc-800 text-zinc-300 hover:text-white border border-zinc-800 hover:border-zinc-700 font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer"
+                    title="Track spatial location on factory map"
+                  >
+                    <Compass className="w-3.5 h-3.5 text-cyan-400" />
+                    <span>TRACK</span>
+                  </button>
 
-                  <div className="grid grid-cols-2 gap-2">
-                    {/* Track Button */}
-                    <button
-                      onClick={() => navigate('/dashboard')}
-                      className="py-2 px-3 rounded-xl bg-zinc-900 hover:bg-zinc-800 text-zinc-200 hover:text-white border border-zinc-700 font-bold text-xs flex items-center justify-center gap-1.5 transition-all cursor-pointer"
-                      title="Track spatial position on factory map"
-                    >
-                      <Compass className="w-3.5 h-3.5 text-cyan-400" />
-                      <span>TRACK</span>
-                    </button>
-
-                    {/* Simulation Button */}
-                    <Link
-                      to={`/analytics/${item.id}`}
-                      className="py-2 px-3 rounded-xl bg-red-700 hover:bg-red-800 text-white font-bold text-xs flex items-center justify-center gap-1.5 transition-all text-center shadow-sm"
-                      title="Open Kinematic Twin & CAD Simulation"
-                    >
-                      <Play className="w-3.5 h-3.5 fill-current" />
-                      <span>SIMULATION</span>
-                    </Link>
-                  </div>
+                  {/* Simulation Button */}
+                  <Link
+                    to={`/analytics/${item.id}`}
+                    className="py-1.5 px-2.5 rounded-lg bg-zinc-900 hover:bg-zinc-800 text-zinc-300 hover:text-white border border-zinc-800 hover:border-cyan-500/50 font-bold flex items-center justify-center gap-1.5 transition-all text-center"
+                    title="Open Kinematic Twin & CAD Simulation"
+                  >
+                    <Play className="w-3 h-3 text-cyan-400 fill-current" />
+                    <span>SIMULATION</span>
+                  </Link>
                 </div>
               </div>
             );
